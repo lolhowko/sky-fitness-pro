@@ -1,35 +1,35 @@
+import styled from "styled-components";
+import {Link} from "react-router-dom"
 
-*{
-    padding: 0;
-    margin: 0;
-
-  }
-.container{
+export const Container = styled.div `
     position:relative;
     overflow:visible;
     background-color: #271A58;
     height: 1448px;
     padding-left: calc(50% - 580px);
     padding-right: calc(50% - 580px);
-}
+`
 
-.header{
+export const Header = styled.div`
 padding-top: 30px;
-}
+`
 
-.headerLogo{
+export const HeaderMain = styled.div `
     display: flex;
 justify-content: space-between;
-
-}
-
-.headerInfo{
+`
+export const Logo = styled.div`
+width: 220px;
+    height: 35px;
+    cursor:pointer;
+`
+export const HeaderInfo = styled.div`
 display: flex;
 justify-content: space-between;
 padding-top: 35px;
-}
+`
 
-.headerButton{
+export const HeaderButton = styled.div `
     color: white;
     background-color: #140D40;
     width: 77px;
@@ -38,65 +38,70 @@ padding-top: 35px;
     border: none;
     border-radius: 46px;
     cursor: pointer;
-}
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
-.headerButton:hover{
+&:hover{
     background-color: #2D1F79;
 }
 
-.headerButton:active{
+&:active{
     background-color: #3B29A2;
 }
+`
+export const Titles = styled.div `
+`
 
-.headerDesctiption{
+export const HeaderDescription = styled.div`
     font-size: 20px;
     color: #FFFFFF;
-    -webkit-text-stroke: 1px black;
+    -webkit-text-stroke: 0.5px black;
     letter-spacing: 0.05px;
-}
+`
 
-.headerTitle{
+export const HeaderTitle = styled.div `
     color: white;
     font-size: 60px;
     width: 830px;
     height: 110px;
     padding-top: 17px;
-}
-.changeBody{
+`
+export const ChangeBody = styled.div`
     float: left;
     position: absolute;
     right: 315px;
-}
+`
 
-.courses{
+export const Courses = styled.div`
     padding-top: 52px;
     display: flex;
     gap: 37px;
     flex-wrap: wrap;
-}
+`
 
-.card{
+export const Card = styled.div `
     width: 360px;
     height: 480px;
     box-sizing: border-box;
     border-radius: 30px;
-}
-.card1{
+`
+export const Card1 = styled.img`
     width: 360px;
     height: 480px;
     box-sizing: border-box;
     border-radius: 30px;
 backdrop-filter: blur(29.04px);
 background: rgba(205, 205, 205, 0.1);
-}
+`
 
-.footer{
+export const Footer = styled.div`
     display: flex;
     justify-content: center;
     padding-top: 41px;
-}
+`
 
-.footerButton{
+export const FooterButton = styled.div `
     background-color: #C7E957;
     width: 147px;
     height: 48px;
@@ -110,13 +115,17 @@ font-size: 24px;
 font-weight: 400;
 line-height: 32px;
 letter-spacing: -0.1px;
-text-align: center;
-}
+display: flex;
+align-items: center;
+justify-content: center;
+cursor: pointer;
 
-.footerButton:hover{
+
+&:hover{
     background-color: #DAF289;
 }
 
-.footerButton:active{
+&:active{
     background-color: #EBFFAB;
 }
+`

@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { MainPage } from './pages/main/MainPage';
+import { MainPage } from '../src/pages/main/MainPage.jsx';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

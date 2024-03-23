@@ -1,54 +1,60 @@
 import styles from './MainPage.module.css'
+import * as S from '../main/MainPage'
 
 export function MainPage() {
   return (
-    <div className={styles.container}>
-      <div className={styles.header}>
-        <div className={styles.headerLogo}>
+    <S.Container>
+      <S.Header>
+        <S.HeaderMain>
           <a href="#">
-            <img className={styles.logosvg} src="logo.svg" alt="logo" />
+            <img src="logo.svg" alt="logo" />
           </a>
-          <button className={styles.headerButton}>Войти</button>
-        </div>
-        <div className={styles.headerInfo}>
-          <div className={styles.headerTitles}>
-            <p className={styles.headerDesctiption}>
+          <S.HeaderButton>Войти</S.HeaderButton>
+        </S.HeaderMain>
+        <S.HeaderInfo>
+          <S.Titles>
+            <S.HeaderDescription>
               Онлайн-тренировки для занятий дома
-            </p>
-            <h1 className={styles.headerTitle}>
+            </S.HeaderDescription>
+            <S.HeaderTitle>
               Начните заниматься спортом и улучшите качество жизни
-            </h1>
-          </div>
-          <div className={styles.changeBody}>
-            <img className={styles.saleSticker} src="SaleSticker.svg" alt="" />
-          </div>
-        </div>
-      </div>
-      <div className={styles.cards}>
-        <div className={styles.card}>
-            <a href="#"><img className={styles.card1} src="profcard1.png" alt="" /></a>
-         
-        </div>
-        <div className={styles.card}>
-            <a href="#"><img className={styles.card1} src="profcard2.png" alt="" /></a>
-         
-        </div>
-        <div className={styles.card}>
-            <a href="#"><img className={styles.card1} src="profcard3.png" alt="" /></a>
-         
-        </div>
-        <div className={styles.card}>
-            <a href="#"><img className={styles.card1} src="profcard4.png" alt="" /></a>
-         
-        </div>
-        <div className={styles.card}>
-            <a href="#"><img className={styles.card1} src="profcard5.png" alt="" /></a>
-         
-        </div>
-      </div>
-      <div className={styles.footer}>
-        <button className={styles.footerButton}>Наверх ↑</button>
-      </div>
-    </div>
+            </S.HeaderTitle>
+          </S.Titles>
+          <S.ChangeBody>
+            <img src="SaleSticker.svg" alt="" />
+          </S.ChangeBody>
+        </S.HeaderInfo>
+      </S.Header>
+      <S.Courses>
+        <S.Card>
+          <a href="#">
+            <S.Card1 src="profcard1.png" alt="" />
+          </a>
+        </S.Card>
+        <S.Card>
+          <a href="#">
+            <S.Card1 src="profcard2.png" alt="" />
+          </a>
+        </S.Card>
+        <S.Card>
+          <a href="#">
+            <S.Card1 src="profcard3.png" alt="" />
+          </a>
+        </S.Card>
+        <S.Card>
+          <a href="#">
+            <S.Card1 src="profcard4.png" alt="" />
+          </a>
+        </S.Card>
+        <S.Card>
+          <a href="#">
+            <S.Card1 src="profcard5.png" alt="" />
+          </a>
+        </S.Card>
+      </S.Courses>
+      <S.Footer>
+        <S.FooterButton>Наверх ↑</S.FooterButton>
+      </S.Footer>
+    </S.Container>
   )
 }
