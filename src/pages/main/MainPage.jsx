@@ -1,8 +1,9 @@
-import styles from './MainPage.module.css'
 import * as S from '../main/MainPage'
 
 export function MainPage() {
   return (
+    <>
+    <S.GlobalStyle/>
     <S.Container>
       <S.Header>
         <S.HeaderMain>
@@ -56,5 +57,7 @@ export function MainPage() {
         <S.FooterButton>Наверх ↑</S.FooterButton>
       </S.Footer>
     </S.Container>
+    </>
   )
 }
+

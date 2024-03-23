@@ -1,5 +1,15 @@
-import styled from "styled-components";
+import styled, { createGlobalStyle } from "styled-components";
 import {Link} from "react-router-dom"
+
+
+export const GlobalStyle = createGlobalStyle`
+* {
+    margin: 0;
+    padding: 0;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+`
 
 export const Container = styled.div `
     position:relative;
