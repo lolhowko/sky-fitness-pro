@@ -11,9 +11,6 @@ export function MainPage() {
         <Header />
         <Courses/>
         <S.Footer>
-          {/* <S.PageUp href="PageUp"> */}
-
-          {/* </S.PageUp> */}
           <S.PageUp className="PageUp" href="#top">
             <S.FooterButton>Наверх ↑</S.FooterButton>
           </S.PageUp>
