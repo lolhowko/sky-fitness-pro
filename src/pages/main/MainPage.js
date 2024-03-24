@@ -74,7 +74,7 @@ export const HeaderTitle = styled.div `
     color: white;
     font-size: 60px;
     width: 830px;
-    height: 110px;
+    height: 135px;
     padding-top: 17px;
 `
 export const ChangeBody = styled.div`
