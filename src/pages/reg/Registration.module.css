@@ -48,6 +48,10 @@
     padding-bottom: 8px;
 }
 
+.inputLogo::placeholder {
+    color: #D0CECE;
+}
+
 .loginButton {
     background-color: #580ea2;
     color: white;
