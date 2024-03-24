@@ -10,7 +10,6 @@ export const GlobalStyle = createGlobalStyle`
 `
 
 export const Courses = styled.div`
-    padding-top: 52px;
     display: flex;
     gap: 37px;
     flex-wrap: wrap;

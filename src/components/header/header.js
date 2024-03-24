@@ -67,7 +67,7 @@ export const HeaderTitle = styled.div `
     padding-top: 17px;
 `
 export const ChangeBody = styled.div`
-    float: left;
-    position: absolute;
-    right: 315px;
+    float: right;
+    position: static;
+    padding-left: 145px;
 `
