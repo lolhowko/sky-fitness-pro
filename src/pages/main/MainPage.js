@@ -19,30 +19,6 @@ export const Container = styled.div `
     padding-right: calc(50% - 580px);
 `
 
-
-
-export const Courses = styled.div`
-    padding-top: 52px;
-    display: flex;
-    gap: 37px;
-    flex-wrap: wrap;
-`
-
-export const Card = styled.div `
-    width: 360px;
-    height: 480px;
-    box-sizing: border-box;
-    border-radius: 30px;
-`
-export const Card1 = styled.img`
-    width: 360px;
-    height: 480px;
-    box-sizing: border-box;
-    border-radius: 30px;
-backdrop-filter: blur(29.04px);
-background: rgba(205, 205, 205, 0.1);
-`
-
 export const Footer = styled.div`
     display: flex;
     justify-content: center;
