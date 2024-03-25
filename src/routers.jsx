@@ -4,6 +4,8 @@ import { useEffect, useState } from 'react'
 import { app } from "./components/firebase/firebase";
 import firebase from "firebase/compat/app";
 import "firebase/compat/database";
+import { CourseVideoPage } from './pages/CourseVideoPage/CourseVideoPage';
+import { MainPage } from './pages/main/MainPage';
 
 export const AppRoutes = () => {
   //workouts: наименование курса, видео, упражнения
@@ -40,12 +42,13 @@ export const AppRoutes = () => {
     fetchCoursesData()
   }, [])
 
-//   console.log(coursesFirebase);
-//   console.log(workoutsFirebase);
-
   return (
     <Routes>
-      <Route path="*" element={<NotFound />} />
+      <Route path="*" element={<MainPage />} />
+      <Route path="/courses/" element={<NotFound />} />
+      <Route path="/courses/:courseId" element={<NotFound />} />
+      <Route path="/users/:userId/courses" element={<NotFound />} />
+      <Route path="/users/:userId/courses/:courseId" element={<CourseVideoPage />} />
     </Routes>
   )
 }

@@ -1,5 +1,4 @@
-import * as S from './MainPage'
-import { AppRoutes } from '../../routers'
+import * as S from './MainPage.styles.js'
 import { Header } from '../../components/header/header.jsx'
 import { Courses } from '../../components/courses/courses.jsx'
 
