@@ -1,15 +1,13 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import './index.css'
-import App from './App'
-import '../src/components/firebase/firebase.js'
-import { BrowserRouter } from 'react-router-dom'
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import { MainPage } from './pages/main/MainPage.jsx';
+import { BrowserRouter } from 'react-router-dom';
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
-  <>
+  <React.StrictMode>
     <BrowserRouter>
-      <App />
+    <MainPage />
     </BrowserRouter>
-  </>
-)
+  </React.StrictMode>
+);
