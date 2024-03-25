@@ -1,9 +1,9 @@
-import React, { FC } from "react";
+import React from "react";
 import * as S from "./Bid.style";
 import svgUrl from "../../assets/images/bid.svg";
-import { Button } from "../Button/Button.style";
+import Button from "../Button/Button";
 
-const Bid: FC<{}> = () => {
+const Bid = () => {
   return (
     <S.BidContainer>
       <S.SignUp>

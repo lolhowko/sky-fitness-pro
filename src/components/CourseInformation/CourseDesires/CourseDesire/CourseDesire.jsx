@@ -1,10 +1,7 @@
-import React, { FC } from "react";
+import React from "react";
 import * as S from "./CourseDesire.style";
 
-const CourseDesire: FC<{ desire: string; index: number }> = ({
-  desire,
-  index,
-}) => {
+const CourseDesire = ({ desire, index }) => {
   return (
     <S.CourseDesire>
       <S.CourseDesireCircle>{index}</S.CourseDesireCircle>
