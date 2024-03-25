@@ -1,18 +1,15 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import {
-  Register
-} from './pages/reg/Registration';
-import {
-  Login
-} from './pages/login/login';
-import { Profile } from './pages/profile/profile';
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+import './index.css'
+import App from './App'
+import '../src/components/firebase/firebase.js'
+import { BrowserRouter } from 'react-router-dom'
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render( 
-  <React.StrictMode >
-  <Profile />
-  <Register />
-  <Login />
-  </React.StrictMode>
-);
+const root = ReactDOM.createRoot(document.getElementById('root'))
+root.render(
+  <>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </>
+)
