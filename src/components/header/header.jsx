@@ -5,7 +5,7 @@ export function Header() {
     <S.Header>
       <S.HeaderMain>
         <a href="#">
-          <img src="logo.svg" alt="logo" />
+          <img src="logoHeader.svg" alt="logo" />
         </a>
         <S.HeaderButton id="top">Войти</S.HeaderButton>
       </S.HeaderMain>
