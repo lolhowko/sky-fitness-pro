@@ -1,4 +1,4 @@
-import { Route, Routes, useNavigate } from 'react-router'
+import { Route, Routes} from 'react-router'
 import { NotFound } from './pages/not-found/NotFound'
 import { useEffect, useState } from 'react'
 import { app } from "./components/firebase/firebase";
