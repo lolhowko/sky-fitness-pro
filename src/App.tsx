@@ -1,10 +1,9 @@
 import React from 'react';
 import './App.css';
-import { AppRoutes } from './routes';
-
+import CourseDescriptionPage from ".//pages/CourseDescriptionPage/CourseDescriptionPage"
 function App() {
   return (
-    <AppRoutes/>
+    <CourseDescriptionPage/>
   );
 }
 
