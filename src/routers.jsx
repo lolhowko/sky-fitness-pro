@@ -40,8 +40,8 @@ export const AppRoutes = () => {
     fetchCoursesData()
   }, [])
 
-  console.log(coursesFirebase);
-  console.log(workoutsFirebase);
+//   console.log(coursesFirebase);
+//   console.log(workoutsFirebase);
 
   return (
     <Routes>
