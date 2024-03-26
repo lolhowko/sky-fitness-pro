@@ -12,7 +12,9 @@ const Bid = () => {
           выбором направления и тренера, с которым тренировки принесут здоровье
           и радость!
         </p>
-        <Button style={{ marginTop: "46px" }}>Записаться на тренировку</Button>
+        <div style={{ marginTop: "34px" }}>
+          <Button>Записаться на тренировку</Button>
+        </div>
       </S.SignUp>
       <S.BidImg alt="Рука с телефоном" src={svgUrl} />
     </S.BidContainer>
