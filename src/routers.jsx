@@ -6,6 +6,7 @@ import firebase from "firebase/compat/app";
 import "firebase/compat/database";
 import { CourseVideoPage } from './pages/CourseVideoPage/CourseVideoPage';
 import { MainPage } from './pages/main/MainPage';
+import { Profile } from './pages/profile/profile';
 
 export const AppRoutes = () => {
   //workouts: наименование курса, видео, упражнения
@@ -46,6 +47,7 @@ export const AppRoutes = () => {
     <Routes>
       <Route path="*" element={<MainPage />} />
       <Route path="/courses/" element={<NotFound />} />
+      <Route path="/profile/" element={<Profile/>} />
       <Route path="/courses/:courseId" element={<NotFound />} />
       <Route path="/users/:userId/courses" element={<NotFound />} />
       <Route path="/users/:userId/courses/:courseId" element={<CourseVideoPage />} />
