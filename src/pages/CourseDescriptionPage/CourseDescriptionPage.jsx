@@ -1,8 +1,8 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import Logo from "../../components/Logo/Logo";
-import CourseInformation from "../../components/CourseInformation/CourseInformation";
-import Bid from "../../components/Bid/Bid";
+import Logo from "../../components/CourseDescriptionPage/Logo/Logo";
+import CourseInformation from "../../components/CourseDescriptionPage/CourseInformation/CourseInformation";
+import Bid from "../../components/CourseDescriptionPage/Bid/Bid";
 import * as S from "./CourseDescriptionPage.style";
 
 const CourseDescriptionPage = () => {

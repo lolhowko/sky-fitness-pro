@@ -1,6 +1,6 @@
 import React from "react";
 import * as S from "./CourseName.style";
-import group from "../../../assets/images/Group.png";
+import group from "../../../../assets/images/Group.png";
 
 const CourseName = ({ name }) => {
   return (

@@ -1,6 +1,6 @@
 import React from "react";
 import * as S from "./Bid.style";
-import svgUrl from "../../assets/images/bid.svg";
+import svgUrl from "../../../assets/images/bid.svg";
 import Button from "../Button/Button";
 
 const Bid = () => {
