@@ -1,11 +1,10 @@
-import React, { FC } from "react";
-import { ICourse } from "../../types";
+import React from "react";
 import CourseName from "./CourseName/CourseName";
 import CourseDesires from "./CourseDesires/CourseDesires";
 import CourseDirections from "./CourseDirections/CourseDirections";
 import CourseDescription from "./CourseDescription/CourseDescription";
 
-const CourseInformation: FC<ICourse> = ({
+const CourseInformation = ({
   id,
   name,
   desires,

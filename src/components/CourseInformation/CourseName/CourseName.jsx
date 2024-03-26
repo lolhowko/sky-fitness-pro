@@ -1,9 +1,8 @@
-import React, { FC } from "react";
+import React from "react";
 import * as S from "./CourseName.style";
-import { ICourse } from "../../../types";
 import group from "../../../assets/images/Group.png";
 
-const CourseName: FC<Pick<ICourse, "name">> = ({ name }) => {
+const CourseName = ({ name }) => {
   return (
     <S.CourseNameContainer>
       <S.CourseNameImage src={group} />
