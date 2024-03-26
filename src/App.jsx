@@ -1,12 +1,20 @@
-import React from "react";
-import CourseDescriptionPage from "./pages/CourseDescriptionPage/CourseDescriptionPage";
+import * as S from './Appstyle'
+import './App.css'
+import { AppRoutes } from './routers'
+import { useLocation } from 'react-router'
+import { GlobalStyled } from './GlobalAppStyle'
 
 function App() {
+
   return (
-    <div>
-      <CourseDescriptionPage />
-    </div>
-  );
+    <S.Wrapper>
+      <S.Container>
+        <AppRoutes />
+      </S.Container>
+
+      <GlobalStyled />
+    </S.Wrapper>
+  )
 }
 
-export default App;
+export default App
