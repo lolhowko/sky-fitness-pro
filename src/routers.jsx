@@ -7,6 +7,11 @@ import "firebase/compat/database";
 import { CourseVideoPage } from './pages/CourseVideoPage/CourseVideoPage';
 import { MainPage } from './pages/main/MainPage';
 import { Profile } from './pages/profile/profile';
+import { Login } from './pages/login/login'
+import { Register } from './pages/reg/Registration'
+import { useDispatch } from 'react-redux'
+import { removeUser } from './components/store/slices/userSlice'
+
 
 export const AppRoutes = () => {
   //workouts: наименование курса, видео, упражнения
@@ -43,14 +48,34 @@ export const AppRoutes = () => {
     fetchCoursesData()
   }, [])
 
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const logOut = () => {
+    navigate('/auth')
+    dispatch(removeUser())
+  }
+
   return (
     <Routes>
-      <Route path="*" element={<MainPage />} />
+      <Route path="/" element={<MainPage logOut={logOut} />} />
+      <Route path="/auth" element={<Login />} />
+      <Route path="/reg" element={<Register />} />
+
+      <Route path="/users/:userId" element={<Profile logOut={logOut} />} />
+
       <Route path="/courses/" element={<NotFound />} />
       <Route path="/profile/" element={<Profile/>} />
       <Route path="/courses/:courseId" element={<NotFound />} />
       <Route path="/users/:userId/courses" element={<NotFound />} />
-      <Route path="/users/:userId/courses/:courseId" element={<CourseVideoPage />} />
+      <Route
+        path="/users/:userId/courses/:courseId"
+        element={<CourseVideoPage />}
+      />
+
+      <Route path="*" element={<NotFound />} />
     </Routes>
   )
 }
