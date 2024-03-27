@@ -1,4 +1,4 @@
-import { Route, Routes } from 'react-router'
+import { Route, Routes, useNavigate } from 'react-router'
 import { NotFound } from './pages/not-found/NotFound'
 import { useEffect, useState } from 'react'
 import { app } from './components/firebase/firebase'
@@ -59,7 +59,7 @@ export const AppRoutes = () => {
 
   return (
     <Routes>
-      <Route path="/" element={<MainPage />} />
+      <Route path="/" element={<MainPage logOut={logOut} />} />
       <Route path="/auth" element={<Login />} />
       <Route path="/reg" element={<Register />} />
 

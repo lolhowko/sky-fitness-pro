@@ -1,13 +1,26 @@
+import { NavLink } from 'react-router-dom'
 import * as S from '../header/header'
+import { useAuth } from '../hooks/useAuth'
+import { PersonalData } from '../PersonalData/PersonalData'
 
-export function Header() {
+export function Header({ logOut }) {
+  const { isAuth, email } = useAuth()
+
   return (
     <S.Header>
       <S.HeaderMain>
-        <a href="#">
+        <NavLink to="/">
           <img src="logoHeader.svg" alt="logo" />
-        </a>
-        <S.HeaderButton id="top">Войти</S.HeaderButton>
+        </NavLink>
+        <S.HeaderTopButton>
+          {isAuth ? (
+            <PersonalData email={email} logOut={logOut} />
+          ) : (
+            <NavLink to="/auth">
+              <S.HeaderButton id="top">Войти</S.HeaderButton>
+            </NavLink>
+          )}
+        </S.HeaderTopButton>
       </S.HeaderMain>
       <S.HeaderInfo>
         <S.Titles>
