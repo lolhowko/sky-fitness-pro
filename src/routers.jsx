@@ -63,7 +63,7 @@ export const AppRoutes = () => {
       <Route path="/auth" element={<Login />} />
       <Route path="/reg" element={<Register />} />
 
-      <Route path="/users/:userId" element={<Profile />} />
+      <Route path="/users/:userId" element={<Profile logOut={logOut} />} />
 
       <Route path="/courses/" element={<NotFound />} />
       <Route path="/courses/:courseId" element={<NotFound />} />
