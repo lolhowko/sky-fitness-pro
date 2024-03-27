@@ -1,16 +1,17 @@
 import { Route, Routes, useNavigate } from 'react-router'
 import { NotFound } from './pages/not-found/NotFound'
 import { useEffect, useState } from 'react'
-import { app } from './components/firebase/firebase'
-import firebase from 'firebase/compat/app'
-import 'firebase/compat/database'
-import { CourseVideoPage } from './pages/CourseVideoPage/CourseVideoPage'
-import { MainPage } from './pages/main/MainPage'
+import { app } from "./components/firebase/firebase";
+import firebase from "firebase/compat/app";
+import "firebase/compat/database";
+import { CourseVideoPage } from './pages/CourseVideoPage/CourseVideoPage';
+import { MainPage } from './pages/main/MainPage';
+import { Profile } from './pages/profile/profile';
 import { Login } from './pages/login/login'
 import { Register } from './pages/reg/Registration'
 import { useDispatch } from 'react-redux'
 import { removeUser } from './components/store/slices/userSlice'
-import { Profile } from './pages/profile/profile'
+
 
 export const AppRoutes = () => {
   //workouts: наименование курса, видео, упражнения
@@ -66,6 +67,7 @@ export const AppRoutes = () => {
       <Route path="/users/:userId" element={<Profile logOut={logOut} />} />
 
       <Route path="/courses/" element={<NotFound />} />
+      <Route path="/profile/" element={<Profile/>} />
       <Route path="/courses/:courseId" element={<NotFound />} />
       <Route path="/users/:userId/courses" element={<NotFound />} />
       <Route

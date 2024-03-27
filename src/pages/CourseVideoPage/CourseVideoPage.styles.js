@@ -9,6 +9,7 @@ export const CourseTitle = styled.h1 `
     letter-spacing: 0%;
     text-align: left;
     margin-bottom: 40px;
+    margin-top: 74px;
 `
 export const CourseDescribtion = styled.p `
     color: rgb(0, 0, 0);
