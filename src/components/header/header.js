@@ -52,6 +52,12 @@ export const HeaderButton = styled.div `
 export const Titles = styled.div `
 `
 
+export const HeaderTopButton = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+`;
+
 export const HeaderDescription = styled.div`
     font-size: 20px;
     color: #FFFFFF;
