@@ -6,17 +6,20 @@ import { ProgressExercises } from '../../components/WorkoutPage/ProgressExercise
 import { HeaderVideo } from '../../components/WorkoutPage/Header/HeaderVideo';
 import { useAuth } from '../../components/hooks/useAuth';
 
-export const CourseVideoPage = ({ courses, logOut }) =>{
+export const CourseVideoPage = ({ courses, logOut, descriptions }) =>{
+  const { isAuth, id } = useAuth(); 
+  const params = useParams();
   
-  const { isAuth, id } = useAuth(); const params = useParams();
+  const courseDescription = descriptions.filter(description => description.workouts.includes(params.courseId))[0];
+  console.log(courseDescription);
+
   const myCourse = courses.filter((course)=> course._id === params.courseId)[0];
-    console.log(courses);
   return (
     <>
       {courses.length > 0 && (
         <>
           <HeaderVideo lologOut={logOut}/>
-          <S.CourseTitle>Йога</S.CourseTitle>
+          <S.CourseTitle>{courseDescription.nameRU}</S.CourseTitle>
           <S.CourseDescribtion> {myCourse.name} </S.CourseDescribtion>
           < VideoPlayer srcVideo={myCourse.video}/>
           {myCourse.exercises && (
