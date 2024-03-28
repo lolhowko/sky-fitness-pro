@@ -10,7 +10,12 @@ export const Title = styled.h1 `
     text-align: left;
 `
 
-export const ExercisesList = styled.li `
+export const ExercisesUL = styled.ul `
+    margin-left: 25px;
+    padding-right: 25px;
+`
+
+export const ExercisesLi = styled.li `
     color: rgb(0, 0, 0);
     font-family: StratosSkyeng;
     font-size: 24px;
@@ -20,7 +25,9 @@ export const ExercisesList = styled.li `
     text-align: left;
     margin-top: 30px;
     margin-bottom: 40px;
+    list-style: outside;
 `
+
 export const Button = styled.button `
     border-radius: 46px;
     background: rgb(88, 14, 162);

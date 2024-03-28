@@ -72,7 +72,7 @@ export const AppRoutes = () => {
       <Route path="/users/:userId/courses" element={<NotFound />} />
       <Route
         path="/users/:userId/courses/:courseId"
-        element={<CourseVideoPage />}
+        element={<CourseVideoPage courses={workoutsFirebase}/>}
       />
 
       <Route path="*" element={<NotFound />} />
