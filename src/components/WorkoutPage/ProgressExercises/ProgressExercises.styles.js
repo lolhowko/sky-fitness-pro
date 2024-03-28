@@ -15,7 +15,7 @@ export const ProgressBox = styled.div `
     border-radius: 30px;
     background: rgb(242, 242, 242);
     width: 638px;
-    height: 336px;
+    padding-bottom: 20px;
 `
 
 export const ProgressInfo = styled.div `

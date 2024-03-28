@@ -10,7 +10,7 @@ export function Header({ logOut }) {
     <S.Header>
       <S.HeaderMain>
         <NavLink to="/">
-          <img src="logoHeader.svg" alt="logo" />
+          <img src="/logoHeader.svg" alt="logo" />
         </NavLink>
         <S.HeaderTopButton>
           {isAuth ? (
@@ -32,7 +32,7 @@ export function Header({ logOut }) {
           </S.HeaderTitle>
         </S.Titles>
         <S.ChangeBody>
-          <img src="SaleSticker.svg" alt="" />
+          <img src="/SaleSticker.svg" alt="" />
         </S.ChangeBody>
       </S.HeaderInfo>
     </S.Header>

@@ -3,7 +3,7 @@ import * as S from './MyExercises.styles'
 const FORM_STATE_IN_PROCESS = "FORM_STATE_IN_PROCESS";
 const FORM_STATE_COMPLETE = "FORM_STATE_COMPLETE";
 
-export const MyExercises = () => {
+export const MyExercises = ({ listExercises }) => {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [formState, setFormState] = useState(FORM_STATE_IN_PROCESS);
@@ -27,9 +27,9 @@ export const MyExercises = () => {
   return (
     <div>
       <S.Title>Упражнения</S.Title>
-        <S.ExercisesList>Наклон вперед (10 повторений)</S.ExercisesList>
-        <S.ExercisesList>Наклон назад (10 повторений)</S.ExercisesList>
-        <S.ExercisesList>Поднятие ног, согнутых в коленях (5 повторений)</S.ExercisesList>   
+      <S.ExercisesUL>
+        {listExercises.map((item) => {return <S.ExercisesLi>{item.name}</S.ExercisesLi>})}
+      </S.ExercisesUL>
       <div>
         <S.Button onClick={openModal}>Заполнить свой прогресс</S.Button >
         {isModalOpen && formState === FORM_STATE_IN_PROCESS &&

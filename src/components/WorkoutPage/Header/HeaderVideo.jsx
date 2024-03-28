@@ -1,6 +1,9 @@
+import { useAuth } from '../../hooks/useAuth';
 import * as S from './HeaderVideo.styles';
 
-export const HeaderVideo = () => {
+export const HeaderVideo = ({logOut}) => {
+  
+  const { email } = useAuth();
 
   return (
     <S.Header>
@@ -13,7 +16,7 @@ export const HeaderVideo = () => {
         <S.HeaderIconUser>
         <img src="/userIcon.svg" alt="logo" />
         </S.HeaderIconUser>
-        <S.HeaderUserName>UserName <span>&#9660;</span></S.HeaderUserName>
+        <S.HeaderUserName>{email} <span onClick={logOut}>&#9660;</span></S.HeaderUserName>
       </S.HeaderRight>
     </S.Header>
   )
