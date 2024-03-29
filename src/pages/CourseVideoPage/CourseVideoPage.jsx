@@ -1,15 +1,16 @@
 import { useParams } from 'react-router-dom';
 import * as S from './CourseVideoPage.styles';
 import VideoPlayer from '../../components/WorkoutPage/VideoPlayer/VideoPlayer';
-import { MyExercises } from '../../components/WorkoutPage/MyExercises/MyExercises';
+import { CourseExercises } from '../../components/WorkoutPage/CourseExercises/CourseExercises';
 import { ProgressExercises } from '../../components/WorkoutPage/ProgressExercises/ProgressExercises';
 import { HeaderVideo } from '../../components/WorkoutPage/Header/HeaderVideo';
 import { useAuth } from '../../components/hooks/useAuth';
+import { MyExercisesForm } from '../../components/WorkoutPage/MyExercisesForm/MyExercisesForm';
 
 export const CourseVideoPage = ({ courses, logOut, descriptions }) =>{
   const { isAuth, id } = useAuth(); 
   const params = useParams();
-
+  console.log(courses);
   if (!courses || !descriptions || courses.length === 0 || descriptions.length === 0){
     return (<></>);
   }
@@ -30,7 +31,10 @@ export const CourseVideoPage = ({ courses, logOut, descriptions }) =>{
           < VideoPlayer srcVideo={myCourse.video}/>
           {myCourse.exercises && (
             <S.ExercisesDetails>
-              < MyExercises listExercises={myCourse.exercises}/>
+              <div>
+                <CourseExercises listExercises={myCourse.exercises}/>
+                <MyExercisesForm/>
+              </div>
               < ProgressExercises/>
             </S.ExercisesDetails>
           )}
