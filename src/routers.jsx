@@ -1,17 +1,16 @@
 import { Route, Routes, useNavigate } from 'react-router'
 import { NotFound } from './pages/not-found/NotFound'
 import { useEffect, useState } from 'react'
-import { app } from "./components/firebase/firebase";
-import firebase from "firebase/compat/app";
-import "firebase/compat/database";
-import { CourseVideoPage } from './pages/CourseVideoPage/CourseVideoPage';
-import { MainPage } from './pages/main/MainPage';
-import { Profile } from './pages/profile/profile';
+import { app } from './components/firebase/firebase'
+import firebase from 'firebase/compat/app'
+import 'firebase/compat/database'
+import { CourseVideoPage } from './pages/CourseVideoPage/CourseVideoPage'
+import { MainPage } from './pages/main/MainPage'
+import { Profile } from './pages/profile/profile'
 import { Login } from './pages/login/login'
 import { Register } from './pages/reg/Registration'
 import { useDispatch } from 'react-redux'
 import { removeUser } from './components/store/slices/userSlice'
-
 
 export const AppRoutes = () => {
   //workouts: наименование курса, видео, упражнения
@@ -61,13 +60,33 @@ export const AppRoutes = () => {
   return (
     <Routes>
       <Route path="/" element={<MainPage logOut={logOut} />} />
-      <Route path="/auth" element={<Login />} />
-      <Route path="/reg" element={<Register />} />
+      <Route
+        path="/auth"
+        element={
+          <Login
+            email={email}
+            password={password}
+            setEmail={setEmail}
+            setPassword={setPassword}
+          />
+        }
+      />
+      <Route
+        path="/reg"
+        element={
+          <Register
+            email={email}
+            password={password}
+            setEmail={setEmail}
+            setPassword={setPassword}
+          />
+        }
+      />
 
       <Route path="/users/:userId" element={<Profile logOut={logOut} />} />
 
       <Route path="/courses/" element={<NotFound />} />
-      <Route path="/profile/" element={<Profile/>} />
+      <Route path="/profile/" element={<Profile />} />
       <Route path="/courses/:courseId" element={<NotFound />} />
       <Route path="/users/:userId/courses" element={<NotFound />} />
       <Route
