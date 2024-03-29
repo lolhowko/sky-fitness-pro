@@ -31,9 +31,16 @@ export function Profile({ logOut }) {
         <div className={styles.titleCourses}>
           <h1 className={styles.titleCoursesText}>Мои курсы</h1>
         </div>
-        <div classNaworkoutcard1me={styles.coursesCards}>
+        <div
+          className={styles.coursesCards}
+          classNaworkoutcard1me={styles.coursesCards}
+        >
           <div className={styles.coursesCard}>
-            <img className={styles.workout1} src=".png" alt="work1" />
+            <img
+              className={styles.workout1}
+              src="workoutcard1.png"
+              alt="work1"
+            />
           </div>
           <div className={styles.coursesCard}>
             <img
