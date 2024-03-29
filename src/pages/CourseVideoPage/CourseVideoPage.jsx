@@ -9,9 +9,15 @@ import { useAuth } from '../../components/hooks/useAuth';
 export const CourseVideoPage = ({ courses, logOut, descriptions }) =>{
   const { isAuth, id } = useAuth(); 
   const params = useParams();
-  
+
+  if (!courses || !descriptions || courses.length === 0 || descriptions.length === 0){
+    return (<></>);
+  }
+
   const courseDescription = descriptions.filter(description => description.workouts.includes(params.courseId))[0];
-  console.log(courseDescription);
+  if (!courseDescription){
+    return (<h1>Неверный идентификатор курса</h1>);
+  }
 
   const myCourse = courses.filter((course)=> course._id === params.courseId)[0];
   return (
