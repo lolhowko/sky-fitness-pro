@@ -88,10 +88,10 @@ export const AppRoutes = () => {
       <Route path="/courses/" element={<NotFound />} />
       <Route path="/profile/" element={<Profile />} />
       <Route path="/courses/:courseId" element={<NotFound />} />
-      <Route path="/users/:userId/courses" element={<NotFound />} />
+      <Route path="/users/courses" element={<NotFound />} />
       <Route
-        path="/users/:userId/courses/:courseId"
-        element={<CourseVideoPage />}
+        path="/users/courses/:courseId"
+        element={<CourseVideoPage courses={workoutsFirebase} descriptions={coursesFirebase} logOut={logOut}/>}
       />
 
       <Route path="*" element={<NotFound />} />

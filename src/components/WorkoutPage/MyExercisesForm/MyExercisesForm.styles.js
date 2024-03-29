@@ -1,26 +1,5 @@
 import styled from 'styled-components';
 
-export const Title = styled.h1 `
-    color: rgb(0, 0, 0);
-    font-family: StratosSkyeng;
-    font-size: 32px;
-    font-weight: 400;
-    line-height: 40px;
-    letter-spacing: 0%;
-    text-align: left;
-`
-
-export const ExercisesList = styled.li `
-    color: rgb(0, 0, 0);
-    font-family: StratosSkyeng;
-    font-size: 24px;
-    font-weight: 400;
-    line-height: 22px;
-    letter-spacing: 0%;
-    text-align: left;
-    margin-top: 30px;
-    margin-bottom: 40px;
-`
 export const Button = styled.button `
     border-radius: 46px;
     background: rgb(88, 14, 162);
@@ -38,17 +17,21 @@ export const Popup = styled.div `
     width: 444px;
     height: 540px;
     background-color: white;
-    position: absolute;
-    left: 500px;
-    bottom: 250px;
+
     border-color: black;
     border: 1px solid #ccc;
     border-radius: 10px;
     padding: 20px;
     background-color: #ffffff;
     display: flex;
+
     flex-direction: column;
     align-items: center;
+
+    position: fixed;
+    left: calc(50% - 222px);
+    top: calc(50% - 270px);
+    z-index: 9999;
 }
 `
 export const PopupTitle = styled.div `
@@ -105,6 +88,11 @@ export const ProgressOkConfirm = styled.div `
     padding: 20px;
     background-color: #ffffff;
     overflow: hidden;
+
+    position: fixed;
+    left: calc(50% - 222px);
+    top: calc(50% - 225px);
+    z-index: 9999;
 `
 export const ProgressOkConfirmTitle = styled.div `
     color: rgb(0, 0, 0);
