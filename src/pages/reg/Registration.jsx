@@ -36,7 +36,7 @@ export function Register({ email, password, setEmail, setPassword }) {
             token: user.accessToken,
           })
         )
-        navigate('/users/:userId')
+        navigate('/profile')
       })
       .catch((error) => {
         console.log(error)

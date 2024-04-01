@@ -83,12 +83,11 @@ export const AppRoutes = () => {
         }
       />
 
-      <Route path="/users/:userId" element={<Profile logOut={logOut} />} />
+      <Route path="/profile" element={<Profile logOut={logOut} />} />
 
       <Route path="/courses/" element={<NotFound />} />
-      <Route path="/profile/" element={<Profile />} />
-      <Route path="/courses/:courseId" element={<NotFound />} />
       <Route path="/users/courses" element={<NotFound />} />
+
       <Route
         path="/users/courses/:courseId"
         element={<CourseVideoPage courses={workoutsFirebase} descriptions={coursesFirebase} logOut={logOut}/>}

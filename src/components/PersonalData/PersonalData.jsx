@@ -12,7 +12,7 @@ export const PersonalData = ({ email, logOut }) => {
     const selectedValue = e.target.value
     setSelectedOption(selectedValue)
     if (selectedValue === 'value2') {
-      navigate('/users/:userId')
+      navigate(`/profile`)
     } else if (selectedValue === 'value3') {
       logOut()
     }
