@@ -43,4 +43,4 @@ const CourseDescriptionPage = () => {
   );
 };
 
-export default CourseDescriptionPage;
+export { CourseDescriptionPage };

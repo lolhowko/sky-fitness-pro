@@ -11,6 +11,8 @@ import { Register } from './pages/reg/Registration'
 import { useDispatch } from 'react-redux'
 import { removeUser } from './components/store/slices/userSlice'
 import { Profile } from './pages/profile/profile'
+import { CourseDescriptionPage } from './pages/CourseDescriptionPage/CourseDescriptionPage'
+
 
 export const AppRoutes = () => {
   //workouts: наименование курса, видео, упражнения
@@ -66,7 +68,7 @@ export const AppRoutes = () => {
       <Route path="/users/:userId" element={<Profile logOut={logOut} />} />
 
       <Route path="/courses/" element={<NotFound />} />
-      <Route path="/courses/:courseId" element={<NotFound />} />
+      <Route path="/courses/:courseId" element={<CourseDescriptionPage />} />
       <Route path="/users/:userId/courses" element={<NotFound />} />
       <Route
         path="/users/:userId/courses/:courseId"
