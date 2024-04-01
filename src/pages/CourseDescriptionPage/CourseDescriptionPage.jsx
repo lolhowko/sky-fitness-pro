@@ -6,7 +6,7 @@ import Bid from "../../components/CourseDescriptionPage/Bid/Bid";
 import SuccessPopup from "../../components/CourseDescriptionPage/SuccessPopup/SuccessPopup"; 
 import * as S from "./CourseDescriptionPage.style";
 
-const CourseDescriptionPage = () => {
+const CourseDescriptionPage = ({ coursesFirebase }) => {
   const { id } = useParams();
 
   const course = {
@@ -26,7 +26,7 @@ const CourseDescriptionPage = () => {
       "Аштанга-йога"
     ],
     description:
-      "Благодаря комплексному воздействию упражнений происходит проработка всех групп мышц, тренировка суставов, улучшается циркуляция крови. Кроме того, упражнения дарят отличное настроение, заряжают бодростью и помогают противостоять стрессам."
+    "Благодаря комплексному воздействию упражнений происходит проработка всех групп мышц, тренировка суставов, улучшается циркуляция крови. Кроме того, упражнения дарят отличное настроение, заряжают бодростью и помогают противостоять стрессам."
   };
 
   const [isPopupOpen, setPopupOpen] = useState(false);
@@ -49,10 +49,11 @@ const CourseDescriptionPage = () => {
         desires={course.desires}
         directions={course.directions}
       />
-      <Bid onOpenPopup={handleOpenPopup} /> {/* Передаем колбэк функцию для открытия попапа */}
-      <SuccessPopup isOpen={isPopupOpen} onClose={handleClosePopup} /> {/* Отображаем компонент SuccessPopup с состоянием видимости */}
+      <Bid onOpenPopup={handleOpenPopup} /> 
+      <SuccessPopup isOpen={isPopupOpen} onClose={handleClosePopup} /> 
     </S.CourseDescriptionPage>
   );
 };
+
 
 export { CourseDescriptionPage };
