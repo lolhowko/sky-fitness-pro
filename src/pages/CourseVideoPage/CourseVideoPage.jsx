@@ -30,7 +30,7 @@ export const CourseVideoPage = ({ courses, logOut, descriptions }) => {
     <>
       {courses.length > 0 && (
         <>
-          <HeaderVideo lologOut={logOut} />
+          <HeaderVideo logOut={logOut} />
           <S.CourseTitle>{courseDescription.nameRU}</S.CourseTitle>
           <S.CourseDescribtion> {myCourse.name} </S.CourseDescribtion>
           <VideoPlayer srcVideo={myCourse.video} />
