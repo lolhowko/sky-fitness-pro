@@ -5,10 +5,14 @@ import { CourseExercises } from '../../components/WorkoutPage/CourseExercises/Co
 import { ProgressExercises } from '../../components/WorkoutPage/ProgressExercises/ProgressExercises'
 import { HeaderVideo } from '../../components/WorkoutPage/Header/HeaderVideo'
 import { MyExercisesForm } from '../../components/WorkoutPage/MyExercisesForm/MyExercisesForm'
+import { useState } from 'react'
 
 export const CourseVideoPage = ({ courses, logOut, descriptions }) => {
   const params = useParams()
   console.log(courses)
+
+  const myCourse = courses.filter((course) => course._id === params.courseId)[0]
+
   if (
     !courses ||
     !descriptions ||
@@ -25,7 +29,7 @@ export const CourseVideoPage = ({ courses, logOut, descriptions }) => {
     return <h1>Неверный идентификатор курса</h1>
   }
 
-  const myCourse = courses.filter((course) => course._id === params.courseId)[0]
+  // const myCourse = courses.filter((course) => course._id === params.courseId)[0]
   return (
     <>
       {courses.length > 0 && (
@@ -38,9 +42,9 @@ export const CourseVideoPage = ({ courses, logOut, descriptions }) => {
             <S.ExercisesDetails>
               <div>
                 <CourseExercises listExercises={myCourse.exercises} />
-                <MyExercisesForm />
+                <MyExercisesForm listExercises={myCourse.exercises} />
               </div>
-              <ProgressExercises />
+              <ProgressExercises listExercises={myCourse.exercises} />
             </S.ExercisesDetails>
           )}
         </>

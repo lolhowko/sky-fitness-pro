@@ -123,3 +123,40 @@ line-height: 24px;
 letter-spacing: -0.05px;
 text-align: center;
 `
+
+// КОД ОТ ЛАНЫ
+
+export const MyProgressText = styled.p`
+  font-variant-numeric: lining-nums proportional-nums;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: -0.05px;
+`;
+
+export const MyProgressInput = styled.input`
+  width: 100%;
+  height: 32px;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: 1px solid #d0cece;
+
+  &::placeholder {
+    color: #d0cece;
+    font-variant-numeric: lining-nums proportional-nums;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px;
+    letter-spacing: -0.05px;
+  }
+`;
+
+export const ErrorText = styled.p`
+  color: red;
+  margin-bottom: 40px;
+  font-size: 25px;
+  text-align: center;
+`;
