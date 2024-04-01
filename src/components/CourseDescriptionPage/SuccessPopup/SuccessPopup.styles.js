@@ -12,7 +12,7 @@ export const SuccessPopupContainer = styled.div`
   top: 0;
   left: 0;
   transition: 0.5s;
-  pointer-events: none;
+  pointer-events: auto;
   overflow: hidden;
 `
 
