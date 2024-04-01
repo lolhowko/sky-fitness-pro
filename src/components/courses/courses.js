@@ -15,12 +15,12 @@ export const Courses = styled.div`
     flex-wrap: wrap;
 `
 
-export const Card = styled.div `
+export const ProductContent = styled.div `
 display: flex;
 gap: 37px;
 flex-wrap: wrap;
 `
-export const Card1 = styled.img`
+export const Card = styled.img`
     width: 360px;
     height: 480px;
     box-sizing: border-box;

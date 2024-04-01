@@ -13,12 +13,12 @@ export function Courses({ coursesFirebase }) {
 
   return (
     <S.Courses>
-      <S.Card>
+      <S.ProductContent>
         {coursesFirebase.map((course) => {
           return (
             <NavLink key={course._id} to={`/course/${course._id}`}>
               <S.Product>
-                <S.Card1
+                <S.Card
                   src={
                     course._id === 'ab1c3f'
                       ? yoga
@@ -36,7 +36,7 @@ export function Courses({ coursesFirebase }) {
             </NavLink>
           )
         })}
-      </S.Card>
+      </S.ProductContent>
     </S.Courses>
   )
 }
