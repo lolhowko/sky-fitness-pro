@@ -89,6 +89,7 @@ export const AppRoutes = () => {
       <Route path="/profile/" element={<Profile />} />
       <Route path="/courses/:courseId" element={<NotFound />} />
       <Route path="/users/:userId/courses" element={<NotFound />} />
+      <Route path="/" element={<MainPage />} />
       <Route
         path="/users/:userId/courses/:courseId"
         element={<CourseVideoPage />}

@@ -1,32 +1,33 @@
 import * as S from '../courses/courses'
+import { NavLink } from 'react-router-dom'
 
 export function Courses() {
   return (
     <S.Courses>
       <S.Card>
-        <a href="#">
+        <NavLink to="/courses/${course._id">
           <S.Card1 src="profcard1.png" alt="" />
-        </a>
+        </NavLink>
       </S.Card>
       <S.Card>
-        <a href="#">
+        <NavLink to="/courses/${course._id">
           <S.Card1 src="profcard2.png" alt="" />
-        </a>
+        </NavLink>
       </S.Card>
       <S.Card>
-        <a href="#">
+        <NavLink to="/courses/${course._id">
           <S.Card1 src="profcard3.png" alt="" />
-        </a>
+        </NavLink>
       </S.Card>
       <S.Card>
-        <a href="#">
+        <NavLink to="/courses/${course._id">
           <S.Card1 src="profcard4.png" alt="" />
-        </a>
+        </NavLink>
       </S.Card>
       <S.Card>
-        <a href="#">
+        <NavLink to="/courses/${course._id">
           <S.Card1 src="profcard5.png" alt="" />
-        </a>
+        </NavLink>
       </S.Card>
     </S.Courses>
   )
