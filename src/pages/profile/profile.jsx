@@ -1,12 +1,14 @@
-import { NavLink, useNavigate } from 'react-router-dom'
+import { NavLink,
+  //  useNavigate 
+  } from 'react-router-dom'
 import styles from './profile.module.css'
 import { PersonalData } from '../../components/PersonalData/PersonalData'
 import { useAuth } from '../../components/hooks/useAuth'
 
 export function Profile({ logOut }) {
   // для дальнейшего - если польхователь в своем аккаунте - показывать страницу, если нет navigate("/")
-  const { isAuth, email } = useAuth()
-  const navigate = useNavigate()
+  const { email } = useAuth()
+  // const navigate = useNavigate()
 
   return (
     <div className={styles.container}>
