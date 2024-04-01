@@ -2,13 +2,14 @@ import * as S from './MainPage.styles.js'
 import { Header } from '../../components/header/header.jsx'
 import { Courses } from '../../components/courses/courses.jsx'
 
-export function MainPage({logOut}) {
+export function MainPage({ logOut }) {
   return (
     <>
       <S.GlobalStyle />
       <S.Container>
-        <Header logOut={logOut}/>
-        <Courses/>
+        <Header logOut={logOut} />
+        <Courses />
+        <div>HelPPPP</div>
         <S.Footer>
           <S.PageUp href="#top">
             <S.FooterButton>Наверх ↑</S.FooterButton>

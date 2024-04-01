@@ -5,14 +5,14 @@ import "./index.css";
 import { Provider } from 'react-redux'
 import { store } from './components/store/store.js'
 import '../src/components/firebase/firebase.js'
-import { Profile } from './pages/profile/profile.jsx';
+import { AppRoutes } from './routers.jsx';
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
   <>
     <BrowserRouter>
       <Provider store={store}>
-       <Profile/>
+       <AppRoutes/>
       </Provider>
     </BrowserRouter>
   </>

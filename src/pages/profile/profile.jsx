@@ -1,6 +1,8 @@
-import { NavLink,
-  //  useNavigate 
-  } from 'react-router-dom'
+import {
+  NavLink,
+  useParams,
+  //  useNavigate
+} from 'react-router-dom'
 import styles from './profile.module.css'
 import { PersonalData } from '../../components/PersonalData/PersonalData'
 import { useAuth } from '../../components/hooks/useAuth'
