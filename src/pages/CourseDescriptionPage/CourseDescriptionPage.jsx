@@ -3,7 +3,6 @@ import { useParams } from "react-router-dom";
 import Logo from "../../components/CourseDescriptionPage/Logo/Logo";
 import CourseInformation from "../../components/CourseDescriptionPage/CourseInformation/CourseInformation";
 import Bid from "../../components/CourseDescriptionPage/Bid/Bid";
-import SuccessPopup from "../../components/CourseDescriptionPage/SuccessPopup/SuccessPopup"; 
 import * as S from "./CourseDescriptionPage.style";
 
 const CourseDescriptionPage = ({ coursesFirebase }) => {
@@ -29,15 +28,6 @@ const CourseDescriptionPage = ({ coursesFirebase }) => {
     "Благодаря комплексному воздействию упражнений происходит проработка всех групп мышц, тренировка суставов, улучшается циркуляция крови. Кроме того, упражнения дарят отличное настроение, заряжают бодростью и помогают противостоять стрессам."
   };
 
-  const [isPopupOpen, setPopupOpen] = useState(false);
-
-  const handleOpenPopup = () => {
-    setPopupOpen(true);
-  };
-
-  const handleClosePopup = () => {
-    setPopupOpen(false);
-  };
 
   return (
     <S.CourseDescriptionPage>
@@ -49,8 +39,7 @@ const CourseDescriptionPage = ({ coursesFirebase }) => {
         desires={course.desires}
         directions={course.directions}
       />
-      <Bid onOpenPopup={handleOpenPopup} /> 
-      <SuccessPopup isOpen={isPopupOpen} onClose={handleClosePopup} /> 
+      <Bid /> 
     </S.CourseDescriptionPage>
   );
 };
