@@ -1,5 +1,5 @@
-import React from "react";
-import * as S from "./CourseDesire.style";
+import React from 'react'
+import * as S from './CourseDesire.style'
 
 const CourseDesire = ({ desire, index }) => {
   return (
@@ -7,7 +7,7 @@ const CourseDesire = ({ desire, index }) => {
       <S.CourseDesireCircle>{index}</S.CourseDesireCircle>
       <S.CourseDesireText>{desire}</S.CourseDesireText>
     </S.CourseDesire>
-  );
-};
+  )
+}
 
-export default CourseDesire;
+export default CourseDesire

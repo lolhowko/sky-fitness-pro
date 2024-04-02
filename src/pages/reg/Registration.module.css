@@ -1,99 +1,104 @@
 * {
-    padding: 0;
-    margin: 0;
-    font-weight: 400px;
-
+  padding: 0;
+  margin: 0;
+  font-weight: 400px;
 }
 
 .container {
-    height: 1764px;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: white;
+  height: 1764px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
 }
 
 .maincard {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-    background-color: white;
-    height: 439px;
-    width: 366px;
-    box-sizing: border-box;
-    border-radius: 12px;
-    border: 1px solid #d0cece60;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  background-color: white;
+  height: 439px;
+  width: 366px;
+  box-sizing: border-box;
+  border-radius: 12px;
+  border: 1px solid #d0cece60;
 }
 
 .loginPage {
-    display: flex;
-    padding-top: 33px;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    align-items: center;
+  display: flex;
+  padding-top: 33px;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-items: center;
 }
 
 .inputLogo {
-    border: none;
-    border-bottom: 1px solid #d0cece;
-    background-color: transparent;
-    color: inherit;
-    outline: none;
-    width: 279 px;
-    height: 40 px;
-    padding-top: 46px;
-    padding-left: 3px;
-    padding-bottom: 8px;
+  border: none;
+  border-bottom: 1px solid #d0cece;
+  background-color: transparent;
+  color: inherit;
+  outline: none;
+  width: 279 px;
+  height: 40 px;
+  padding-top: 46px;
+  padding-left: 3px;
+  padding-bottom: 8px;
 }
 
 .inputLogo::placeholder {
-    color: #D0CECE;
+  color: #d0cece;
 }
 
 .loginButton {
-    background-color: #580ea2;
-    color: white;
-    font-size: 18px;
-    box-sizing: border-box;
-    border: none;
-    height: 52px;
-    min-width: 278px;
-    border-radius: 46px;
+  background-color: #580ea2;
+  color: white;
+  font-size: 18px;
+  box-sizing: border-box;
+  border: none;
+  height: 52px;
+  min-width: 278px;
+  border-radius: 46px;
 }
 
 .regButton {
-    background-color: #580ea2;
-    color: white;
-    font-size: 18px;
-    box-sizing: border-box;
-    border: none;
-    height: 52px;
-    min-width: 278px;
-    border-radius: 46px;
-
+  background-color: #580ea2;
+  color: white;
+  font-size: 18px;
+  box-sizing: border-box;
+  border: none;
+  height: 52px;
+  min-width: 278px;
+  border-radius: 46px;
 }
 
 .regLoginDiv {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
 }
 
 .logosvg {
-    height: 35px;
-    width: 220px;
+  height: 35px;
+  width: 220px;
 }
 
 .buttonReg {
-    padding-top: 60px;
+  margin-top: 60px;
 
-    :hover {
-        background-color: #3F007D;
-    }
+  :hover {
+    background-color: #3f007d;
+  }
 
-    :active {
-        background-color: #271A58;
-    }
+  :active {
+    background-color: #271a58;
+  }
+}
+
+.errorText {
+  color: red;
+  margin-top: 10px;
+  font-size: 15px;
+  text-align: center;
 }

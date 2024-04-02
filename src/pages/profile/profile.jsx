@@ -1,12 +1,18 @@
-import { NavLink, useNavigate } from 'react-router-dom'
+import {
+  NavLink,
+  useParams,
+  //  useNavigate
+} from 'react-router-dom'
 import styles from './profile.module.css'
 import { PersonalData } from '../../components/PersonalData/PersonalData'
 import { useAuth } from '../../components/hooks/useAuth'
+import {useState} from 'react'
 
 export function Profile({ logOut }) {
   // для дальнейшего - если польхователь в своем аккаунте - показывать страницу, если нет navigate("/")
-  const { isAuth, email } = useAuth()
-  const navigate = useNavigate()
+  const { email } = useAuth()
+  const [password, setPassword] = useState('')
+  // const navigate = useNavigate()
 
   return (
     <div className={styles.container}>
@@ -19,8 +25,8 @@ export function Profile({ logOut }) {
         </div>
         <div>
           <h1 className={styles.titlePage}>Мой профиль</h1>
-          <h1 className={styles.infoUser}>Логин: </h1>
-          <h1 className={styles.infoUser}>Пароль: </h1>
+          <h1 className={styles.infoUser}>Логин: {email}</h1>
+          <h1 className={styles.infoUser}>Пароль: {password} </h1>
         </div>
         <div className={styles.buttonChangeLog}>
           <button className={styles.loginButton}>Редактировать логин</button>
@@ -31,9 +37,16 @@ export function Profile({ logOut }) {
         <div className={styles.titleCourses}>
           <h1 className={styles.titleCoursesText}>Мои курсы</h1>
         </div>
-        <div classNaworkoutcard1me={styles.coursesCards}>
+        <div
+          className={styles.coursesCards}
+          classNaworkoutcard1me={styles.coursesCards}
+        >
           <div className={styles.coursesCard}>
-            <img className={styles.workout1} src=".png" alt="work1" />
+            <img
+              className={styles.workout1}
+              src="workoutcard1.png"
+              alt="work1"
+            />
           </div>
           <div className={styles.coursesCard}>
             <img

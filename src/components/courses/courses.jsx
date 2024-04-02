@@ -1,33 +1,24 @@
+import { Link } from 'react-router-dom'
 import * as S from '../courses/courses'
 
-export function Courses() {
+export function Courses({ courses }) {
+  const coursesWithImgs = courses.map((course) => {
+    return {
+      ...course,
+      img: `${course.nameEN}.png`,
+    }
+  })
   return (
     <S.Courses>
-      <S.Card>
-        <a href="#">
-          <S.Card1 src="profcard1.png" alt="" />
-        </a>
-      </S.Card>
-      <S.Card>
-        <a href="#">
-          <S.Card1 src="profcard2.png" alt="" />
-        </a>
-      </S.Card>
-      <S.Card>
-        <a href="#">
-          <S.Card1 src="profcard3.png" alt="" />
-        </a>
-      </S.Card>
-      <S.Card>
-        <a href="#">
-          <S.Card1 src="profcard4.png" alt="" />
-        </a>
-      </S.Card>
-      <S.Card>
-        <a href="#">
-          <S.Card1 src="profcard5.png" alt="" />
-        </a>
-      </S.Card>
+      {coursesWithImgs.map((course, index) => {
+        return (
+          <S.Card key={index}>
+            <Link to={`/course/${course._id}`}>
+              <S.Card1 src={'/CardsCourses/' + course.img} alt="" />
+            </Link>
+          </S.Card>
+        )
+      })}
     </S.Courses>
   )
 }
