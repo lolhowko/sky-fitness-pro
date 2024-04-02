@@ -118,24 +118,6 @@ export const ProgressInputForExerciseFirst = styled(TrainingProgressInput)`
   }
 `
 
-export const ProgressInputForExerciseSecond = styled(TrainingProgressInput)`
-  border: 2px solid var(--Orange-90, #ff6d00);
-  background: var(--Orange-10, #fff2e0);
-
-  &::before {
-    background: var(--Orange-90, #ff6d00);
-  }
-`
-
-export const ProgressInputForExerciseThird = styled(TrainingProgressInput)`
-  border: 2px solid var(--Palette-Purple-80, #9a48f1);
-  background: var(--Violet-10, #f9ebff);
-
-  &::before {
-    background: var(--Palette-Purple-80, #9a48f1);
-  }
-`
-
 export const TrainingProgressBox = styled.div`
   display: flex;
   flex-direction: column;

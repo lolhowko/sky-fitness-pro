@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { useAuth } from '../../hooks/useAuth'
 import * as S from './HeaderVideo.styles'
+import { PersonalData } from '../../PersonalData/PersonalData'
 
 export const HeaderVideo = ({ logOut }) => {
   const { email } = useAuth()
@@ -15,12 +16,7 @@ export const HeaderVideo = ({ logOut }) => {
         </Link>
       </S.HeaderrLeft>
       <S.HeaderRight>
-        <S.HeaderIconUser>
-          <img src="/userIcon.svg" alt="logo" />
-        </S.HeaderIconUser>
-        <S.HeaderUserName>
-          {email} <span onClick={logOut}>&#9660;</span>
-        </S.HeaderUserName>
+        <PersonalData logOut={logOut} />
       </S.HeaderRight>
     </S.Header>
   )

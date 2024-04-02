@@ -33,7 +33,7 @@ export const CourseVideoPage = ({ courses, logOut, descriptions }) => {
   return (
     <>
       {courses.length > 0 && (
-        <>
+        <S.Container>
           <HeaderVideo logOut={logOut} />
           <S.CourseTitle>{courseDescription.nameRU}</S.CourseTitle>
           <S.CourseDescribtion> {myCourse.name} </S.CourseDescribtion>
@@ -47,7 +47,7 @@ export const CourseVideoPage = ({ courses, logOut, descriptions }) => {
               <ProgressExercises listExercises={myCourse.exercises} />
             </S.ExercisesDetails>
           )}
-        </>
+        </S.Container>
       )}
       {(courses?.length ?? 0) === 0 && <h1> нет данных</h1>}
     </>

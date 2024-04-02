@@ -13,7 +13,7 @@ export const ProgressExercises = ({ listExercises }) => {
   )
 
   console.log(progressValues)
-  
+
   return (
     <S.ProgressBox>
       <S.ProgressTitle> Мой прогресс по тренировке 2:</S.ProgressTitle>
