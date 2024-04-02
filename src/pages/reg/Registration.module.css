@@ -5,8 +5,8 @@
 }
 
 .container {
-  height: 1764px;
   width: 100%;
+  padding-top: 30px;
   display: flex;
   align-items: center;
   justify-content: center;

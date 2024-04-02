@@ -1,10 +1,8 @@
-import {
-  NavLink,
-  useParams,
-  //  useNavigate
-} from 'react-router-dom'
-import styles from './profile.module.css'
+import * as S from './profile.styles.js'
+import { useState, useEffect } from 'react'
+import { NavLink } from 'react-router-dom'
 import { PersonalData } from '../../components/PersonalData/PersonalData'
+import { UpdateUserData } from '../../components/updata-user/updata-user'
 import { useAuth } from '../../components/hooks/useAuth'
 
 export function Profile({ logOut }) {
@@ -12,56 +10,69 @@ export function Profile({ logOut }) {
   const { email } = useAuth()
   // const navigate = useNavigate()
 
+  const [isLoginMode, setIsLoginMode] = useState(null)
+
+  const [loginShow, setLoginShow] = useState(false)
+  const handleLoginClick = () => {
+    setLoginShow(!loginShow)
+    setIsLoginMode(true)
+  }
+  const [passwordShow, setPasswordShow] = useState(false)
+  const handlePasswordClick = () => {
+    setPasswordShow(!passwordShow)
+    setIsLoginMode(false)
+  }
+
+  const [isActive, setIsActive] = useState(false)
+
+  useEffect(() => {
+    if (loginShow || passwordShow) {
+      setIsActive(true)
+    }
+  }, [loginShow, passwordShow])
+
   return (
-    <div className={styles.container}>
-      <div className={styles.mainPage}>
-        <div className={styles.headerPage}>
+    <S.Container>
+      <S.MainPage>
+        <S.HeaderPage>
           <NavLink to="/">
-            <img className={styles.logosvg} src="logo.svg" alt="logo" />
+            <img src="/logo.svg" alt="logo" />
           </NavLink>
           <PersonalData logOut={logOut} email={email} />
-        </div>
+        </S.HeaderPage>
         <div>
-          <h1 className={styles.titlePage}>Мой профиль</h1>
-          <h1 className={styles.infoUser}>Логин: </h1>
-          <h1 className={styles.infoUser}>Пароль: </h1>
+          <S.TitlePage>Мой профиль</S.TitlePage>
+          <S.InfoUser>Логин: {email}</S.InfoUser>
+          <S.InfoUser>Пароль: {} </S.InfoUser>
         </div>
-        <div className={styles.buttonChangeLog}>
-          <button className={styles.loginButton}>Редактировать логин</button>
-        </div>
-        <div className={styles.buttonChangePass}>
-          <button className={styles.loginButton}>Редактировать пароль</button>
-        </div>
-        <div className={styles.titleCourses}>
-          <h1 className={styles.titleCoursesText}>Мои курсы</h1>
-        </div>
-        <div
-          className={styles.coursesCards}
-          classNaworkoutcard1me={styles.coursesCards}
-        >
-          <div className={styles.coursesCard}>
-            <img
-              className={styles.workout1}
-              src="workoutcard1.png"
-              alt="work1"
-            />
-          </div>
-          <div className={styles.coursesCard}>
-            <img
-              className={styles.workout2}
-              src="workoutcard2.png"
-              alt="work1"
-            />
-          </div>
-          <div className={styles.coursesCard}>
-            <img
-              className={styles.workout3}
-              src="workoutcard3.png"
-              alt="work1"
-            />
-          </div>
-        </div>
-      </div>
-    </div>
+        <S.ButtonChangeLog>
+          <S.LoginButton onClick={() => handleLoginClick()}>
+            Редактировать логин
+          </S.LoginButton>
+        </S.ButtonChangeLog>
+        <S.ButtonChangePass>
+          <S.LoginButton onClick={() => handlePasswordClick()}>
+            Редактировать пароль
+          </S.LoginButton>
+        </S.ButtonChangePass>
+        <S.TitleCourses>
+          <S.TitleCoursesText>Мои курсы</S.TitleCoursesText>
+        </S.TitleCourses>
+        <S.CoursesCards>
+          <S.CoursesCards>
+            <S.Workout src="workoutcard1.png" alt="work1" />
+          </S.CoursesCards>
+          <S.CoursesCards>
+            <S.Workout src="workoutcard2.png" alt="work1" />
+          </S.CoursesCards>
+          <S.CoursesCards>
+            <S.Workout src="workoutcard3.png" alt="work1" />
+          </S.CoursesCards>
+        </S.CoursesCards>
+        {isActive && (
+          <UpdateUserData isLoginMode={isLoginMode} setIsActive={setIsActive} />
+        )}
+      </S.MainPage>
+    </S.Container>
   )
 }
