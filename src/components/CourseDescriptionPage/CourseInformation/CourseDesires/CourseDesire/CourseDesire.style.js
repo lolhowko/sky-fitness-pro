@@ -8,8 +8,8 @@ export const CourseDesire = styled.div`
   }
 `;
 export const CourseDesireCircle = styled.div`
-  width: 67px;
-  height: 67px;
+  width: 37px;
+  height: 37px;
   padding: 10.69px;
   border-radius: 1202.29px;
   background: #c7e957;
