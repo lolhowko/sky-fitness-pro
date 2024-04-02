@@ -11,7 +11,6 @@ import { Login } from './pages/login/login'
 import { Register } from './pages/reg/Registration'
 import { useDispatch } from 'react-redux'
 import { removeUser } from './components/store/slices/userSlice'
-import { Courses } from './components/courses/courses'
 
 export const AppRoutes = () => {
   //workouts: наименование курса, видео, упражнения
@@ -61,6 +60,7 @@ export const AppRoutes = () => {
   return (
     <Routes>
       <Route path="/" element={<MainPage coursesFirebase={coursesFirebase} logOut={logOut} />} />
+      
       <Route
         path="/auth"
         element={
@@ -88,9 +88,10 @@ export const AppRoutes = () => {
 
       <Route path="/courses/" element={<NotFound />} />
       <Route path="/profile/" element={<Profile />} />
+
       <Route path="/courses/:courseId" element={<NotFound />} />
       <Route path="/users/:userId/courses" element={<NotFound />} />
-      <Route path="/" element={<MainPage />} />
+
       <Route
         path="/users/:userId/courses/:courseId"
         element={<CourseVideoPage />}

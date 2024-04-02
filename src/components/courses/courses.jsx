@@ -8,7 +8,6 @@ import stepAerobics from '../courses/img/profcard4.png'
 import bodyFlex from '../courses/img/profcard5.png'
 
 export function Courses({ coursesFirebase }) {
-  console.log(coursesFirebase)
   coursesFirebase.sort((a, b) => a.order - b.order)
 
   return (
@@ -42,26 +41,3 @@ export function Courses({ coursesFirebase }) {
 }
 
 export default Courses
-
-{
-  /* <S.Card>
-<NavLink to="/users/:userId/courses/:courseId">
-  <S.Card1 src="profcard2.png" alt="" />
-</NavLink>
-</S.Card>
-<S.Card>
-<NavLink to="/users/:userId/courses/:courseId">
-  <S.Card1 src="profcard3.png" alt="" />
-</NavLink>
-</S.Card>
-<S.Card>
-<NavLink to="/users/:userId/courses/:courseId">
-  <S.Card1 src="profcard4.png" alt="" />
-</NavLink>
-</S.Card>
-<S.Card>
-<NavLink to="/users/:userId/courses/:courseId">
-  <S.Card1 src="profcard5.png" alt="" />
-</NavLink>
-</S.Card> */
-}
