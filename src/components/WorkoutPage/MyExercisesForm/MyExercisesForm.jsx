@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import * as S from './MyExercisesForm.styles'
+import CountedProgress from '../progress-counted/progress-counted'
 const FORM_STATE_IN_PROCESS = 'FORM_STATE_IN_PROCESS'
 const FORM_STATE_COMPLETE = 'FORM_STATE_COMPLETE'
 
@@ -8,7 +9,7 @@ export const MyExercisesForm = ({ listExercises }) => {
   const [formState, setFormState] = useState(FORM_STATE_IN_PROCESS)
 
   // DOP
-  const [isMyProgressCounted, setIsMyProgressCounted] = useState(false)
+
   const [isErrorExist, setIsErrorExist] = useState(false)
 
   const openModal = () => {
@@ -22,16 +23,16 @@ export const MyExercisesForm = ({ listExercises }) => {
 
   const sendProgress = () => {
     if (progressValues.some((value) => value === '')) {
+      setFormState(FORM_STATE_IN_PROCESS)
       setIsModalOpen(true)
       setIsErrorExist(true)
     } else {
       setFormState(FORM_STATE_COMPLETE)
       setIsModalOpen(false)
-      setIsMyProgressCounted(true)
       setIsErrorExist(false)
 
       setTimeout(() => {
-        setIsMyProgressCounted(false)
+        closeModal()
       }, 2000)
     }
     // setFormState(FORM_STATE_COMPLETE)
@@ -93,18 +94,10 @@ export const MyExercisesForm = ({ listExercises }) => {
         </>
       )}
       {isModalOpen && formState === FORM_STATE_COMPLETE && (
-        <>
-          <S.ProgressOkConfirm>
-            <span className="close" onClick={closeModal}>
-              &times;
-            </span>
-            <S.ProgressOkConfirmTitle>
-              {' '}
-              Ваш прогресс засчитан!
-            </S.ProgressOkConfirmTitle>
-            <S.ProgressOkImg src="/ok.svg" alt="ok" />
-          </S.ProgressOkConfirm>
-        </>
+        <CountedProgress
+          tittle="Ваш прогресс засчитан!"
+          closeModal={closeModal}
+        />
       )}
     </div>
   )

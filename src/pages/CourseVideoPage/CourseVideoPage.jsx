@@ -29,7 +29,6 @@ export const CourseVideoPage = ({ courses, logOut, descriptions }) => {
     return <h1>Неверный идентификатор курса</h1>
   }
 
-  // const myCourse = courses.filter((course) => course._id === params.courseId)[0]
   return (
     <>
       {courses.length > 0 && (

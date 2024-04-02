@@ -16,7 +16,7 @@ export const HeaderVideo = ({ logOut }) => {
         </Link>
       </S.HeaderrLeft>
       <S.HeaderRight>
-        <PersonalData logOut={logOut} />
+        <PersonalData logOut={logOut} email={email}/>
       </S.HeaderRight>
     </S.Header>
   )

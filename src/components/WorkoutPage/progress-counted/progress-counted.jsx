@@ -7,7 +7,7 @@ export default function CountedProgress({ tittle, closeModal }) {
         <span className="close" onClick={closeModal}>
           &times;
         </span>
-        <S.ProgressOkConfirmTitle> {tittle}</S.ProgressOkConfirmTitle>
+        <S.ProgressOkConfirmTitle> {tittle} </S.ProgressOkConfirmTitle>
         <S.ProgressOkImg src="/ok.svg" alt="ok" />
       </S.ProgressOkConfirm>
     </>

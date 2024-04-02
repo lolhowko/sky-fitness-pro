@@ -9,7 +9,6 @@ export function MainPage({ logOut }) {
       <S.Container>
         <Header logOut={logOut} />
         <Courses />
-        <div>HelPPPP</div>
         <S.Footer>
           <S.PageUp href="#top">
             <S.FooterButton>Наверх ↑</S.FooterButton>
