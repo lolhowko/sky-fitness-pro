@@ -6,7 +6,7 @@ import firebase from 'firebase/compat/app'
 import 'firebase/compat/database'
 import { CourseVideoPage } from './pages/CourseVideoPage/CourseVideoPage'
 import { MainPage } from './pages/main/MainPage'
-import { Profile } from './pages/profile/profile'
+import { Profile } from './pages/profile/profile.jsx'
 import { Login } from './pages/login/login'
 import { Register } from './pages/reg/Registration'
 import { useDispatch } from 'react-redux'
@@ -83,14 +83,23 @@ export const AppRoutes = () => {
         }
       />
 
-      <Route path="/profile" element={<Profile logOut={logOut} />} />
+      <Route
+        path="/profile"
+        element={<Profile coursesFirebase={coursesFirebase} logOut={logOut} />}
+      />
 
       <Route path="/courses/" element={<NotFound />} />
       <Route path="/users/courses" element={<NotFound />} />
 
       <Route
         path="/users/courses/:courseId"
-        element={<CourseVideoPage courses={workoutsFirebase} descriptions={coursesFirebase} logOut={logOut}/>}
+        element={
+          <CourseVideoPage
+            courses={workoutsFirebase}
+            descriptions={coursesFirebase}
+            logOut={logOut}
+          />
+        }
       />
 
       <Route path="*" element={<NotFound />} />

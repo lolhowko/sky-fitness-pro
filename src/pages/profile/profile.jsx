@@ -6,12 +6,16 @@ import {
 import styles from './profile.module.css'
 import { PersonalData } from '../../components/PersonalData/PersonalData'
 import { useAuth } from '../../components/hooks/useAuth'
-import {useState} from 'react'
+import { useState } from 'react'
+import * as S from '../../pages/profile/profile'
+import yoga from '../../pages/profile/img/profcard1.png'
+import stretch from '../../pages/profile/img/profcard2.png'
+import bodyFlex from '../../pages/profile/img/profcard5.png'
 
-export function Profile({ logOut }) {
+export function Profile({ logOut, coursesFirebase, password }) {
+  coursesFirebase.sort((a, b) => a.order - b.order)
   // для дальнейшего - если польхователь в своем аккаунте - показывать страницу, если нет navigate("/")
   const { email } = useAuth()
-  const [password, setPassword] = useState('')
   // const navigate = useNavigate()
 
   return (
@@ -37,32 +41,30 @@ export function Profile({ logOut }) {
         <div className={styles.titleCourses}>
           <h1 className={styles.titleCoursesText}>Мои курсы</h1>
         </div>
-        <div
-          className={styles.coursesCards}
-          classNaworkoutcard1me={styles.coursesCards}
-        >
-          <div className={styles.coursesCard}>
-            <img
-              className={styles.workout1}
-              src="workoutcard1.png"
-              alt="work1"
-            />
-          </div>
-          <div className={styles.coursesCard}>
-            <img
-              className={styles.workout2}
-              src="workoutcard2.png"
-              alt="work1"
-            />
-          </div>
-          <div className={styles.coursesCard}>
-            <img
-              className={styles.workout3}
-              src="workoutcard3.png"
-              alt="work1"
-            />
-          </div>
-        </div>
+        <S.Courses>
+          <S.ProductContent>
+            {coursesFirebase.map((course) => {
+              return (
+                <NavLink key={course._id} to={`/course/${course._id}`}>
+                  <S.Product>
+                    <S.Card
+                      src={
+                        course._id === 'ab1c3f'
+                          ? yoga
+                          : course._id === 'kfpq8e'
+                          ? stretch
+                          : course._id === 'ypox9r'
+                          ? bodyFlex
+                          : course._id === '6i67sm'
+                      }
+                      alt="product"
+                    />
+                  </S.Product>
+                </NavLink>
+              )
+            })}
+          </S.ProductContent>
+        </S.Courses>
       </div>
     </div>
   )
