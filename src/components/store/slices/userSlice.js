@@ -1,11 +1,41 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
-  email: localStorage.getItem('userEmail') || null,
-  token: localStorage.getItem('userToken') || null,
-  id: localStorage.getItem('userId') || null,
-  currentUser: null,
-  fullCurrentUser: null,
+  email: null,
+  token: null,
+  id: null,
+  password: null,
+  progress: null,
+}
+
+const localStorageMiddleware = (store) => (next) => (action) => {
+  if (action.type === userSlice.actions.initializeUserFromLocalStorage.type) {
+    const storedEmail = localStorage.getItem('email')
+    const storedToken = localStorage.getItem('token')
+    const storedId = localStorage.getItem('id')
+    const storedPassword = localStorage.getItem('password')
+    const storedProgress = localStorage.getItem('progress')
+
+    if (
+      storedEmail &&
+      storedToken &&
+      storedId &&
+      storedPassword &&
+      storedProgress
+    ) {
+      store.dispatch(
+        userSlice.actions.setUser({
+          email: storedEmail,
+          token: storedToken,
+          id: storedId,
+          password: storedPassword,
+          progress: storedProgress,
+        })
+      )
+    }
+  }
+
+  return next(action)
 }
 
 const userSlice = createSlice({
@@ -16,32 +46,47 @@ const userSlice = createSlice({
       state.email = action.payload.email
       state.token = action.payload.token
       state.id = action.payload.id
+      state.password = action.payload.password
 
       localStorage.setItem('userEmail', action.payload.email)
       localStorage.setItem('userToken', action.payload.token)
       localStorage.setItem('userId', action.payload.id)
+      localStorage.setItem('password', state.password)
+      localStorage.setItem('progress', state.progress)
     },
     removeUser(state) {
       state.email = null
       state.token = null
       state.id = null
+      state.password = null
 
       localStorage.removeItem('userEmail')
       localStorage.removeItem('userToken')
       localStorage.removeItem('userId')
+      localStorage.removeItem('password')
+      localStorage.removeItem('progress')
     },
-    setCurrentUser: (state, action) => {
-      console.log(action.payload)
-      state.currentUser = action.payload
+    setProgress(state, action) {
+      state.progress = action.payload.progress
+      localStorage.setItem('progress', state.progress)
     },
-    setFullCurrentUser: (state, action) => {
-      //Весь текущий пользователь с базы, вместе с его курсами
-      state.fullCurrentUser = action.payload
+
+    initializeUserFromLocalStorage() {
+      // Пустное действие, middleware будет обрабатывать это действие
     },
   },
 })
 
-export const { setUser, removeUser, setCurrentUser, setFullCurrentUser } =
-  userSlice.actions
+export const {
+  setUser,
+  removeUser,
+  initializeUserFromLocalStorage,
+  setEmail,
+  setPassword,
+  setProgress,
+} = userSlice.actions
 
 export default userSlice.reducer
+
+export const userReducer = userSlice.reducer;
+export { localStorageMiddleware };
