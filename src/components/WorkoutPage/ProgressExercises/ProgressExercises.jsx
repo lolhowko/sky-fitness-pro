@@ -1,27 +1,29 @@
 import { useState } from 'react'
 import * as S from './ProgressExercises.styles'
-import { ProgressItemScale } from './ProgressItemScale'
 import { useSelector } from 'react-redux'
 
 export const ProgressExercises = ({ listExercises }) => {
+  const { progressValues } = useSelector((state) => state.progress)
 
-  const {progressValues} = useSelector(state => state.progress)
+  // const getPercentageByValue = () => {
+  //   const exerciseText = exercise?.name ? exercise?.name.split('(') : ''
 
-  // console.log(listExercises)
-  const workoutLength = listExercises.length
+  //   let valueInPercentage
 
-  // console.log(workoutLength)
+  //   if (exercise.quantity !== 0 && !isNaN(progressValues[index])) {
+  //     valueInPercentage = Math.round(
+  //       (progressValues[index] / exercise.quantity) * 100
+  //     )
+  //   } else {
+  //     valueInPercentage = 0
+  //   }
 
-  // const [progressValues, setProgressValues] = useState(
-  //   new Array(workoutLength).fill('')
-  // )
-
-  // console.log(progressValues)
-
-  const getPercentageByValue = () => {
-
-  }
-
+  //   if (valueInPercentage > 100) {
+  //     valueInPercentage = 100
+  //   } else if (valueInPercentage < 0) {
+  //     valueInPercentage = 0
+  //   }
+  // }
 
   return (
     <S.ProgressBox>

@@ -7,19 +7,14 @@ const FORM_STATE_IN_PROCESS = 'FORM_STATE_IN_PROCESS'
 const FORM_STATE_COMPLETE = 'FORM_STATE_COMPLETE'
 
 export const MyExercisesForm = ({ listExercises }) => {
-  const [isModalOpen, setIsModalOpen] = useState(false)
-  const [formState, setFormState] = useState(FORM_STATE_IN_PROCESS)
-
-  // КОД ОТ ЛАНЫ
-
   const dispatch = useDispatch()
 
-  const { progressValues } = useSelector((state) => state.progress)
+  const [isModalOpen, setIsModalOpen] = useState(false)
+  const [formState, setFormState] = useState(FORM_STATE_IN_PROCESS)
+  const [isErrorExist, setIsErrorExist] = useState(false)
 
-  // console.log(listExercises)
+  // const { progressValues } = useSelector((state) => state.progress)
   const workoutLength = listExercises.length
-
-  // console.log(workoutLength)
 
   const [progressValuesChange, setProgressValuesChange] = useState(
     new Array(workoutLength).fill('')
@@ -28,10 +23,6 @@ export const MyExercisesForm = ({ listExercises }) => {
   useEffect(() => {
     dispatch(setProgressValues(new Array(workoutLength).fill('')))
   }, [])
-
-  // DOP
-
-  const [isErrorExist, setIsErrorExist] = useState(false)
 
   const openModal = () => {
     setFormState(FORM_STATE_IN_PROCESS)
