@@ -1,18 +1,27 @@
 import { useState } from 'react'
 import * as S from './ProgressExercises.styles'
 import { ProgressItemScale } from './ProgressItemScale'
+import { useSelector } from 'react-redux'
 
 export const ProgressExercises = ({ listExercises }) => {
-  console.log(listExercises)
+
+  const {progressValues} = useSelector(state => state.progress)
+
+  // console.log(listExercises)
   const workoutLength = listExercises.length
 
-  console.log(workoutLength)
+  // console.log(workoutLength)
 
-  const [progressValues, setProgressValues] = useState(
-    new Array(workoutLength).fill('')
-  )
+  // const [progressValues, setProgressValues] = useState(
+  //   new Array(workoutLength).fill('')
+  // )
 
-  console.log(progressValues)
+  // console.log(progressValues)
+
+  const getPercentageByValue = () => {
+
+  }
+
 
   return (
     <S.ProgressBox>

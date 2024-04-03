@@ -1,12 +1,33 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import * as S from './MyExercisesForm.styles'
 import CountedProgress from '../progress-counted/progress-counted'
+import { useDispatch, useSelector } from 'react-redux'
+import { setProgressValues } from '../../store/slices/progressSlice'
 const FORM_STATE_IN_PROCESS = 'FORM_STATE_IN_PROCESS'
 const FORM_STATE_COMPLETE = 'FORM_STATE_COMPLETE'
 
 export const MyExercisesForm = ({ listExercises }) => {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [formState, setFormState] = useState(FORM_STATE_IN_PROCESS)
+
+  // КОД ОТ ЛАНЫ
+
+  const dispatch = useDispatch()
+
+  const { progressValues } = useSelector((state) => state.progress)
+
+  // console.log(listExercises)
+  const workoutLength = listExercises.length
+
+  // console.log(workoutLength)
+
+  const [progressValuesChange, setProgressValuesChange] = useState(
+    new Array(workoutLength).fill('')
+  )
+
+  useEffect(() => {
+    dispatch(setProgressValues(new Array(workoutLength).fill('')))
+  }, [])
 
   // DOP
 
@@ -22,35 +43,20 @@ export const MyExercisesForm = ({ listExercises }) => {
   }
 
   const sendProgress = () => {
-    if (progressValues.some((value) => value === '')) {
+    if (progressValuesChange.some((value) => value === '')) {
       setFormState(FORM_STATE_IN_PROCESS)
       setIsModalOpen(true)
       setIsErrorExist(true)
     } else {
       setFormState(FORM_STATE_COMPLETE)
-      setIsModalOpen(false)
       setIsErrorExist(false)
+      dispatch(setProgressValues(progressValuesChange))
 
       setTimeout(() => {
         closeModal()
       }, 2000)
     }
-    // setFormState(FORM_STATE_COMPLETE)
-    // setTimeout(() => {
-    //   closeModal()
-    // }, 2000)
   }
-
-  // КОД ОТ ЛАНЫ
-
-  // console.log(listExercises)
-  const workoutLength = listExercises.length
-
-  // console.log(workoutLength)
-
-  const [progressValues, setProgressValues] = useState(
-    new Array(workoutLength).fill('')
-  )
 
   return (
     <div>
@@ -74,12 +80,11 @@ export const MyExercisesForm = ({ listExercises }) => {
                     <S.MyProgressInput
                       type="number"
                       placeholder="Введите значение"
-                      value={progressValues[index]}
+                      value={progressValuesChange[index]}
                       onChange={(e) => {
-                        const newProgressValues = [...progressValues]
+                        const newProgressValues = [...progressValuesChange]
                         newProgressValues[index] = e.target.value
-                        setProgressValues(newProgressValues)
-                        console.log(newProgressValues)
+                        setProgressValuesChange(newProgressValues)
                       }}
                     ></S.MyProgressInput>
                   </S.PopupQuestionList>

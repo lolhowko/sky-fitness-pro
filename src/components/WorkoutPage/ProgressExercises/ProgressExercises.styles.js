@@ -115,6 +115,8 @@ export const ProgressInputForExerciseFirst = styled(TrainingProgressInput)`
 
   &::before {
     background: #565eef;
+    content: '';
+    width: ${(props) => props.value}
   }
 `
 
