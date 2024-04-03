@@ -2,8 +2,8 @@ import styled from 'styled-components'
 
 export const CourseNameContainer = styled.section`
   border-radius: 30px;
-  margin-top: 27px;
-  margin-bottom: 27px;
+  height: 310px;
+  margin-top: 40px;
   font-size: 64px;
   font-weight: 400;
   line-height: 72px;
