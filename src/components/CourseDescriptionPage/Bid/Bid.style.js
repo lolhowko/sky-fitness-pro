@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 
 export const BidContainer = styled.section`
+margin-top: 46px;
   background: #f9ebff;
   border-radius: 30px;
   display: flex;
