@@ -6,10 +6,12 @@ import {
 import styles from './profile.module.css'
 import { PersonalData } from '../../components/PersonalData/PersonalData'
 import { useAuth } from '../../components/hooks/useAuth'
+import {useState} from 'react'
 
 export function Profile({ logOut }) {
   // для дальнейшего - если польхователь в своем аккаунте - показывать страницу, если нет navigate("/")
   const { email } = useAuth()
+  const [password, setPassword] = useState('')
   // const navigate = useNavigate()
 
   return (
@@ -23,8 +25,8 @@ export function Profile({ logOut }) {
         </div>
         <div>
           <h1 className={styles.titlePage}>Мой профиль</h1>
-          <h1 className={styles.infoUser}>Логин: </h1>
-          <h1 className={styles.infoUser}>Пароль: </h1>
+          <h1 className={styles.infoUser}>Логин: {email}</h1>
+          <h1 className={styles.infoUser}>Пароль: {password} </h1>
         </div>
         <div className={styles.buttonChangeLog}>
           <button className={styles.loginButton}>Редактировать логин</button>
