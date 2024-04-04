@@ -7,13 +7,34 @@ import styles from './profile.module.css'
 import { PersonalData } from '../../components/PersonalData/PersonalData'
 import { useAuth } from '../../components/hooks/useAuth'
 import {useState} from 'react'
+import { SelectWorkoutPopup } from './SelectWorkoutPopup'
 
-export function Profile({ logOut }) {
+export function Profile({ logOut, workoutsFirebase }) {
   // для дальнейшего - если польхователь в своем аккаунте - показывать страницу, если нет navigate("/")
   const { email } = useAuth()
   const [password, setPassword] = useState('')
   // const navigate = useNavigate()
+  console.log(workoutsFirebase);
+  const [listSelectedCourse, setListSelectedCourse] = useState([]);
+  
+  const [ showPopup, setShowPopup] = useState(false);
 
+  const SelectCourseWorkout = (courseId) => {
+    console.log(courseId);
+    switch (courseId) {
+      case "courseIoga": 
+      setListSelectedCourse(workoutsFirebase.filter((item)=> ["3yvozj", "hfgxlo", "kcx5ai", "kt6ah4", "mrhuag"].indexOf(item._id) >= 0 ));
+        break;
+      case "courseStreching":
+        setListSelectedCourse(workoutsFirebase.filter((item)=> ["9yolz2", "9mefwq", "17oz5f"].indexOf(item._id) >= 0 ));
+        break;
+      default: 
+        setListSelectedCourse(workoutsFirebase.filter((item)=> ["xlpkqy","pyvaec","pi5vtr"].indexOf(item._id) >= 0 ));
+        break;
+    }
+    setShowPopup(!showPopup);
+  }; 
+  
   return (
     <div className={styles.container}>
       <div className={styles.mainPage}>
@@ -46,6 +67,7 @@ export function Profile({ logOut }) {
               className={styles.workout1}
               src="workoutcard1.png"
               alt="work1"
+              onClick={() => SelectCourseWorkout("courseIoga")}
             />
           </div>
           <div className={styles.coursesCard}>
@@ -53,6 +75,7 @@ export function Profile({ logOut }) {
               className={styles.workout2}
               src="workoutcard2.png"
               alt="work1"
+              onClick={() => SelectCourseWorkout("courseStreching")}
             />
           </div>
           <div className={styles.coursesCard}>
@@ -60,10 +83,12 @@ export function Profile({ logOut }) {
               className={styles.workout3}
               src="workoutcard3.png"
               alt="work1"
-            />
+              onClick={() => SelectCourseWorkout("courseBodyflex")}
+            />SelectCourseWorkout
           </div>
         </div>
       </div>
+      {showPopup && <SelectWorkoutPopup onClose={showPopup} list={listSelectedCourse} />}
     </div>
   )
 }
