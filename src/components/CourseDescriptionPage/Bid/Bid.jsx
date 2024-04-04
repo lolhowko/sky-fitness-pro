@@ -2,8 +2,9 @@ import React from 'react'
 import * as S from './Bid.style'
 // import svgUrl from '../../../assets/images/bid.svg'
 import Button from '../Button/Button'
+import CountedProgress from '../../WorkoutPage/progress-counted/progress-counted'
 
-const Bid = () => {
+const Bid = ({ addUserToCourse, isShown }) => {
   return (
     <S.BidContainer>
       <S.SignUp>
@@ -13,10 +14,12 @@ const Bid = () => {
           и радость!
         </p>
         <div style={{ marginTop: '34px' }}>
-          <Button>Записаться на тренировку</Button>
+          <Button onClick={addUserToCourse}>Записаться на тренировку</Button>
         </div>
       </S.SignUp>
       {/* <S.BidImg alt="Рука с телефоном" src={svgUrl} /> */}
+
+      {isShown && <CountedProgress tittle="Вы успешно записались!" />}
     </S.BidContainer>
   )
 }

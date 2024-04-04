@@ -64,28 +64,8 @@ export const AppRoutes = () => {
         path="/"
         element={<MainPage courses={coursesFirebase} logOut={logOut} />}
       />
-      <Route
-        path="/auth"
-        element={
-          <Login
-            email={email}
-            password={password}
-            setEmail={setEmail}
-            setPassword={setPassword}
-          />
-        }
-      />
-      <Route
-        path="/reg"
-        element={
-          <Register
-            email={email}
-            password={password}
-            setEmail={setEmail}
-            setPassword={setPassword}
-          />
-        }
-      />
+      <Route path="/auth" element={<Login />} />
+      <Route path="/reg" element={<Register />} />
 
       <Route path="/profile" element={<Profile logOut={logOut} />} />
       <Route

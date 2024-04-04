@@ -1,3 +1,4 @@
+import * as S from './styles'
 import {
   NavLink,
   useParams,
@@ -6,13 +7,57 @@ import {
 import styles from './profile.module.css'
 import { PersonalData } from '../../components/PersonalData/PersonalData'
 import { useAuth } from '../../components/hooks/useAuth'
-import {useState} from 'react'
+import { useEffect, useState } from 'react'
+import { courseList } from '../../components/store/selectors/courseNew'
+import {
+  emailSelector,
+  idSelector,
+  passwordSelector,
+} from '../../components/store/selectors/user'
+import { useDispatch, useSelector } from 'react-redux'
+import {
+  setCurrentCourse,
+  setWorkoutList,
+} from '../../components/store/slices/courseWorkoutSlice'
+import { getWorkouts } from '../../api'
+import { images } from '../../components/images/Images'
 
 export function Profile({ logOut }) {
   // для дальнейшего - если польхователь в своем аккаунте - показывать страницу, если нет navigate("/")
-  const { email } = useAuth()
-  const [password, setPassword] = useState('')
-  // const navigate = useNavigate()
+
+  const [isEditEmail, setIsEditEmail] = useState(false)
+  const [isEditPass, setIsEditPass] = useState(false)
+  const [isShowForm, setIsShowForm] = useState(false)
+
+  const courses = useSelector(courseList)
+  const userId = useSelector(idSelector)
+  const dispatch = useDispatch()
+  const email = useSelector(emailSelector)
+  const password = useSelector(passwordSelector)
+
+  // console.log(userId)
+
+  //получить курсы юзера
+
+  const coursesForUser = courses.filter(
+    (course) => course.users && course.users.some((user) => user === userId)
+  )
+
+  useEffect(() => {
+    getWorkouts()
+      .then((data) => {
+        dispatch(setWorkoutList(data))
+      })
+      .catch((error) => {
+        console.log(error.message)
+      })
+  }, [])
+
+  const handleCard = (course) => {
+    dispatch(setCurrentCourse(course))
+    localStorage.setItem('selectedCourse', JSON.stringify(course))
+    setIsShowForm(true)
+  }
 
   return (
     <div className={styles.container}>
@@ -34,21 +79,29 @@ export function Profile({ logOut }) {
         <div className={styles.buttonChangePass}>
           <button className={styles.loginButton}>Редактировать пароль</button>
         </div>
+
         <div className={styles.titleCourses}>
           <h1 className={styles.titleCoursesText}>Мои курсы</h1>
         </div>
-        <div
-          className={styles.coursesCards}
-          classNaworkoutcard1me={styles.coursesCards}
-        >
-          <div className={styles.coursesCard}>
-            <img
-              className={styles.workout1}
-              src="workoutcard1.png"
-              alt="work1"
-            />
-          </div>
-          <div className={styles.coursesCard}>
+
+        <S.ProfList>
+          {coursesForUser.map((course, index) => (
+            <S.Prof key={index} id={course.id}>
+              <S.CourseName>{course.nameRU}</S.CourseName>
+              <S.ProfCard src={images[index].src} alt="prof_card"></S.ProfCard>
+
+              <S.ProfButton
+                onClick={() => {
+                  handleCard(course)
+                }}
+              >
+                Перейти →
+              </S.ProfButton>
+            </S.Prof>
+          ))}
+        </S.ProfList>
+
+        {/* <div className={styles.coursesCard}>
             <img
               className={styles.workout2}
               src="workoutcard2.png"
@@ -61,8 +114,7 @@ export function Profile({ logOut }) {
               src="workoutcard3.png"
               alt="work1"
             />
-          </div>
-        </div>
+          </div> */}
       </div>
     </div>
   )
