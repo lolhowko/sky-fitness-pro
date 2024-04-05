@@ -25,8 +25,6 @@ import { images } from '../../components/images/Images'
 export function Profile({ logOut }) {
   // для дальнейшего - если польхователь в своем аккаунте - показывать страницу, если нет navigate("/")
 
-  const [isEditEmail, setIsEditEmail] = useState(false)
-  const [isEditPass, setIsEditPass] = useState(false)
   const [isShowForm, setIsShowForm] = useState(false)
 
   const courses = useSelector(courseList)
@@ -35,7 +33,7 @@ export function Profile({ logOut }) {
   const email = useSelector(emailSelector)
   const password = useSelector(passwordSelector)
 
-  // console.log(userId)
+  console.log(courses)
 
   //получить курсы юзера
 

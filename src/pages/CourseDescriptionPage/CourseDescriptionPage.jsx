@@ -6,6 +6,7 @@ import Bid from '../../components/CourseDescriptionPage/Bid/Bid'
 import * as S from './CourseDescriptionPage.style'
 import { useDispatch, useSelector } from 'react-redux'
 import { get, getDatabase, ref, update } from 'firebase/database'
+import firebase from '../../components/firebase/firebase'
 import { getCourses } from '../../api'
 import { setCourseList } from '../../components/store/slices/courseWorkoutSlice'
 import { idSelector } from '../../components/store/selectors/user'
@@ -50,27 +51,35 @@ const CourseDescriptionPage = ({ courses }) => {
     }
     try {
       //получаем ссылку на объект курса в firebase
-      const courseRef = ref(db, `course/${course._id}`)
+      // const courseRef = ref(db, `course/${course._id}`)
 
-      const snapshot = await get(courseRef)
-      const courseFirebase = snapshot.val()
+      // const snapshot = await get(courseRef)
+      // const courseFirebase = snapshot.val()
 
       // courseFirebase.courses[courseId].users = [userId]
 
-      console.log(courseFirebase)
-      if (courseFirebase?.users && Array.isArray(courseFirebase.users)) {
-        if (courseFirebase.users.includes(userId)) {
-          console.log('Пользователь уже записан на курс')
-          // navigate('/profile')
-          return
+      const courseRef = firebase.database().ref(`courses/${course._id}/users`)
+
+      courseRef.once('value', (snapshot) => {
+        const courseFirebase = snapshot.val()
+        console.log('snapshot', snapshot)
+
+        if (courseFirebase?.users && Array.isArray(courseFirebase.users)) {
+          if (courseFirebase.users.includes(userId)) {
+            console.log('Пользователь уже записан на курс')
+            // navigate('/profile')
+            return
+          }
+          courseFirebase.users.push(userId)
+        } else {
+          // courseFirebase.users = [userId]
+          courseRef.set([userId])
         }
-        courseFirebase.users.push(userId)
-      } else {
-        courseFirebase.users = "[userId]"
-      }
+      })
 
       // Обновляем объект курса в базе данных
-      await update(courseRef, courseFirebase)()
+      courseRef
+        .update()
         .then((data) => {
           dispatch(setCourseList(data))
         })
@@ -82,6 +91,19 @@ const CourseDescriptionPage = ({ courses }) => {
       console.error('Ошибка при добавлении пользователя курс', error)
     }
   }
+
+  //     update(courseRef)
+  //       .then((data) => {
+  //         dispatch(setCourseList(data))
+  //       })
+  //       .catch((error) => {
+  //         console.log(error.message)
+  //       })
+  //     setIsShown(true)
+  //   } catch (error) {
+  //     console.error('Ошибка при добавлении пользователя курс', error)
+  //   }
+  // }
 
   return (
     <S.CourseDescriptionPage>
