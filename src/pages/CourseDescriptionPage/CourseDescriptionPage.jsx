@@ -57,7 +57,9 @@ const CourseDescriptionPage = ({ courses }) => {
       console.log('Course ADDED')
     }
 
-    const result = window.confirm('Благодарим за покупку курса!')
+    const result = window.confirm(
+      'Благодарим за покупку курса! Теперь он будет отображаться в вашем профиле. Удачных тренировок!'
+    )
 
     if (result === true) {
       postCourseId(courseId)
