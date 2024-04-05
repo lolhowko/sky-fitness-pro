@@ -53,8 +53,6 @@ export function Register({ email, password, setEmail, setPassword }) {
         }
         saveUser(id)
         navigate('/auth')
-
-        //надо записать пользователя в localStorage
       })
       .catch((error) => {
         console.log(error)
