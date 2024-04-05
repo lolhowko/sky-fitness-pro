@@ -1,7 +1,5 @@
-import {
-  getAuth,
-  createUserWithEmailAndPassword
-} from 'firebase/auth'
+import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth'
+import { getDatabase, ref, set } from 'firebase/database'
 import { useState } from 'react'
 import styles from './Registration.module.css'
 import { useDispatch } from 'react-redux'
@@ -26,17 +24,37 @@ export function Register({ email, password, setEmail, setPassword }) {
     const auth = getAuth()
 
     await createUserWithEmailAndPassword(auth, email, password)
-      .then(({ user }) => {
-        console.log(user)
+      .then((userCrenditial) => {
+        console.log(userCrenditial)
 
-        dispatch(
-          setUser({
+        const user = userCrenditial.user
+
+        //Сохранение пользователя в базе
+
+        const id = user.uid
+
+        // dispatch(
+        //   setUser({
+        //     email: user.email,
+        //     id: user.uid,
+        //     token: user.accessToken,
+        //   })
+        // )
+        // navigate('/profile')
+
+        //Sign up
+        async function saveUser(id) {
+          console.log(id)
+          const db = getDatabase()
+          set(ref(db, 'users/' + id), {
+            _id: id,
             email: user.email,
-            id: user.uid,
-            token: user.accessToken,
           })
-        )
-        navigate('/profile')
+        }
+        saveUser(id)
+        navigate('/auth')
+
+        //надо записать пользователя в localStorage
       })
       .catch((error) => {
         console.log(error)

@@ -3,7 +3,7 @@ import * as S from './Bid.style'
 // import svgUrl from '../../../assets/images/bid.svg'
 import Button from '../Button/Button'
 
-const Bid = () => {
+const Bid = ({addCourse}) => {
   return (
     <S.BidContainer>
       <S.SignUp>
@@ -13,7 +13,7 @@ const Bid = () => {
           и радость!
         </p>
         <div style={{ marginTop: '34px' }}>
-          <Button>Записаться на тренировку</Button>
+          <Button onClick={addCourse}>Записаться на тренировку</Button>
         </div>
       </S.SignUp>
       {/* <S.BidImg alt="Рука с телефоном" src={svgUrl} /> */}
