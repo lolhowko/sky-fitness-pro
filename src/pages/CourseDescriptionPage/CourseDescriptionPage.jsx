@@ -39,10 +39,11 @@ const CourseDescriptionPage = ({ courses }) => {
   const userId = useSelector(idSelector)
 
   const [isShown, setIsShown] = useState(false)
+
   const db = getDatabase()
 
   const addUserToCourse = async () => {
-
+    console.log('HELLO')
     if (!userId) {
       navigate('/auth')
       return
@@ -54,20 +55,22 @@ const CourseDescriptionPage = ({ courses }) => {
       const snapshot = await get(courseRef)
       const courseFirebase = snapshot.val()
 
+      // courseFirebase.courses[courseId].users = [userId]
+
+      console.log(courseFirebase)
       if (courseFirebase?.users && Array.isArray(courseFirebase.users)) {
         if (courseFirebase.users.includes(userId)) {
           console.log('Пользователь уже записан на курс')
-          navigate('/profile')
+          // navigate('/profile')
           return
         }
         courseFirebase.users.push(userId)
       } else {
-        courseFirebase.users = [userId]
+        courseFirebase.users = "[userId]"
       }
 
       // Обновляем объект курса в базе данных
-      await update(courseRef, courseFirebase)
-      getCourses()
+      await update(courseRef, courseFirebase)()
         .then((data) => {
           dispatch(setCourseList(data))
         })

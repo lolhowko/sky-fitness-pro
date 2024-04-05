@@ -27,7 +27,7 @@ export async function getCourses() {
 //второй вариант получения данных из апи, более привычный для нас
 export async function getCourses2() {
   const response = await fetch(
-    "https://fitness-pro-d307e-default-rtdb.europe-west1.firebasedatabase.app/courses.json"
+    "https://sky-fitness-pro-3a520-default-rtdb.europe-west1.firebasedatabase.app/courses.json"
   );
   if (!response.ok) {
     throw new Error("Ошибка сервера");
@@ -84,11 +84,10 @@ export const addProgress = createAsyncThunk(
 );
 
 // ------------------------------------------------------
-// ------------------------------------------------------
 
 export const getProgress = async () => {
   const response = await fetch(
-    "https://fitness-pro-d307e-default-rtdb.europe-west1.firebasedatabase.app/progress.json",
+    "https://sky-fitness-pro-3a520-default-rtdb.europe-west1.firebasedatabase.app/progress.json",
     {
       method: "GET",
       headers: {
@@ -101,7 +100,7 @@ export const getProgress = async () => {
 
 export const postProgress = async ({ workouts_id }) => {
   const response = await fetch(
-    "https://fitness-pro-d307e-default-rtdb.europe-west1.firebasedatabase.app/progress.json",
+    "https://sky-fitness-pro-3a520-default-rtdb.europe-west1.firebasedatabase.app/progress.json",
     {
       method: "POST",
       headers: {
