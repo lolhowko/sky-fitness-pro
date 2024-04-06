@@ -17,12 +17,11 @@ export function Profile({ cources, logOut, userFirebase, workoutsFirebase }) {
   const [showPopup, setShowPopup] = useState(false)
 
   const [isLoginMode, setIsLoginMode] = useState(null)
-
   const [loginShow, setLoginShow] = useState(false)
-
   const [passwordShow, setPasswordShow] = useState(false)
-
   const [isActive, setIsActive] = useState(false)
+
+  // UPDATE LOG AND PASS
 
   const handleLoginClick = () => {
     setLoginShow(!loginShow)
@@ -38,6 +37,8 @@ export function Profile({ cources, logOut, userFirebase, workoutsFirebase }) {
       setIsActive(true)
     }
   }, [loginShow, passwordShow])
+
+  // USER COURSES
 
   if (!userFirebase) {
     navigate('/auth')
@@ -117,35 +118,35 @@ export function Profile({ cources, logOut, userFirebase, workoutsFirebase }) {
         <S.TitleCourses>
           <S.TitleCoursesText>Мои курсы</S.TitleCoursesText>
         </S.TitleCourses>
-        <div className={styles.coursesCards}>
+        <S.CoursesCards>
           {coursesWithImgs === undefined && (
             <div>У вас еще нет приобретенных курсов</div>
           )}
 
           {coursesWithImgs && (
-            <Style.ProfList>
+            <S.ProfList>
               {coursesWithImgs.map((course, index) => (
-                <Style.Prof key={index} id={course._id}>
-                  <Style.ProfCard
+                <S.Prof key={index} id={course._id}>
+                  <S.ProfCard
                     src={'/CardsCourses/' + course.img}
                     alt="prof_card"
                     onClick={() => {
                       SelectCourseWorkout(course._id)
                     }}
-                  ></Style.ProfCard>
+                  ></S.ProfCard>
 
-                  <Style.ProfButton
+                  <S.ProfButton
                     onClick={() => {
                       SelectCourseWorkout(course._id)
                     }}
                   >
                     Перейти →
-                  </Style.ProfButton>
-                </Style.Prof>
+                  </S.ProfButton>
+                </S.Prof>
               ))}
-            </Style.ProfList>
+            </S.ProfList>
           )}
-        </div>
+        </S.CoursesCards>
         {isActive && (
           <UpdateUserData isLoginMode={isLoginMode} setIsActive={setIsActive} />
         )}

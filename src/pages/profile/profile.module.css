@@ -97,6 +97,14 @@
   display: flex;
   padding-top: 60px;
   gap: 40px;
+
+  :hover {
+    box-shadow: 0.4em -0.4em 40px #c7e957;
+  }
+
+  :active {
+    box-shadow: 0.4em -0.4em 40px #9ccc00;
+  }
 }
 
 .buttonWork {
@@ -108,3 +116,5 @@
   border-radius: 80px;
   font-size: 20px;
 }
+
+
