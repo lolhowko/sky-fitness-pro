@@ -1,12 +1,9 @@
 import { NavLink, useParams, useNavigate } from 'react-router-dom'
-import styles from './profile.module.css'
 import * as S from './profile.styles.js'
-import * as Style from './styles'
 import { PersonalData } from '../../components/PersonalData/PersonalData'
 import { UpdateUserData } from '../../components/update-user/update-user.jsx'
 import { useEffect, useState } from 'react'
 import { SelectWorkoutPopup } from './SelectWorkoutPopup'
-import { useDispatch, useSelector } from 'react-redux'
 import { useAuth } from '../../components/hooks/useAuth'
 
 export function Profile({ cources, logOut, userFirebase, workoutsFirebase }) {
@@ -96,7 +93,7 @@ export function Profile({ cources, logOut, userFirebase, workoutsFirebase }) {
       <S.MainPage>
         <S.HeaderPage>
           <NavLink to="/">
-            <img className={styles.logosvg} src="logo.svg" alt="logo" />
+            <img src="/logo.svg" alt="logo" />
           </NavLink>
           <PersonalData logOut={logOut} email={email} />
         </S.HeaderPage>
