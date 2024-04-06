@@ -8,4 +8,4 @@ export const CourseDescriptionPage = styled.div`
     padding-left: 40px;
     padding-right: 40px;
   }
-`;
+`

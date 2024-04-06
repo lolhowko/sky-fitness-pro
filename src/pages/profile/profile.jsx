@@ -3,10 +3,11 @@ import * as S from './styles'
 import styles from './profile.module.css'
 import { PersonalData } from '../../components/PersonalData/PersonalData'
 import { useState } from 'react'
+import { SelectWorkoutPopup } from './SelectWorkoutPopup'
 import { useDispatch, useSelector } from 'react-redux'
 import { emailSelector} from '../../components/store/selectors/user'
 
-export function Profile({ cources, logOut, userFirebase }) {
+export function Profile({ cources, logOut, userFirebase, workoutsFirebase }) {
   const params = useParams()
   const navigate = useNavigate()
   const email = useSelector(emailSelector)
@@ -32,6 +33,28 @@ export function Profile({ cources, logOut, userFirebase }) {
     }
   })
 
+  console.log(userId)
+  console.log(workoutsFirebase);
+  const [listSelectedCourse, setListSelectedCourse] = useState([]);
+  
+  const [ showPopup, setShowPopup] = useState(false);
+
+  const SelectCourseWorkout = (courseId) => {
+    console.log(courseId);
+    switch (courseId) {
+      case "courseIoga": 
+      setListSelectedCourse(workoutsFirebase.filter((item)=> ["3yvozj", "hfgxlo", "kcx5ai", "kt6ah4", "mrhuag"].indexOf(item._id) >= 0 ));
+        break;
+      case "courseStreching":
+        setListSelectedCourse(workoutsFirebase.filter((item)=> ["9yolz2", "9mefwq", "17oz5f"].indexOf(item._id) >= 0 ));
+        break;
+      default: 
+        setListSelectedCourse(workoutsFirebase.filter((item)=> ["xlpkqy","pyvaec","pi5vtr"].indexOf(item._id) >= 0 ));
+        break;
+    }
+    setShowPopup(!showPopup);
+  }; 
+  
   return (
     <div className={styles.container}>
       <div className={styles.mainPage}>
@@ -72,7 +95,7 @@ export function Profile({ cources, logOut, userFirebase }) {
                     alt="prof_card"
                   ></S.ProfCard>
 
-                  <S.ProfButton onClick={() => {}}>Перейти →</S.ProfButton>
+                  <S.ProfButton onClick={() => {SelectCourseWorkout("courseStreching")}}>Перейти →</S.ProfButton>
                 </S.Prof>
 
                 //второй вариант
@@ -83,6 +106,7 @@ export function Profile({ cources, logOut, userFirebase }) {
                 //       className={styles.workout1}
                 //       src="workoutcard1.png"
                 //       alt="work1"
+                //       onClick={() => SelectCourseWorkout("courseStreching")}
                 //     />
                 //   </div>
                 // </Link>
@@ -91,6 +115,7 @@ export function Profile({ cources, logOut, userFirebase }) {
           )}
         </div>
       </div>
+      {showPopup && <SelectWorkoutPopup onClose={showPopup} list={listSelectedCourse} />}
     </div>
   )
 }

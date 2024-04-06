@@ -8,7 +8,7 @@ import { getDatabase, ref, set } from 'firebase/database'
 import { useSelector } from 'react-redux'
 import { idSelector } from '../../components/store/selectors/user'
 
-const CourseDescriptionPage = ({ courses }) => {
+const CourseDescriptionPage = ({ courses, workouts }) => {
   const { courseId } = useParams()
   const navigate = useNavigate()
   const course = courses.find((c) => c._id === courseId) || {
@@ -48,11 +48,23 @@ const CourseDescriptionPage = ({ courses }) => {
 
     async function postCourseId(courseId) {
       const db = getDatabase()
-      const courseRef = ref(db, 'users/' + id + '/courses/' + courseId)
 
+      const courseRef = ref(db, 'users/' + id + '/courses/' + courseId);
       set(courseRef, {
         courseId,
-      })
+      });
+      
+      course.workouts.forEach(workoutId => {
+        const workoutsRef = ref(db, 'users/' + id + '/workouts/' + workoutId);
+        let workout = {
+          workoutId,
+          isComplete: false
+        };
+        if(workouts.filter((workout) => workout._id === workoutId)[0].exercices){
+          workout.exercices = workouts.filter((workout) => workout._id === workoutId)[0].exercices;
+        }
+        set(workoutsRef, workout);          
+      });
 
       console.log('Course ADDED')
     }
