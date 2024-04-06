@@ -36,7 +36,7 @@ outline: none;
   }
 `;
 
-export const HeaderSelectOption = styled.option `
+export const HeaderSelectOption = styled.option`
   border: none;
   outline: none;
 `;
