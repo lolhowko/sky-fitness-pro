@@ -19,20 +19,18 @@ export function Profile({ cources, logOut, userFirebase, workoutsFirebase }) {
     return;
   }
 
-  const userCourseIdsObject = userFirebase.courses;
-  const userCourseIds = Object.keys(userCourseIdsObject).map((key) => userCourseIdsObject[key]);
-  console.log(userCourseIds)
+  const userCourseIds = Object
+    .keys(userFirebase.courses)
+    .map((key) => userFirebase.courses[key].courseId);
 
-  const userCourses = cources.filter(
-    (course) => userCourseIds.indexOf(course._id)
-  );
-
-  const coursesWithImgs = userCourses.map((course) => {
-    return {
-      ...course,
-      img: `${course.nameEN}.png`,
-    }
-  })
+  const coursesWithImgs = cources
+    .filter((course) => userCourseIds.indexOf(course._id) >= 0)
+    .map((course) => {
+      return {
+        ...course,
+        img: `${course.nameEN}.png`,
+      }
+    });
 
   const SelectCourseWorkout = (courseId) => {
     console.log(courseId);
