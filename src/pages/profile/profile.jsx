@@ -75,6 +75,8 @@ export function Profile({ cources, logOut, userFirebase }) {
                   <S.ProfButton onClick={() => {}}>Перейти →</S.ProfButton>
                 </S.Prof>
 
+                //второй вариант
+
                 // <Link>
                 //   <div className={styles.coursesCard}>
                 //     <img
