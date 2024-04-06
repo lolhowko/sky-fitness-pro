@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 export const SelectWorkoutContainer = styled.div `
+z-index: 9;
 background: rgb(255, 255, 255);
 width: 444px;
 height: 626px;

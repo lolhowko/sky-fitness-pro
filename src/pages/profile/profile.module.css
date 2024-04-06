@@ -99,27 +99,6 @@
   gap: 40px;
 }
 
-.workout1 {
-  height: 480px;
-  width: 360px;
-  box-shadow: 0.4em -0.4em 40px #cdcdcd;
-  border-radius: 30px;
-}
-
-.workout2 {
-  height: 480px;
-  width: 360px;
-  box-shadow: 0.4em -0.4em 40px #cdcdcd;
-  border-radius: 30px;
-}
-
-.workout3 {
-  height: 480px;
-  width: 360px;
-  box-shadow: 0.4em -0.4em 40px #cdcdcd;
-  border-radius: 30px;
-}
-
 .buttonWork {
   width: 136px;
   height: 36px;
@@ -128,14 +107,4 @@
   border: none;
   border-radius: 80px;
   font-size: 20px;
-}
-
-.coursesCard {
-  :hover {
-    box-shadow: 0.4em -0.4em 40px #c7e957;
-  }
-
-  :active {
-    box-shadow: 0.4em -0.4em 40px #9ccc00;
-  }
 }

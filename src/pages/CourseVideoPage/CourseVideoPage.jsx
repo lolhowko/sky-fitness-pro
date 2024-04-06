@@ -10,6 +10,9 @@ export const CourseVideoPage = ({ courses, workouts, logOut }) => {
   const params = useParams()
   console.log(courses)
 
+  const myCourse = courses.filter((course) => course._id === params.courseId)[0]
+  console.log(myCourse)
+
   if (
     !courses ||
     !workouts ||

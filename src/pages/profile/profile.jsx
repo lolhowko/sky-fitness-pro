@@ -1,49 +1,70 @@
-import {
-  NavLink,
-  useNavigate,
-  useParams,
-  //  useNavigate
-} from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
+import * as S from './styles'
 import styles from './profile.module.css'
 import { PersonalData } from '../../components/PersonalData/PersonalData'
-import { useAuth } from '../../components/hooks/useAuth'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { SelectWorkoutPopup } from './SelectWorkoutPopup'
 import { useDispatch, useSelector } from 'react-redux'
-import {
-  emailSelector,
-  idSelector,
-} from '../../components/store/selectors/user'
+import { emailSelector } from '../../components/store/selectors/user'
 
-export function Profile({ logOut, workoutsFirebase }) {
+export function Profile({ cources, logOut, userFirebase, workoutsFirebase }) {
   const navigate = useNavigate()
-  const userId = useSelector(idSelector)
-  const dispatch = useDispatch()
   const email = useSelector(emailSelector)
   const [password, setPassword] = useState('')
+  const [listSelectedCourse, setListSelectedCourse] = useState([])
+  const [showPopup, setShowPopup] = useState(false)
 
-  console.log(userId)
-  console.log(workoutsFirebase);
-  const [listSelectedCourse, setListSelectedCourse] = useState([]);
-  
-  const [ showPopup, setShowPopup] = useState(false);
+  useEffect(() => {
+    if (!userFirebase) {
+      navigate('/auth')
+      return
+    }
+  }, [])
+
+  const userCourseIds = Object.keys(userFirebase.courses).map(
+    (key) => userFirebase.courses[key].courseId
+  )
+
+  const coursesWithImgs = cources
+    .filter((course) => userCourseIds.indexOf(course._id) >= 0)
+    .map((course) => {
+      return {
+        ...course,
+        img: `${course.nameEN}.png`,
+      }
+    })
 
   const SelectCourseWorkout = (courseId) => {
-    console.log(courseId);
+    console.log(courseId)
     switch (courseId) {
-      case "courseIoga": 
-      setListSelectedCourse(workoutsFirebase.filter((item)=> ["3yvozj", "hfgxlo", "kcx5ai", "kt6ah4", "mrhuag"].indexOf(item._id) >= 0 ));
-        break;
-      case "courseStreching":
-        setListSelectedCourse(workoutsFirebase.filter((item)=> ["9yolz2", "9mefwq", "17oz5f"].indexOf(item._id) >= 0 ));
-        break;
-      default: 
-        setListSelectedCourse(workoutsFirebase.filter((item)=> ["xlpkqy","pyvaec","pi5vtr"].indexOf(item._id) >= 0 ));
-        break;
+      case 'courseIoga':
+        setListSelectedCourse(
+          workoutsFirebase.filter(
+            (item) =>
+              ['3yvozj', 'hfgxlo', 'kcx5ai', 'kt6ah4', 'mrhuag'].indexOf(
+                item._id
+              ) >= 0
+          )
+        )
+        break
+      case 'courseStreching':
+        setListSelectedCourse(
+          workoutsFirebase.filter(
+            (item) => ['9yolz2', '9mefwq', '17oz5f'].indexOf(item._id) >= 0
+          )
+        )
+        break
+      default:
+        setListSelectedCourse(
+          workoutsFirebase.filter(
+            (item) => ['xlpkqy', 'pyvaec', 'pi5vtr'].indexOf(item._id) >= 0
+          )
+        )
+        break
     }
-    setShowPopup(!showPopup);
-  }; 
-  
+    setShowPopup(!showPopup)
+  }
+
   return (
     <div className={styles.container}>
       <div className={styles.mainPage}>
@@ -67,37 +88,39 @@ export function Profile({ logOut, workoutsFirebase }) {
         <div className={styles.titleCourses}>
           <h1 className={styles.titleCoursesText}>Мои курсы</h1>
         </div>
-        <div
-          className={styles.coursesCards}
-          classNaworkoutcard1me={styles.coursesCards}
-        >
-          <div className={styles.coursesCard}>
-            <img
-              className={styles.workout1}
-              src="workoutcard1.png"
-              alt="work1"
-              onClick={() => SelectCourseWorkout("courseIoga")}
-            />
-          </div>
-          <div className={styles.coursesCard}>
-            <img
-              className={styles.workout2}
-              src="workoutcard2.png"
-              alt="work1"
-              onClick={() => SelectCourseWorkout("courseStreching")}
-            />
-          </div>
-          <div className={styles.coursesCard}>
-            <img
-              className={styles.workout3}
-              src="workoutcard3.png"
-              alt="work1"
-              onClick={() => SelectCourseWorkout("courseBodyflex")}
-            />SelectCourseWorkout
-          </div>
+        <div className={styles.coursesCards}>
+          {coursesWithImgs === undefined && (
+            <div>У вас еще нет приобретенных курсов</div>
+          )}
+
+          {coursesWithImgs && (
+            <S.ProfList>
+              {coursesWithImgs.map((course, index) => (
+                <S.Prof key={index} id={course._id}>
+                  <S.ProfCard
+                    src={'/CardsCourses/' + course.img}
+                    alt="prof_card"
+                    onClick={() => {
+                      SelectCourseWorkout(course._id)
+                    }}
+                  ></S.ProfCard>
+
+                  <S.ProfButton
+                    onClick={() => {
+                      SelectCourseWorkout(course._id)
+                    }}
+                  >
+                    Перейти →
+                  </S.ProfButton>
+                </S.Prof>
+              ))}
+            </S.ProfList>
+          )}
         </div>
       </div>
-      {showPopup && <SelectWorkoutPopup onClose={showPopup} list={listSelectedCourse} />}
+      {showPopup && (
+        <SelectWorkoutPopup onClose={showPopup} list={listSelectedCourse} />
+      )}
     </div>
   )
 }
