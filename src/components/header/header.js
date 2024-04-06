@@ -76,4 +76,5 @@ export const ChangeBody = styled.div`
     float: right;
     position: static;
     padding-left: 145px;
+    padding-top: 20px;
 `

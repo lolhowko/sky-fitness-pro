@@ -18,6 +18,8 @@ export const AppRoutes = () => {
   const [workoutsFirebase, setWorkoutsFirebase] = useState([])
   //courses: направления, описания, наименование на рус и англ, workouts
   const [coursesFirebase, setCoursesFirebase] = useState([])
+  // данные авторизованного пользователя
+  const [currentUserFirebase, setCurrentUserFirebase] = useState(null);
 
   useEffect(() => {
     const fb = firebase.database(app)
@@ -52,11 +54,32 @@ export const AppRoutes = () => {
   const [password, setPassword] = useState('')
 
   const navigate = useNavigate()
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
+
+  const loginCallback = (userId) => {
+    const fetchUsersData = async () => {
+      try {
+        const fb = firebase.database(app)
+        const coursesRef = fb.ref('users')
+        await coursesRef.once('value').then((snapshot) => {
+          const users = Object.values(snapshot.val() || {});
+          const currentUser = users.filter((user) => user._id === userId)[0]
+          setCurrentUserFirebase(currentUser);
+
+          navigate('/profile');
+        })
+      } catch (error) {
+        console.error('Error getting documents (courses): ', error)
+      }
+    }
+    fetchUsersData()
+  };
+  
   const logOut = () => {
-    navigate('/auth')
-    dispatch(removeUser())
-  }
+    debugger;
+    navigate('/auth');
+    removeUser();
+  };
 
   return (
     <Routes>
@@ -72,6 +95,7 @@ export const AppRoutes = () => {
             password={password}
             setEmail={setEmail}
             setPassword={setPassword}
+            callback={loginCallback}
           />
         }
       />
@@ -87,20 +111,32 @@ export const AppRoutes = () => {
         }
       />
 
-      <Route path="/profile" element={<Profile logOut={logOut} />} />
+      <Route 
+        path="/profile"
+        element={<Profile 
+          cources={coursesFirebase}
+          logOut={logOut}
+          userFirebase={currentUserFirebase}
+          workoutsFirebase={workoutsFirebase}/>
+          }
+        />
       <Route
         path="/course/:courseId"
-        element={<CourseDescriptionPage courses={coursesFirebase} />}
+        element={<CourseDescriptionPage courses={coursesFirebase} workouts={workoutsFirebase} />}
       />
-      <Route path="/courses/" element={<NotFound />} />
-      <Route path="/users/courses" element={<NotFound />} />
+      <Route 
+        path="/courses/"
+        element={<NotFound />} />
+      <Route 
+        path="/users/courses"
+        element={<NotFound />} />
 
       <Route
         path="/users/courses/:courseId"
         element={
           <CourseVideoPage
-            courses={workoutsFirebase}
-            descriptions={coursesFirebase}
+            courses={coursesFirebase}
+            workouts={workoutsFirebase}
             logOut={logOut}
           />
         }

@@ -1,29 +1,37 @@
+import { NavLink, useParams, useNavigate } from 'react-router-dom'
+import styles from './profile.module.css'
 import * as S from './profile.styles.js'
-import { useState, useEffect } from 'react'
-import { NavLink } from 'react-router-dom'
+import * as Style from './styles'
 import { PersonalData } from '../../components/PersonalData/PersonalData'
 import { UpdateUserData } from '../../components/update-user/update-user.jsx'
+import { useEffect, useState } from 'react'
+import { SelectWorkoutPopup } from './SelectWorkoutPopup'
+import { useDispatch, useSelector } from 'react-redux'
 import { useAuth } from '../../components/hooks/useAuth'
 
-export function Profile({ logOut }) {
-  // для дальнейшего - если польхователь в своем аккаунте - показывать страницу, если нет navigate("/")
+export function Profile({ cources, logOut, userFirebase, workoutsFirebase }) {
+  const navigate = useNavigate()
   const { email } = useAuth()
-  // const navigate = useNavigate()
+
+  const [listSelectedCourse, setListSelectedCourse] = useState([])
+  const [showPopup, setShowPopup] = useState(false)
 
   const [isLoginMode, setIsLoginMode] = useState(null)
 
   const [loginShow, setLoginShow] = useState(false)
+
+  const [passwordShow, setPasswordShow] = useState(false)
+
+  const [isActive, setIsActive] = useState(false)
+
   const handleLoginClick = () => {
     setLoginShow(!loginShow)
     setIsLoginMode(true)
   }
-  const [passwordShow, setPasswordShow] = useState(false)
   const handlePasswordClick = () => {
     setPasswordShow(!passwordShow)
     setIsLoginMode(false)
   }
-
-  const [isActive, setIsActive] = useState(false)
 
   useEffect(() => {
     if (loginShow || passwordShow) {
@@ -31,12 +39,63 @@ export function Profile({ logOut }) {
     }
   }, [loginShow, passwordShow])
 
+  if (!userFirebase) {
+    navigate('/auth')
+    return
+  }
+
+  const userCourseIds = !userFirebase.courses
+    ? []
+    : Object.keys(userFirebase.courses).map(
+        (key) => userFirebase.courses[key].courseId
+      )
+
+  const coursesWithImgs = cources
+    .filter((course) => userCourseIds.indexOf(course._id) >= 0)
+    .map((course) => {
+      return {
+        ...course,
+        img: `${course.nameEN}.png`,
+      }
+    })
+
+  const SelectCourseWorkout = (courseId) => {
+    console.log(courseId)
+    switch (courseId) {
+      case 'courseIoga':
+        setListSelectedCourse(
+          workoutsFirebase.filter(
+            (item) =>
+              ['3yvozj', 'hfgxlo', 'kcx5ai', 'kt6ah4', 'mrhuag'].indexOf(
+                item._id
+              ) >= 0
+          )
+        )
+        break
+      case 'courseStreching':
+        setListSelectedCourse(
+          workoutsFirebase.filter(
+            (item) => ['9yolz2', '9mefwq', '17oz5f'].indexOf(item._id) >= 0
+          )
+        )
+        break
+      default:
+        setListSelectedCourse(
+          workoutsFirebase.filter(
+            (item) => ['xlpkqy', 'pyvaec', 'pi5vtr'].indexOf(item._id) >= 0
+          )
+        )
+        break
+    }
+    setShowPopup(!showPopup)
+  }
+
   return (
     <S.Container>
       <S.MainPage>
         <S.HeaderPage>
           <NavLink to="/">
-          <img src="/logo.svg" alt="logo" />
+            <img className={styles.logosvg} src="logo.svg" alt="logo" />
           </NavLink>
           <PersonalData logOut={logOut} email={email} />
         </S.HeaderPage>
@@ -58,21 +117,42 @@ export function Profile({ logOut }) {
         <S.TitleCourses>
           <S.TitleCoursesText>Мои курсы</S.TitleCoursesText>
         </S.TitleCourses>
-        <S.CoursesCards>
-          <S.CoursesCards>
-            <S.Workout src="workoutcard1.png" alt="work1" />
-          </S.CoursesCards>
-          <S.CoursesCards>
-            <S.Workout src="workoutcard2.png" alt="work1" />
-          </S.CoursesCards>
-          <S.CoursesCards>
-            <S.Workout src="workoutcard3.png" alt="work1" />
-          </S.CoursesCards>
-        </S.CoursesCards>
+        <div className={styles.coursesCards}>
+          {coursesWithImgs === undefined && (
+            <div>У вас еще нет приобретенных курсов</div>
+          )}
+
+          {coursesWithImgs && (
+            <Style.ProfList>
+              {coursesWithImgs.map((course, index) => (
+                <Style.Prof key={index} id={course._id}>
+                  <Style.ProfCard
+                    src={'/CardsCourses/' + course.img}
+                    alt="prof_card"
+                    onClick={() => {
+                      SelectCourseWorkout(course._id)
+                    }}
+                  ></Style.ProfCard>
+
+                  <Style.ProfButton
+                    onClick={() => {
+                      SelectCourseWorkout(course._id)
+                    }}
+                  >
+                    Перейти →
+                  </Style.ProfButton>
+                </Style.Prof>
+              ))}
+            </Style.ProfList>
+          )}
+        </div>
         {isActive && (
           <UpdateUserData isLoginMode={isLoginMode} setIsActive={setIsActive} />
         )}
       </S.MainPage>
+      {showPopup && (
+        <SelectWorkoutPopup onClose={showPopup} list={listSelectedCourse} />
+      )}
     </S.Container>
   )
 }

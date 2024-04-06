@@ -5,7 +5,7 @@ import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
 import { useState } from 'react'
 import { setUser } from '../../components/store/slices/userSlice'
 
-export function Login({ email, password, setEmail, setPassword }) {
+export function Login({ email, password, setEmail, setPassword, callback }) {
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
@@ -32,7 +32,7 @@ export function Login({ email, password, setEmail, setPassword }) {
             token: user.accessToken,
           })
         )
-        navigate('/profile')
+        callback(user.uid);
       })
       .catch((error) => {
         console.log(error)

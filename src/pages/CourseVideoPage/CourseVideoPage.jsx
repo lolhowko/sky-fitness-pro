@@ -6,46 +6,51 @@ import { ProgressExercises } from '../../components/WorkoutPage/ProgressExercise
 import { HeaderVideo } from '../../components/WorkoutPage/Header/HeaderVideo'
 import { MyExercisesForm } from '../../components/WorkoutPage/MyExercisesForm/MyExercisesForm'
 
-export const CourseVideoPage = ({ courses, logOut, descriptions }) => {
+export const CourseVideoPage = ({ courses, workouts, logOut }) => {
   const params = useParams()
   console.log(courses)
+
+  const myCourse = courses.filter((course) => course._id === params.courseId)[0]
+  console.log(myCourse)
+
   if (
     !courses ||
-    !descriptions ||
+    !workouts ||
     courses.length === 0 ||
-    descriptions.length === 0
+    workouts.length === 0
   ) {
     return <></>
   }
 
-  const courseDescription = descriptions.filter((description) =>
-    description.workouts.includes(params.courseId)
+  const course = courses.filter((item) =>
+    item.workouts.includes(params.courseId)
   )[0]
-  if (!courseDescription) {
+  if (!course) {
     return <h1>Неверный идентификатор курса</h1>
   }
 
-  const myCourse = courses.filter((course) => course._id === params.courseId)[0]
+  const workout = workouts.filter((course) => course._id === params.courseId)[0]
+
   return (
     <>
-      {courses.length > 0 && (
-        <>
-          <HeaderVideo lologOut={logOut} />
-          <S.CourseTitle>{courseDescription.nameRU}</S.CourseTitle>
-          <S.CourseDescribtion> {myCourse.name} </S.CourseDescribtion>
-          <VideoPlayer srcVideo={myCourse.video} />
-          {myCourse.exercises && (
+      {workouts.length > 0 && (
+        <S.Container>
+          <HeaderVideo logOut={logOut} />
+          <S.CourseTitle>{course.nameRU}</S.CourseTitle>
+          <S.CourseDescribtion> {workout.name} </S.CourseDescribtion>
+          <VideoPlayer srcVideo={workout.video} />
+          {workout.exercises && (
             <S.ExercisesDetails>
               <div>
-                <CourseExercises listExercises={myCourse.exercises} />
-                <MyExercisesForm />
+                <CourseExercises listExercises={workout.exercises} />
+                <MyExercisesForm listExercises={workout.exercises} />
               </div>
-              <ProgressExercises />
+              <ProgressExercises listExercises={workout.exercises} />
             </S.ExercisesDetails>
           )}
-        </>
+        </S.Container>
       )}
-      {(courses?.length ?? 0) === 0 && <h1> нет данных</h1>}
+      {(workouts?.length ?? 0) === 0 && <h1> нет данных</h1>}
     </>
   )
 }

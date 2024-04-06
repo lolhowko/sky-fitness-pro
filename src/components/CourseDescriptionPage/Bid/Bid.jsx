@@ -3,7 +3,7 @@ import * as S from './Bid.style'
 // import svgUrl from '../../../assets/images/bid.svg'
 import Button from '../Button/Button'
 
-const Bid = ({ addCourse }) => {
+const Bid = ({addCourse}) => {
   return (
     <S.BidContainer>
       <S.SignUp>

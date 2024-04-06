@@ -1,24 +1,24 @@
-import React from "react";
-import CourseName from "./CourseName/CourseName";
-import CourseDesires from "./CourseDesires/CourseDesires";
-import CourseDirections from "./CourseDirections/CourseDirections";
-import CourseDescription from "./CourseDescription/CourseDescription";
+import React from 'react'
+import CourseName from './CourseName/CourseName'
+import CourseDesires from './CourseDesires/CourseDesires'
+import CourseDirections from './CourseDirections/CourseDirections'
+import CourseDescription from './CourseDescription/CourseDescription'
 
 const CourseInformation = ({
-  id,
-  name,
-  desires,
+  nameRU,
+  fitting,
   directions,
   description,
+  nameEN,
 }) => {
   return (
     <>
-      <CourseName name={name} />
-      <CourseDesires desires={desires} />
+      <CourseName nameRU={nameRU} nameEN={nameEN} />
+      <CourseDesires fitting={fitting} />
       <CourseDirections directions={directions} />
       <CourseDescription description={description} />
     </>
-  );
-};
+  )
+}
 
-export default CourseInformation;
+export default CourseInformation
