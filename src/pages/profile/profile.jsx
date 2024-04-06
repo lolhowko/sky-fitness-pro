@@ -1,18 +1,41 @@
-import { NavLink, useNavigate } from 'react-router-dom'
-import * as S from './styles'
-import styles from './profile.module.css'
+import { NavLink, useParams, useNavigate } from 'react-router-dom'
+import * as S from './profile.styles.js'
 import { PersonalData } from '../../components/PersonalData/PersonalData'
+import { UpdateUserData } from '../../components/update-user/update-user.jsx'
 import { useEffect, useState } from 'react'
 import { SelectWorkoutPopup } from './SelectWorkoutPopup'
-import { useDispatch, useSelector } from 'react-redux'
-import { emailSelector } from '../../components/store/selectors/user'
+import { useAuth } from '../../components/hooks/useAuth'
 
 export function Profile({ cources, logOut, userFirebase, workoutsFirebase }) {
   const navigate = useNavigate()
-  const email = useSelector(emailSelector)
-  const [password, setPassword] = useState('')
+  const { email } = useAuth()
+
   const [listSelectedCourse, setListSelectedCourse] = useState([])
   const [showPopup, setShowPopup] = useState(false)
+
+  const [isLoginMode, setIsLoginMode] = useState(null)
+  const [loginShow, setLoginShow] = useState(false)
+  const [passwordShow, setPasswordShow] = useState(false)
+  const [isActive, setIsActive] = useState(false)
+
+  // UPDATE LOG AND PASS
+
+  const handleLoginClick = () => {
+    setLoginShow(!loginShow)
+    setIsLoginMode(true)
+  }
+  const handlePasswordClick = () => {
+    setPasswordShow(!passwordShow)
+    setIsLoginMode(false)
+  }
+
+  useEffect(() => {
+    if (loginShow || passwordShow) {
+      setIsActive(true)
+    }
+  }, [loginShow, passwordShow])
+
+  // USER COURSES
 
   if (!userFirebase) {
     navigate('/auth')
@@ -66,29 +89,33 @@ export function Profile({ cources, logOut, userFirebase, workoutsFirebase }) {
   }
 
   return (
-    <div className={styles.container}>
-      <div className={styles.mainPage}>
-        <div className={styles.headerPage}>
+    <S.Container>
+      <S.MainPage>
+        <S.HeaderPage>
           <NavLink to="/">
-            <img className={styles.logosvg} src="logo.svg" alt="logo" />
+            <img src="/logo.svg" alt="logo" />
           </NavLink>
           <PersonalData logOut={logOut} email={email} />
-        </div>
+        </S.HeaderPage>
         <div>
-          <h1 className={styles.titlePage}>Мой профиль</h1>
-          <h1 className={styles.infoUser}>Логин: {email}</h1>
-          <h1 className={styles.infoUser}>Пароль: {password} </h1>
+          <S.TitlePage>Мой профиль</S.TitlePage>
+          <S.InfoUser>Логин: {email}</S.InfoUser>
+          <S.InfoUser>Пароль: {} </S.InfoUser>
         </div>
-        <div className={styles.buttonChangeLog}>
-          <button className={styles.loginButton}>Редактировать логин</button>
-        </div>
-        <div className={styles.buttonChangePass}>
-          <button className={styles.loginButton}>Редактировать пароль</button>
-        </div>
-        <div className={styles.titleCourses}>
-          <h1 className={styles.titleCoursesText}>Мои курсы</h1>
-        </div>
-        <div className={styles.coursesCards}>
+        <S.ButtonChangeLog>
+          <S.LoginButton onClick={() => handleLoginClick()}>
+            Редактировать логин
+          </S.LoginButton>
+        </S.ButtonChangeLog>
+        <S.ButtonChangePass>
+          <S.LoginButton onClick={() => handlePasswordClick()}>
+            Редактировать пароль
+          </S.LoginButton>
+        </S.ButtonChangePass>
+        <S.TitleCourses>
+          <S.TitleCoursesText>Мои курсы</S.TitleCoursesText>
+        </S.TitleCourses>
+        <S.CoursesCards>
           {coursesWithImgs === undefined && (
             <div>У вас еще нет приобретенных курсов</div>
           )}
@@ -116,11 +143,14 @@ export function Profile({ cources, logOut, userFirebase, workoutsFirebase }) {
               ))}
             </S.ProfList>
           )}
-        </div>
-      </div>
+        </S.CoursesCards>
+        {isActive && (
+          <UpdateUserData isLoginMode={isLoginMode} setIsActive={setIsActive} />
+        )}
+      </S.MainPage>
       {showPopup && (
         <SelectWorkoutPopup onClose={showPopup} list={listSelectedCourse} />
       )}
-    </div>
+    </S.Container>
   )
 }

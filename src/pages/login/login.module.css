@@ -1,12 +1,12 @@
 * {
-  padding: 0;
   margin: 0;
+  padding: 0;
   font-weight: 400px;
 }
 
 .container {
-  height: 1764px;
   width: 100%;
+  padding-top: 30px;
   display: flex;
   align-items: center;
   justify-content: center;
