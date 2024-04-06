@@ -28,9 +28,7 @@ export function Profile({ logOut, usersFirebase }) {
 
   console.log(userAllCourses)
 
-  // const userCourse = userAllCourses.filter(
-  //   (userCourse) => userCourse.courseId === params.courseId
-  // )[0]
+  //map  с картинками
 
   // const coursesWithImgs = userCourses.map((course) => {
   //   return {
@@ -70,9 +68,10 @@ export function Profile({ logOut, usersFirebase }) {
             <div>У вас еще нет приобретенных курсов</div>
           )} */}
 
-          {/* {userCourses && (
+          {/* {userAllCourses && (
             <S.ProfList>
-              {userCourses.map((course, index) => (
+              {coursesWithImgs.map((course, index) => (
+                //добавить link
                 <S.Prof key={index} id={course._id}>
                   <S.CourseName>{course.nameRU}</S.CourseName>
                   <S.ProfCard
@@ -82,6 +81,8 @@ export function Profile({ logOut, usersFirebase }) {
 
                   <S.ProfButton onClick={() => {}}>Перейти →</S.ProfButton>
                 </S.Prof>
+
+                //второй вариант
 
                 // <Link>
                 //   <div className={styles.coursesCard}>
