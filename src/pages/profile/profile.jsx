@@ -23,6 +23,7 @@ export function Profile({ logOut, usersFirebase }) {
 
   const currentUser = usersFirebase.filter((user) => user._id === userId)[0]
 
+  //курсы пользователя по id (в виде объекта)
   const userAllCourses = currentUser.courses
 
   console.log(userAllCourses)
