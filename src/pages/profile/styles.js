@@ -1,4 +1,4 @@
-import styled from "styled-components"
+import styled from 'styled-components'
 
 export const ProfCard = styled.img`
   width: 360px;
@@ -7,7 +7,8 @@ export const ProfCard = styled.img`
   top: 0px;
   border-radius: 30px;
   position: absolute;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.5); /* Параметры тени */
+  box-shadow: 0.4em -0.4em 40px #cdcdcd;
+
   :hover {
     cursor: pointer;
     transform: scale(1.03);
@@ -49,6 +50,14 @@ export const Prof = styled.div`
   @media (max-width: 768px) {
     font-size: 28px;
   }
+
+  :hover {
+    box-shadow: 0.4em -0.2em 40px #c7e957;
+  }
+
+  :active {
+    box-shadow: 0.4em -0.2em 40px #9ccc00;
+  }
 `
 export const ProfButton = styled.button`
   width: 136px;
@@ -70,5 +79,4 @@ export const ProfButton = styled.button`
     top: 340px;
   }
 `
-export const CourseName = styled.h2`
-`
+export const CourseName = styled.h2``
