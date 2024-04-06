@@ -1,23 +1,25 @@
-import { NavLink, useNavigate, useParams } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import * as S from './styles'
 import styles from './profile.module.css'
 import { PersonalData } from '../../components/PersonalData/PersonalData'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { SelectWorkoutPopup } from './SelectWorkoutPopup'
 import { useDispatch, useSelector } from 'react-redux'
-import { emailSelector} from '../../components/store/selectors/user'
+import { emailSelector } from '../../components/store/selectors/user'
 
 export function Profile({ cources, logOut, userFirebase, workoutsFirebase }) {
-  const navigate = useNavigate();
-  const email = useSelector(emailSelector);
-  const [password, setPassword] = useState('');
-  const [listSelectedCourse, setListSelectedCourse] = useState([]);  
-  const [ showPopup, setShowPopup] = useState(false);
+  const navigate = useNavigate()
+  const email = useSelector(emailSelector)
+  const [password, setPassword] = useState('')
+  const [listSelectedCourse, setListSelectedCourse] = useState([])
+  const [showPopup, setShowPopup] = useState(false)
 
-  if(!userFirebase){
-    navigate('/auth');
-    return;
-  }
+  useEffect(() => {
+    if (!userFirebase) {
+      navigate('/auth')
+      return
+    }
+  }, [])
 
   const userCourseIds = !userFirebase.courses
     ? []
@@ -32,24 +34,39 @@ export function Profile({ cources, logOut, userFirebase, workoutsFirebase }) {
         ...course,
         img: `${course.nameEN}.png`,
       }
-    });
+    })
 
   const SelectCourseWorkout = (courseId) => {
-    console.log(courseId);
+    console.log(courseId)
     switch (courseId) {
-      case "courseIoga": 
-      setListSelectedCourse(workoutsFirebase.filter((item)=> ["3yvozj", "hfgxlo", "kcx5ai", "kt6ah4", "mrhuag"].indexOf(item._id) >= 0 ));
-        break;
-      case "courseStreching":
-        setListSelectedCourse(workoutsFirebase.filter((item)=> ["9yolz2", "9mefwq", "17oz5f"].indexOf(item._id) >= 0 ));
-        break;
-      default: 
-        setListSelectedCourse(workoutsFirebase.filter((item)=> ["xlpkqy","pyvaec","pi5vtr"].indexOf(item._id) >= 0 ));
-        break;
+      case 'courseIoga':
+        setListSelectedCourse(
+          workoutsFirebase.filter(
+            (item) =>
+              ['3yvozj', 'hfgxlo', 'kcx5ai', 'kt6ah4', 'mrhuag'].indexOf(
+                item._id
+              ) >= 0
+          )
+        )
+        break
+      case 'courseStreching':
+        setListSelectedCourse(
+          workoutsFirebase.filter(
+            (item) => ['9yolz2', '9mefwq', '17oz5f'].indexOf(item._id) >= 0
+          )
+        )
+        break
+      default:
+        setListSelectedCourse(
+          workoutsFirebase.filter(
+            (item) => ['xlpkqy', 'pyvaec', 'pi5vtr'].indexOf(item._id) >= 0
+          )
+        )
+        break
     }
-    setShowPopup(!showPopup);
-  }; 
-  
+    setShowPopup(!showPopup)
+  }
+
   return (
     <div className={styles.container}>
       <div className={styles.mainPage}>
@@ -73,9 +90,7 @@ export function Profile({ cources, logOut, userFirebase, workoutsFirebase }) {
         <div className={styles.titleCourses}>
           <h1 className={styles.titleCoursesText}>Мои курсы</h1>
         </div>
-        <div
-          className={styles.coursesCards}
-        >
+        <div className={styles.coursesCards}>
           {coursesWithImgs === undefined && (
             <div>У вас еще нет приобретенных курсов</div>
           )}
@@ -87,30 +102,27 @@ export function Profile({ cources, logOut, userFirebase, workoutsFirebase }) {
                   <S.ProfCard
                     src={'/CardsCourses/' + course.img}
                     alt="prof_card"
-                    onClick={() => {SelectCourseWorkout(course._id)}}
+                    onClick={() => {
+                      SelectCourseWorkout(course._id)
+                    }}
                   ></S.ProfCard>
 
-                  <S.ProfButton onClick={() => {SelectCourseWorkout(course._id)}}>Перейти →</S.ProfButton>
+                  <S.ProfButton
+                    onClick={() => {
+                      SelectCourseWorkout(course._id)
+                    }}
+                  >
+                    Перейти →
+                  </S.ProfButton>
                 </S.Prof>
-
-                //второй вариант
-
-                // <Link>
-                //   <div className={styles.coursesCard}>
-                //     <img
-                //       className={styles.workout1}
-                //       src="workoutcard1.png"
-                //       alt="work1"
-                //       onClick={() => SelectCourseWorkout(course._id)}
-                //     />
-                //   </div>
-                // </Link>
               ))}
             </S.ProfList>
           )}
         </div>
       </div>
-      {showPopup && <SelectWorkoutPopup onClose={showPopup} list={listSelectedCourse} />}
+      {showPopup && (
+        <SelectWorkoutPopup onClose={showPopup} list={listSelectedCourse} />
+      )}
     </div>
   )
 }
