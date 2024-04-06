@@ -14,16 +14,16 @@ export function Profile({ cources, logOut, userFirebase, workoutsFirebase }) {
   const [listSelectedCourse, setListSelectedCourse] = useState([])
   const [showPopup, setShowPopup] = useState(false)
 
-  useEffect(() => {
-    if (!userFirebase) {
-      navigate('/auth')
-      return
-    }
-  }, [])
+  if (!userFirebase) {
+    navigate('/auth')
+    return
+  }
 
-  const userCourseIds = Object.keys(userFirebase.courses).map(
-    (key) => userFirebase.courses[key].courseId
-  )
+  const userCourseIds = !userFirebase.courses
+    ? []
+    : Object
+      .keys(userFirebase.courses)
+      .map((key) => userFirebase.courses[key].courseId);
 
   const coursesWithImgs = cources
     .filter((course) => userCourseIds.indexOf(course._id) >= 0)
