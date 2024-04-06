@@ -1,19 +1,28 @@
 import {
   NavLink,
+  useNavigate,
   useParams,
   //  useNavigate
 } from 'react-router-dom'
 import styles from './profile.module.css'
 import { PersonalData } from '../../components/PersonalData/PersonalData'
 import { useAuth } from '../../components/hooks/useAuth'
-import {useState} from 'react'
+import { useState } from 'react'
 import { SelectWorkoutPopup } from './SelectWorkoutPopup'
+import { useDispatch, useSelector } from 'react-redux'
+import {
+  emailSelector,
+  idSelector,
+} from '../../components/store/selectors/user'
 
 export function Profile({ logOut, workoutsFirebase }) {
-  // для дальнейшего - если польхователь в своем аккаунте - показывать страницу, если нет navigate("/")
-  const { email } = useAuth()
+  const navigate = useNavigate()
+  const userId = useSelector(idSelector)
+  const dispatch = useDispatch()
+  const email = useSelector(emailSelector)
   const [password, setPassword] = useState('')
-  // const navigate = useNavigate()
+
+  console.log(userId)
   console.log(workoutsFirebase);
   const [listSelectedCourse, setListSelectedCourse] = useState([]);
   
