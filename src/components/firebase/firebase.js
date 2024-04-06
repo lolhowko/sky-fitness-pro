@@ -31,5 +31,3 @@ export default firebase
 // console.log("firestore", db);
 
 export const auth = getAuth(app)
-
-export default firebase
