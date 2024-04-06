@@ -14,12 +14,10 @@ export function Profile({ cources, logOut, userFirebase, workoutsFirebase }) {
   const [listSelectedCourse, setListSelectedCourse] = useState([])
   const [showPopup, setShowPopup] = useState(false)
 
-  useEffect(() => {
-    if (!userFirebase) {
-      navigate('/auth')
-      return
-    }
-  }, [])
+  if (!userFirebase) {
+    navigate('/auth')
+    return
+  }
 
   const userCourseIds = !userFirebase.courses
     ? []
