@@ -1,4 +1,5 @@
 import { Link, NavLink, useNavigate, useParams } from 'react-router-dom'
+import * as S from './styles'
 import styles from './profile.module.css'
 import { PersonalData } from '../../components/PersonalData/PersonalData'
 import { useAuth } from '../../components/hooks/useAuth'
@@ -22,8 +23,20 @@ export function Profile({ logOut, usersFirebase }) {
 
   const currentUser = usersFirebase.filter((user) => user._id === userId)[0]
 
-  const userCourses = currentUser.courses
-  console.log(userCourses)
+  const userAllCourses = currentUser.courses
+
+  console.log(userAllCourses)
+
+  // const userCourse = userAllCourses.filter(
+  //   (userCourse) => userCourse.courseId === params.courseId
+  // )[0]
+
+  // const coursesWithImgs = userCourses.map((course) => {
+  //   return {
+  //     ...course,
+  //     img: `${course.nameEN}.png`,
+  //   }
+  // })
 
   return (
     <div className={styles.container}>
@@ -52,15 +65,35 @@ export function Profile({ logOut, usersFirebase }) {
           className={styles.coursesCards}
           classNaworkoutcard1me={styles.coursesCards}
         >
-          <Link>
-            <div className={styles.coursesCard}>
-              <img
-                className={styles.workout1}
-                src="workoutcard1.png"
-                alt="work1"
-              />
-            </div>
-          </Link>
+          {/* {userAllCourses === undefined && (
+            <div>У вас еще нет приобретенных курсов</div>
+          )} */}
+
+          {/* {userCourses && (
+            <S.ProfList>
+              {userCourses.map((course, index) => (
+                <S.Prof key={index} id={course._id}>
+                  <S.CourseName>{course.nameRU}</S.CourseName>
+                  <S.ProfCard
+                    src={'/CardsCourses/' + course.img}
+                    alt="prof_card"
+                  ></S.ProfCard>
+
+                  <S.ProfButton onClick={() => {}}>Перейти →</S.ProfButton>
+                </S.Prof>
+
+                // <Link>
+                //   <div className={styles.coursesCard}>
+                //     <img
+                //       className={styles.workout1}
+                //       src="workoutcard1.png"
+                //       alt="work1"
+                //     />
+                //   </div>
+                // </Link>
+              ))}
+            </S.ProfList>
+          )} */}
         </div>
       </div>
     </div>
