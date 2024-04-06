@@ -19,9 +19,11 @@ export function Profile({ cources, logOut, userFirebase, workoutsFirebase }) {
     return;
   }
 
-  const userCourseIds = Object
-    .keys(userFirebase.courses)
-    .map((key) => userFirebase.courses[key].courseId);
+  const userCourseIds = !userFirebase.courses
+    ? []
+    : Object
+      .keys(userFirebase.courses)
+      .map((key) => userFirebase.courses[key].courseId);
 
   const coursesWithImgs = cources
     .filter((course) => userCourseIds.indexOf(course._id) >= 0)

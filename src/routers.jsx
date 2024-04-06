@@ -76,7 +76,6 @@ export const AppRoutes = () => {
   };
   
   const logOut = () => {
-    debugger;
     navigate('/auth');
     removeUser();
   };
