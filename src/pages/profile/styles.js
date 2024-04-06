@@ -17,7 +17,7 @@ export const ProfCard = styled.img`
     width: 300px;
   }
 `
-export const ProfList = styled.ul`
+export const ProfList = styled.div`
   padding: 0px;
   margin: 0px;
   padding-top: 60px;
@@ -30,6 +30,25 @@ export const ProfList = styled.ul`
 export const Prof = styled.div`
   position: relative;
   margin-bottom: 340px;
+
+  color: #000;
+  font-variant-numeric: lining-nums proportional-nums;
+  font-family: 'StratosSkyeng', sans-serif;
+  font-size: 36px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 110%;
+  letter-spacing: -0.5px;
+  width: 290px;
+  padding-top: 30px;
+  padding-left: 30px;
+  z-index: 1;
+  @media (max-width: 1024px) {
+    font-size: 32px;
+  }
+  @media (max-width: 768px) {
+    font-size: 28px;
+  }
 `
 export const ProfButton = styled.button`
   width: 136px;
@@ -52,23 +71,4 @@ export const ProfButton = styled.button`
   }
 `
 export const CourseName = styled.h2`
-  color: #000;
-  font-variant-numeric: lining-nums proportional-nums;
-  font-family: 'StratosSkyeng', sans-serif;
-  font-size: 36px;
-  font-style: normal;
-  font-weight: 600;
-  line-height: 110%;
-  letter-spacing: -0.5px;
-  width: 290px;
-  padding-top: 30px;
-  padding-left: 30px;
-  position: relative;
-  z-index: 1;
-  @media (max-width: 1024px) {
-    font-size: 32px;
-  }
-  @media (max-width: 768px) {
-    font-size: 28px;
-  }
 `

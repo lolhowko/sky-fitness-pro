@@ -8,10 +8,11 @@ import { useDispatch, useSelector } from 'react-redux'
 import { emailSelector} from '../../components/store/selectors/user'
 
 export function Profile({ cources, logOut, userFirebase, workoutsFirebase }) {
-  const params = useParams()
-  const navigate = useNavigate()
-  const email = useSelector(emailSelector)
-  const [password, setPassword] = useState('')
+  const navigate = useNavigate();
+  const email = useSelector(emailSelector);
+  const [password, setPassword] = useState('');
+  const [listSelectedCourse, setListSelectedCourse] = useState([]);  
+  const [ showPopup, setShowPopup] = useState(false);
 
   if(!userFirebase){
     navigate('/auth');
@@ -32,12 +33,6 @@ export function Profile({ cources, logOut, userFirebase, workoutsFirebase }) {
       img: `${course.nameEN}.png`,
     }
   })
-
-  console.log(userId)
-  console.log(workoutsFirebase);
-  const [listSelectedCourse, setListSelectedCourse] = useState([]);
-  
-  const [ showPopup, setShowPopup] = useState(false);
 
   const SelectCourseWorkout = (courseId) => {
     console.log(courseId);
@@ -89,13 +84,13 @@ export function Profile({ cources, logOut, userFirebase, workoutsFirebase }) {
             <S.ProfList>
               {coursesWithImgs.map((course, index) => (
                 <S.Prof key={index} id={course._id}>
-                  <S.CourseName>{course.nameRU}</S.CourseName>
                   <S.ProfCard
                     src={'/CardsCourses/' + course.img}
                     alt="prof_card"
+                    onClick={() => {SelectCourseWorkout(course._id)}}
                   ></S.ProfCard>
 
-                  <S.ProfButton onClick={() => {SelectCourseWorkout("courseStreching")}}>Перейти →</S.ProfButton>
+                  <S.ProfButton onClick={() => {SelectCourseWorkout(course._id)}}>Перейти →</S.ProfButton>
                 </S.Prof>
 
                 //второй вариант
@@ -106,7 +101,7 @@ export function Profile({ cources, logOut, userFirebase, workoutsFirebase }) {
                 //       className={styles.workout1}
                 //       src="workoutcard1.png"
                 //       alt="work1"
-                //       onClick={() => SelectCourseWorkout("courseStreching")}
+                //       onClick={() => SelectCourseWorkout(course._id)}
                 //     />
                 //   </div>
                 // </Link>
