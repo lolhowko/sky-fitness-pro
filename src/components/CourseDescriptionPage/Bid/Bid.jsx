@@ -1,9 +1,9 @@
-import React from "react";
-import * as S from "./Bid.style";
-import svgUrl from "../../../assets/images/bid.svg";
-import Button from "../Button/Button";
+import React from 'react'
+import * as S from './Bid.style'
+// import svgUrl from '../../../assets/images/bid.svg'
+import Button from '../Button/Button'
 
-const Bid = () => {
+const Bid = ({ addCourse }) => {
   return (
     <S.BidContainer>
       <S.SignUp>
@@ -12,13 +12,13 @@ const Bid = () => {
           выбором направления и тренера, с которым тренировки принесут здоровье
           и радость!
         </p>
-        <div style={{ marginTop: "34px" }}>
-          <Button>Записаться на тренировку</Button>
+        <div style={{ marginTop: '34px' }}>
+          <Button onClick={addCourse}>Записаться на тренировку</Button>
         </div>
       </S.SignUp>
-      <S.BidImg alt="Рука с телефоном" src={svgUrl} />
+      {/* <S.BidImg alt="Рука с телефоном" src={svgUrl} /> */}
     </S.BidContainer>
-  );
-};
+  )
+}
 
-export default Bid;
+export default Bid

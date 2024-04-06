@@ -2,7 +2,7 @@ import * as S from './profile.styles.js'
 import { useState, useEffect } from 'react'
 import { NavLink } from 'react-router-dom'
 import { PersonalData } from '../../components/PersonalData/PersonalData'
-import { UpdateUserData } from '../../components/updata-user/updata-user'
+import { UpdateUserData } from '../../components/update-user/update-user.jsx'
 import { useAuth } from '../../components/hooks/useAuth'
 
 export function Profile({ logOut }) {
@@ -36,7 +36,7 @@ export function Profile({ logOut }) {
       <S.MainPage>
         <S.HeaderPage>
           <NavLink to="/">
-            <img src="/logo.svg" alt="logo" />
+          <img src="/logo.svg" alt="logo" />
           </NavLink>
           <PersonalData logOut={logOut} email={email} />
         </S.HeaderPage>

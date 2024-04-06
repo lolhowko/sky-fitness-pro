@@ -1,10 +1,8 @@
-import * as S from './updata-user.styles.js'
-//import { NavLink } from 'react-router-dom'
+import * as S from './update-user.styles.js'
 import { useState } from 'react'
-import { Validate } from '../../components/validates/validate.js'
+import { Validate } from '../validates/validate.js'
 import { useNavigate } from 'react-router-dom'
 import { getAuth, updateEmail, updatePassword } from 'firebase/auth'
-//import { setUser } from '../../components/store/slices/userSlice'
 
 export const UpdateUserData = ({ isLoginMode, setIsActive }) => {
   const [error, setError] = useState('')
@@ -15,9 +13,9 @@ export const UpdateUserData = ({ isLoginMode, setIsActive }) => {
   const navigate = useNavigate()
   const auth = getAuth()
   const user = auth.currentUser
+
   const handleLogin = async ({ email }) => {
     Validate({ email, setError })
-
     try {
       await updateEmail(user, email).then(() => {})
       navigate('/auth', { replace: true })
@@ -46,13 +44,6 @@ export const UpdateUserData = ({ isLoginMode, setIsActive }) => {
       setButtonActive(true)
     } catch (error) {
       console.error('Ошибка авторизации:', error.message)
-      if (error.message === 'Firebase: Error (auth/invalid-credential).') {
-        setError('Ошибка авторизации: Недопустимые учетные данные')
-      } else if (error.message === 'Firebase: Error (auth/invalid-email).') {
-        setError('Ошибка авторизации: Неверный адрес электронной почты')
-      } else {
-        setError(`Ошибка авторизации: ${error.message}`)
-      }
     } finally {
       setButtonActive(false)
     }

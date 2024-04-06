@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export const CourseDesire = styled.div`
   display: flex;
@@ -6,10 +6,10 @@ export const CourseDesire = styled.div`
   @media (max-width: 400px) {
     column-gap: 10px;
   }
-`;
+`
 export const CourseDesireCircle = styled.div`
-  width: 67px;
-  height: 67px;
+  width: 37px;
+  height: 37px;
   padding: 10.69px;
   border-radius: 1202.29px;
   background: #c7e957;
@@ -24,7 +24,7 @@ export const CourseDesireCircle = styled.div`
     font-size: 16px;
     padding: 0px;
   }
-`;
+`
 export const CourseDesireText = styled.div`
   max-width: 244px;
-`;
+`

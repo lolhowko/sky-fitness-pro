@@ -1,8 +1,8 @@
-import React from "react";
-import * as S from "./Button.style";
+import React from 'react'
+import * as S from './Button.style'
 
-const Button = ({ children }) => {
-  return <S.Button>{children}</S.Button>;
-};
+const Button = ({ children, onClick }) => {
+  return <S.Button onClick={onClick}>{children}</S.Button>
+}
 
-export default Button;
+export default Button
