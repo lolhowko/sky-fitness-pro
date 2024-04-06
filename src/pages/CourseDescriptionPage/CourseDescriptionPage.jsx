@@ -49,22 +49,26 @@ const CourseDescriptionPage = ({ courses, workouts }) => {
     async function postCourseId(courseId) {
       const db = getDatabase()
 
-      const courseRef = ref(db, 'users/' + id + '/courses/' + courseId);
+      const courseRef = ref(db, 'users/' + id + '/courses/' + courseId)
       set(courseRef, {
         courseId,
-      });
-      
-      course.workouts.forEach(workoutId => {
-        const workoutsRef = ref(db, 'users/' + id + '/workouts/' + workoutId);
+      })
+
+      course.workouts.forEach((workoutId) => {
+        const workoutsRef = ref(db, 'users/' + id + '/workouts/' + workoutId)
         let workout = {
           workoutId,
-          isComplete: false
-        };
-        if(workouts.filter((workout) => workout._id === workoutId)[0].exercices){
-          workout.exercices = workouts.filter((workout) => workout._id === workoutId)[0].exercices;
+          isComplete: false,
         }
-        set(workoutsRef, workout);          
-      });
+        if (
+          workouts.filter((workout) => workout._id === workoutId)[0].exercices
+        ) {
+          workout.exercices = workouts.filter(
+            (workout) => workout._id === workoutId
+          )[0].exercices
+        }
+        set(workoutsRef, workout)
+      })
 
       console.log('Course ADDED')
     }
@@ -73,11 +77,12 @@ const CourseDescriptionPage = ({ courses, workouts }) => {
       'Благодарим за покупку курса! Теперь он будет отображаться в вашем профиле. Удачных тренировок!'
     )
 
+    // if (){}
+
     if (result === true) {
       postCourseId(courseId)
-
       navigate('/profile')
-    } else postCourseId(courseId)
+    }
   }
 
   return (
