@@ -122,7 +122,7 @@ export const AppRoutes = () => {
         />
       <Route
         path="/course/:courseId"
-        element={<CourseDescriptionPage courses={coursesFirebase} workouts={workoutsFirebase} />}
+        element={<CourseDescriptionPage courses={coursesFirebase} workouts={workoutsFirebase} currentUserFirebase={currentUserFirebase}/>}
       />
       <Route 
         path="/courses/"

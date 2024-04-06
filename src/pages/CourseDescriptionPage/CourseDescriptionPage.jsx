@@ -8,7 +8,7 @@ import { getDatabase, ref, set } from 'firebase/database'
 import { useSelector } from 'react-redux'
 import { idSelector } from '../../components/store/selectors/user'
 
-const CourseDescriptionPage = ({ courses, workouts }) => {
+const CourseDescriptionPage = ({ courses, workouts, currentUserFirebase }) => {
   const { courseId } = useParams()
   const navigate = useNavigate()
   const course = courses.find((c) => c._id === courseId) || {
@@ -77,7 +77,14 @@ const CourseDescriptionPage = ({ courses, workouts }) => {
       'Благодарим за покупку курса! Теперь он будет отображаться в вашем профиле. Удачных тренировок!'
     )
 
-    // if (){}
+    // const userCourseIds = Object.keys(currentUserFirebase.courses).map(
+    //   (key) => currentUserFirebase.courses[key].courseId
+    // )
+
+    // if (userCourseIds) {
+    // }
+
+    // console.log(CurrentUserCourse)
 
     if (result === true) {
       postCourseId(courseId)
