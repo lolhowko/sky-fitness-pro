@@ -12,6 +12,7 @@ export const CourseVideoPage = ({ courses, logOut, descriptions }) => {
   console.log(courses)
 
   const myCourse = courses.filter((course) => course._id === params.courseId)[0]
+  console.log(myCourse)
 
   if (
     !courses ||

@@ -1,12 +1,8 @@
-import {
-  NavLink,
-  useNavigate,
-  useParams,
-  //  useNavigate
-} from 'react-router-dom'
+import { Link, NavLink, useNavigate, useParams } from 'react-router-dom'
 import styles from './profile.module.css'
 import { PersonalData } from '../../components/PersonalData/PersonalData'
 import { useAuth } from '../../components/hooks/useAuth'
+import firebase from '../../components/firebase/firebase'
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import {
@@ -14,14 +10,20 @@ import {
   idSelector,
 } from '../../components/store/selectors/user'
 
-export function Profile({ logOut }) {
+export function Profile({ logOut, usersFirebase }) {
+  const params = useParams()
   const navigate = useNavigate()
   const userId = useSelector(idSelector)
   const dispatch = useDispatch()
   const email = useSelector(emailSelector)
   const [password, setPassword] = useState('')
 
-  console.log(userId)
+  console.log(usersFirebase)
+
+  const currentUser = usersFirebase.filter((user) => user._id === userId)[0]
+
+  const userCourses = currentUser.courses
+  console.log(userCourses)
 
   return (
     <div className={styles.container}>
@@ -50,27 +52,15 @@ export function Profile({ logOut }) {
           className={styles.coursesCards}
           classNaworkoutcard1me={styles.coursesCards}
         >
-          <div className={styles.coursesCard}>
-            <img
-              className={styles.workout1}
-              src="workoutcard1.png"
-              alt="work1"
-            />
-          </div>
-          <div className={styles.coursesCard}>
-            <img
-              className={styles.workout2}
-              src="workoutcard2.png"
-              alt="work1"
-            />
-          </div>
-          <div className={styles.coursesCard}>
-            <img
-              className={styles.workout3}
-              src="workoutcard3.png"
-              alt="work1"
-            />
-          </div>
+          <Link>
+            <div className={styles.coursesCard}>
+              <img
+                className={styles.workout1}
+                src="workoutcard1.png"
+                alt="work1"
+              />
+            </div>
+          </Link>
         </div>
       </div>
     </div>

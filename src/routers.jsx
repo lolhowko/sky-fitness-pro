@@ -19,6 +19,8 @@ export const AppRoutes = () => {
   //courses: направления, описания, наименование на рус и англ, workouts
   const [coursesFirebase, setCoursesFirebase] = useState([])
 
+  const [usersFirebase, setUsersFirebase] = useState([])
+
   useEffect(() => {
     const fb = firebase.database(app)
     const fetchData = async () => {
@@ -46,6 +48,19 @@ export const AppRoutes = () => {
       }
     }
     fetchCoursesData()
+
+    const fetchUsersData = async () => {
+      try {
+        const coursesRef = fb.ref('users')
+        await coursesRef.once('value').then((snapshot) => {
+          const trainings = Object.values(snapshot.val() || {})
+          setUsersFirebase(trainings)
+        })
+      } catch (error) {
+        console.error('Error getting documents (courses): ', error)
+      }
+    }
+    fetchUsersData()
   }, [])
 
   const [email, setEmail] = useState('')
@@ -87,7 +102,7 @@ export const AppRoutes = () => {
         }
       />
 
-      <Route path="/profile" element={<Profile logOut={logOut} />} />
+      <Route path="/profile" element={<Profile logOut={logOut} usersFirebase={usersFirebase}/>} />
       <Route
         path="/course/:courseId"
         element={<CourseDescriptionPage courses={coursesFirebase} />}
