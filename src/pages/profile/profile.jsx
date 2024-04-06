@@ -1,42 +1,36 @@
-import { Link, NavLink, useNavigate, useParams } from 'react-router-dom'
+import { NavLink, useNavigate, useParams } from 'react-router-dom'
 import * as S from './styles'
 import styles from './profile.module.css'
 import { PersonalData } from '../../components/PersonalData/PersonalData'
-import { useAuth } from '../../components/hooks/useAuth'
-import firebase from '../../components/firebase/firebase'
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import {
-  emailSelector,
-  idSelector,
-} from '../../components/store/selectors/user'
+import { emailSelector} from '../../components/store/selectors/user'
 
-export function Profile({ logOut, usersFirebase }) {
+export function Profile({ cources, logOut, userFirebase }) {
   const params = useParams()
   const navigate = useNavigate()
-  const userId = useSelector(idSelector)
-  const dispatch = useDispatch()
   const email = useSelector(emailSelector)
   const [password, setPassword] = useState('')
 
-  console.log(usersFirebase)
+  if(!userFirebase){
+    navigate('/auth');
+    return;
+  }
 
-  const currentUser = usersFirebase.filter((user) => user._id === userId)[0]
+  const userCourseIdsObject = userFirebase.courses;
+  const userCourseIds = Object.keys(userCourseIdsObject).map((key) => userCourseIdsObject[key]);
+  console.log(userCourseIds)
 
-  const userAllCourses = currentUser.courses
+  const userCourses = cources.filter(
+    (course) => userCourseIds.indexOf(course._id)
+  );
 
-  console.log(userAllCourses)
-
-  // const userCourse = userAllCourses.filter(
-  //   (userCourse) => userCourse.courseId === params.courseId
-  // )[0]
-
-  // const coursesWithImgs = userCourses.map((course) => {
-  //   return {
-  //     ...course,
-  //     img: `${course.nameEN}.png`,
-  //   }
-  // })
+  const coursesWithImgs = userCourses.map((course) => {
+    return {
+      ...course,
+      img: `${course.nameEN}.png`,
+    }
+  })
 
   return (
     <div className={styles.container}>
@@ -63,15 +57,14 @@ export function Profile({ logOut, usersFirebase }) {
         </div>
         <div
           className={styles.coursesCards}
-          classNaworkoutcard1me={styles.coursesCards}
         >
-          {/* {userAllCourses === undefined && (
+          {coursesWithImgs === undefined && (
             <div>У вас еще нет приобретенных курсов</div>
-          )} */}
+          )}
 
-          {/* {userCourses && (
+          {coursesWithImgs && (
             <S.ProfList>
-              {userCourses.map((course, index) => (
+              {coursesWithImgs.map((course, index) => (
                 <S.Prof key={index} id={course._id}>
                   <S.CourseName>{course.nameRU}</S.CourseName>
                   <S.ProfCard
@@ -93,7 +86,7 @@ export function Profile({ logOut, usersFirebase }) {
                 // </Link>
               ))}
             </S.ProfList>
-          )} */}
+          )}
         </div>
       </div>
     </div>
