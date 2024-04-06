@@ -35,33 +35,20 @@ export function Profile({ cources, logOut, userFirebase, workoutsFirebase }) {
     })
 
   const SelectCourseWorkout = (courseId) => {
-    console.log(courseId)
-    switch (courseId) {
-      case 'courseIoga':
-        setListSelectedCourse(
-          workoutsFirebase.filter(
-            (item) =>
-              ['3yvozj', 'hfgxlo', 'kcx5ai', 'kt6ah4', 'mrhuag'].indexOf(
-                item._id
-              ) >= 0
-          )
-        )
-        break
-      case 'courseStreching':
-        setListSelectedCourse(
-          workoutsFirebase.filter(
-            (item) => ['9yolz2', '9mefwq', '17oz5f'].indexOf(item._id) >= 0
-          )
-        )
-        break
-      default:
-        setListSelectedCourse(
-          workoutsFirebase.filter(
-            (item) => ['xlpkqy', 'pyvaec', 'pi5vtr'].indexOf(item._id) >= 0
-          )
-        )
-        break
-    }
+    console.log(courseId);
+
+    let courseWorkouts = cources.filter((course) => course._id === courseId)[0].workouts;
+    setListSelectedCourse(
+      workoutsFirebase
+        .filter(item => courseWorkouts.indexOf(item._id) >= 0)
+        .sort((a, b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0))
+        .map(item => {
+          return {
+            ...item,
+            isComplete: userFirebase.workouts[item._id].isComplete
+          }
+        })
+    );
     setShowPopup(!showPopup)
   }
 
