@@ -44,9 +44,9 @@ export function Profile({ cources, logOut, userFirebase, workoutsFirebase }) {
 
   const userCourseIds = !userFirebase.courses
     ? []
-    : Object.keys(userFirebase.courses).map(
-        (key) => userFirebase.courses[key].courseId
-      )
+    : Object
+      .keys(userFirebase.courses)
+      .map((key) => userFirebase.courses[key].courseId);
 
   const coursesWithImgs = cources
     .filter((course) => userCourseIds.indexOf(course._id) >= 0)
