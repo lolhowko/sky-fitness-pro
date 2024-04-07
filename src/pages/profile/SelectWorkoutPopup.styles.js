@@ -11,8 +11,8 @@ gap: 40px;
 padding: 32px 40px 50px 40px;
 align-items: center;
 position: absolute;
-top: 100%; 
-left: 50%; 
+top: 88%; 
+left: 51%; 
 transform: translate(-50%, -50%);
 background: rgb(245, 245, 245);
 box-shadow: 0.4em -0.4em 40px #CDCDCD;
@@ -32,7 +32,7 @@ text-align: left;
 `
 export const SelectWorkoutBody = styled.div `
 overflow-y: scroll;
-padding: 0px 15px;
+padding: 10px 15px;
 &::-webkit-scrollbar {
     width: 10px;
 }
@@ -80,4 +80,29 @@ border-width: 2px;
 }
 `
 
+export const SelectWorkoutItemComplete = styled.div `
+border-radius: 26px;
+font-family: StratosSkyeng;
+letter-spacing: -0.05px;
+text-align: center;
+border-radius: 26px;
+width: 278px;
+font-size: 20px;
+font-weight: 400;
+line-height: 115%;
+padding: 10px;
+box-sizing: border-box;
+border: 1px solid rgb(6, 177, 110);
+color: rgb(6, 177, 110);
+
+&:hover {
+transform: scale(1.1);
+border-width: 2px; 
+}
+`
+ export const WorkoutCheckComplete = styled.img `
+    width: 24px;
+    height: 24px;
+ 
+ `
 
