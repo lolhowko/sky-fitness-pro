@@ -4,13 +4,17 @@ import Logo from '../../components/CourseDescriptionPage/Logo/Logo'
 import CourseInformation from '../../components/CourseDescriptionPage/CourseInformation/CourseInformation'
 import Bid from '../../components/CourseDescriptionPage/Bid/Bid'
 import * as S from './CourseDescriptionPage.style'
-import { getDatabase, ref, set } from 'firebase/database'
-import { useSelector } from 'react-redux'
+import { getDatabase, ref, set, update } from 'firebase/database'
+import { useSelector, useDispatch } from 'react-redux'
 import { idSelector } from '../../components/store/selectors/user'
+import { setCourseList } from '../../components/store/slices/coursesWorkoutSlice'
+import { getCurrentUser } from '../../api'
+import { setFullCurrentUser } from '../../components/store/slices/userSlice'
 
 const CourseDescriptionPage = ({ courses, workouts }) => {
   const { courseId } = useParams()
   const navigate = useNavigate()
+  const dispatch = useDispatch()
   const course = courses.find((c) => c._id === courseId) || {
     _id: '1',
     nameRU: 'Йога',
@@ -47,26 +51,40 @@ const CourseDescriptionPage = ({ courses, workouts }) => {
     // console.log(id)
 
     async function postCourseId(courseId) {
-      const db = getDatabase()
+      try {
+        const db = getDatabase()
 
-      const courseRef = ref(db, 'users/' + id + '/courses/' + courseId);
-      set(courseRef, {
-        courseId,
-      });
-      
-      course.workouts.forEach(workoutId => {
-        const workoutsRef = ref(db, 'users/' + id + '/workouts/' + workoutId);
-        let workout = {
-          workoutId,
-          isComplete: false
-        };
-        if(workouts.filter((workout) => workout._id === workoutId)[0].exercices){
-          workout.exercices = workouts.filter((workout) => workout._id === workoutId)[0].exercices;
-        }
-        set(workoutsRef, workout);          
-      });
+        const courseRef = ref(db, 'users/' + id + '/courses/' + courseId)
+        set(courseRef, {
+          courseId,
+        })
 
-      console.log('Course ADDED')
+        course.workouts.forEach((workoutId) => {
+          const workoutsRef = ref(db, 'users/' + id + '/workouts/' + workoutId)
+          let workout = {
+            workoutId,
+            isComplete: false,
+          }
+          if (
+            workouts.filter((workout) => workout._id === workoutId)[0].exercices
+          ) {
+            workout.exercices = workouts.filter(
+              (workout) => workout._id === workoutId
+            )[0].exercices
+          }
+          set(workoutsRef, workout)
+        })
+
+        console.log('Course ADDED')
+      } catch (error) {
+        console.error('Ошибка при добавлении пользователя курс', error)
+      }
+    }
+
+    const updateUserDetails = () => {
+      getCurrentUser(id).then((currentUser) => {
+        dispatch(setFullCurrentUser(currentUser))
+      })
     }
 
     const result = window.confirm(
@@ -75,7 +93,8 @@ const CourseDescriptionPage = ({ courses, workouts }) => {
 
     if (result === true) {
       postCourseId(courseId)
-
+      updateUserDetails()
+      
       navigate('/profile')
     } else postCourseId(courseId)
   }
