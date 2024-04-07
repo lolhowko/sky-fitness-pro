@@ -6,6 +6,8 @@ const initialState = {
   id: null,
   password: null,
   progress: null,
+  currentUser: null,
+  fullCurrentUser: null,
 }
 
 const localStorageMiddleware = (store) => (next) => (action) => {
@@ -64,6 +66,16 @@ const userSlice = createSlice({
       localStorage.removeItem('progress')
     },
 
+    setCurrentUser: (state, action) => {
+      console.log(action.payload)
+      state.currentUser = action.payload
+    },
+    
+    setFullCurrentUser: (state, action) => {
+      //Весь текущий пользователь с базы, вместе с его курсами
+      state.fullCurrentUser = action.payload
+    },
+
     setEmail(state, action) {
       state.email = action.payload.email
       localStorage.setItem('email', state.email)
@@ -88,6 +100,8 @@ const userSlice = createSlice({
 export const {
   setUser,
   removeUser,
+  setCurrentUser,
+  setFullCurrentUser,
   initializeUserFromLocalStorage,
   setEmail,
   setPassword,

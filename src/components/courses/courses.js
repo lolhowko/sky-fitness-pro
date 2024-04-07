@@ -1,4 +1,4 @@
-import styled, { createGlobalStyle } from "styled-components";
+import styled, { createGlobalStyle } from 'styled-components'
 
 export const GlobalStyle = createGlobalStyle`
 * {
@@ -10,17 +10,17 @@ export const GlobalStyle = createGlobalStyle`
 `
 
 export const Courses = styled.div`
-    display: flex;
-    gap: 37px;
-    flex-wrap: wrap;
-    padding-top:20px;
+  display: flex;
+  gap: 37px;
+  flex-wrap: wrap;
+  padding-top: 20px;
 `
 
-export const Card = styled.div `
-    width: 360px;
-    height: 480px;
-    box-sizing: border-box;
-    border-radius: 30px;
+export const Card = styled.div`
+  width: 360px;
+  height: 480px;
+  box-sizing: border-box;
+  border-radius: 30px;
 `
 export const Card1 = styled.img`
     width: 360px;
@@ -38,6 +38,4 @@ background: rgba(205, 205, 205, 0.1);
     }
 `
 
-export const errorText = styled.div`
-
-`
+export const errorText = styled.div``
