@@ -98,9 +98,8 @@ export const TitleCoursesText = styled.h1`
 
 export const CoursesCards = styled.div`
 display: flex;
-gap: 37px;
-flex-wrap: wrap;
-padding-top: 20px;
+padding-top: 60px;
+gap: 40px;
 `
 
 export const Workout = styled.img`
