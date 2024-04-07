@@ -94,7 +94,7 @@ const CourseDescriptionPage = ({ courses, workouts }) => {
     if (result === true) {
       postCourseId(courseId)
       updateUserDetails()
-      
+
       navigate('/profile')
     } else postCourseId(courseId)
   }

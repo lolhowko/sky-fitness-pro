@@ -21,6 +21,7 @@ export function Profile({ cources, logOut, userFirebase, workoutsFirebase }) {
 
   const fullCurrentUser = useSelector((state) => state.user.fullCurrentUser)
 
+  console.log(fullCurrentUser)
   // UPDATE LOG AND PASS
 
   const handleLoginClick = () => {
