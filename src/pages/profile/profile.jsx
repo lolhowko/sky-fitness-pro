@@ -1,5 +1,4 @@
 import { NavLink, useParams, useNavigate } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
 import * as S from './profile.styles.js'
 import { PersonalData } from '../../components/PersonalData/PersonalData'
 import { UpdateUserData } from '../../components/update-user/update-user.jsx'
@@ -18,8 +17,6 @@ export function Profile({ cources, logOut, userFirebase, workoutsFirebase }) {
   const [loginShow, setLoginShow] = useState(false)
   const [passwordShow, setPasswordShow] = useState(false)
   const [isActive, setIsActive] = useState(false)
-
-  const fullCurrentUser = useSelector((state) => state.user.fullCurrentUser)
 
   // UPDATE LOG AND PASS
 
@@ -40,16 +37,16 @@ export function Profile({ cources, logOut, userFirebase, workoutsFirebase }) {
 
   // USER COURSES
 
-  if (!fullCurrentUser) {
+  if (!userFirebase) {
     navigate('/auth')
     return
   }
 
-  const userCourseIds = !fullCurrentUser.courses
+  const userCourseIds = !userFirebase.courses
     ? []
-    : Object.keys(fullCurrentUser.courses).map(
-        (key) => fullCurrentUser.courses[key].courseId
-      )
+    : Object
+      .keys(userFirebase.courses)
+      .map((key) => userFirebase.courses[key].courseId);
 
   const coursesWithImgs = cources
     .filter((course) => userCourseIds.indexOf(course._id) >= 0)
