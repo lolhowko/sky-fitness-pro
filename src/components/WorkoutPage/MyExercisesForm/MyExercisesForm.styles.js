@@ -130,6 +130,7 @@ export const MyProgressText = styled.p`
   font-weight: 400;
   line-height: 24px;
   letter-spacing: -0.05px;
+  font-family: "StratosSkyeng";
 `
 
 export const MyProgressInput = styled.input`

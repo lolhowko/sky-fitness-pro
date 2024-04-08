@@ -66,6 +66,7 @@ font-size: 20px;
 font-weight: 400;
 line-height: 115%;
 padding: 10px;
+cursor:pointer;
 
 
 box-sizing: border-box;

@@ -37,6 +37,7 @@ export const TitlePage = styled.h1`
   font-weight: 400px;
   padding-top: 56px;
   padding-bottom: 40px;
+  font-family: StratosSkyeng;
 `
 
 export const InfoUser = styled.h1`
@@ -71,6 +72,8 @@ export const LoginButton = styled.button`
   height: 52px;
   min-width: 275px;
   border-radius: 46px;
+  font-family: StratosSkyeng;
+  cursor: pointer;
 `
 
 export const ButtonChangePass = styled.div`
@@ -94,6 +97,7 @@ export const TitleCourses = styled.div`
 
 export const TitleCoursesText = styled.h1`
   font-size: 48px;
+  font-family: StratosSkyeng;
 `
 
 export const CoursesCards = styled.div`
@@ -163,6 +167,7 @@ export const Prof = styled.div`
   padding-top: 30px;
   padding-left: 30px;
   z-index: 1;
+  cursor: pointer;
   @media (max-width: 1024px) {
     font-size: 32px;
   }
@@ -191,6 +196,7 @@ export const ProfButton = styled.button`
   font-weight: 400;
   font-size: 20px;
   line-height: 115%;
+  cursor: pointer;
   font-feature-settings: 'pnum' on, 'lnum' on;
   color: #000000;
   position: absolute;

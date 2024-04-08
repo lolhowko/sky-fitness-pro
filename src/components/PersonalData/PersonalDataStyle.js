@@ -18,18 +18,22 @@ export const HeaderSvg = styled.svg `
   width: 50px;
   height: 50px;
   flex-shrink: 0;
+  background-color: #D9D9D9;
+  box-sizing: border-box;
+  border-radius: 36px;
 `;
 export const HeaderSelect = styled.select `
-background-color: #0563af;
+background-color: inherit;
 color: white;
 padding: 12px;
-width: 250px;
+// width: 250px;
 border: none;
 font-size: 20px;
-box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
 -webkit-appearance: button;
 appearance: button;
 outline: none;
+font-family: "StratosSkyeng";
+cursor: pointer;
   &:before {
     border: none;
     box-shadow: none;

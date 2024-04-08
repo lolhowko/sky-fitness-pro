@@ -21,6 +21,7 @@ export const SignUp = styled.div`
   margin-left: 52px;
   max-width: 800px;
   padding-bottom: 48px;
+  font-family: "StratosSkyeng";
   @media (max-width: 1161px) {
     max-width: 60%;
   }
@@ -46,4 +47,5 @@ export const StyledSuccess = styled.div`
   line-height: 24px;
   margin-top: 20px;
   text-align: left;
+  font-family: "StratosSkyeng";
 `

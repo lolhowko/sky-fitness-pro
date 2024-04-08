@@ -26,6 +26,7 @@ export const HeaderInfo = styled.div`
 display: flex;
 justify-content: space-between;
 padding-top: 35px;
+font-family: StratosSkyeng;
 `
 
 export const HeaderButton = styled.div `

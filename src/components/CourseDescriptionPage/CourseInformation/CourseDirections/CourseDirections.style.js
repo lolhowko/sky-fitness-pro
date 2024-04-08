@@ -15,4 +15,5 @@ export const CourseDirectionsWrapper = styled.ul`
 const Title = styled.h1`
  margin-top: 40px;
   margin-bottom: 20px;
+  font-family: "StratosSkyeng";
 `;
