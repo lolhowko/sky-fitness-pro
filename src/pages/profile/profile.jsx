@@ -60,15 +60,13 @@ export function Profile({ cources, logOut, userFirebase, workoutsFirebase }) {
   const SelectCourseWorkout = (courseId) => {
     console.log(courseId);
 
-    let courseWorkouts = cources.filter((course) => course._id === courseId)[0].workouts;
+    let courseWorkoutIds = cources.filter((course) => course._id === courseId)[0].workouts;
     setListSelectedCourse(
-      workoutsFirebase
-        .filter(item => courseWorkouts.indexOf(item._id) >= 0)
-        .sort((a, b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0))
-        .map(item => {
+      courseWorkoutIds
+        .map(workoutId => {
           return {
-            ...item,
-            isComplete: userFirebase.workouts[item._id].isComplete
+            ...workoutsFirebase.filter((workout)=>workout._id === workoutId)[0],
+            isComplete: userFirebase.workouts[workoutId].isComplete
           }
         })
     );
