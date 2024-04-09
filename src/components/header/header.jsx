@@ -1,5 +1,6 @@
 import { NavLink } from 'react-router-dom'
-import * as S from '../header/header'
+import { Logo } from '../Logo.jsx'
+import * as S from '../header/header.style.js'
 import { useAuth } from '../hooks/useAuth'
 import { PersonalData } from '../PersonalData/PersonalData'
 
@@ -9,9 +10,7 @@ export function Header({ logOut }) {
   return (
     <S.Header>
       <S.HeaderMain>
-        <NavLink to="/">
-          <img src="/logoHeader.svg" alt="logo" />
-        </NavLink>
+        <Logo />
         <S.HeaderTopButton>
           {isAuth ? (
             <PersonalData email={email} logOut={logOut} />
@@ -22,19 +21,6 @@ export function Header({ logOut }) {
           )}
         </S.HeaderTopButton>
       </S.HeaderMain>
-      <S.HeaderInfo>
-        <S.Titles>
-          <S.HeaderDescription>
-            Онлайн-тренировки для занятий дома
-          </S.HeaderDescription>
-          <S.HeaderTitle>
-            Начните заниматься спортом и улучшите качество жизни
-          </S.HeaderTitle>
-        </S.Titles>
-        <S.ChangeBody>
-          <img src="/SaleSticker.svg" alt="" />
-        </S.ChangeBody>
-      </S.HeaderInfo>
     </S.Header>
   )
 }

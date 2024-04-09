@@ -1,6 +1,7 @@
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth'
 import { getDatabase, ref, set } from 'firebase/database'
 import { useState } from 'react'
+import { Logo } from '../../components/Logo.jsx'
 import styles from './Registration.module.css'
 import { useDispatch } from 'react-redux'
 import { NavLink, useNavigate } from 'react-router-dom'
@@ -64,10 +65,7 @@ export function Register({ email, password, setEmail, setPassword }) {
     <div className={styles.container}>
       <div className={styles.maincard}>
         <div className={styles.loginPage}>
-          <NavLink to="/">
-            <img className={styles.logosvg} src="logo.svg" alt="logo" />
-          </NavLink>
-
+          <Logo theme="white" />
           <div className={styles.regLoginDiv}>
             <input
               className={styles.inputLogo}
