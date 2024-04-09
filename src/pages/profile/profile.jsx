@@ -64,12 +64,28 @@ export function Profile({ cources, logOut, userFirebase, workoutsFirebase }) {
     setListSelectedCourse(
       courseWorkoutIds
         .map(workoutId => {
+          let workoutObject = workoutsFirebase.filter((workout)=>workout._id === workoutId)[0];
+          let name = "";
+          let nameDescription = "";
+          if(workoutObject.name.indexOf("/")>=0){
+            name = workoutObject.name.substring(0, workoutObject.name.indexOf("/")-1);
+            nameDescription = workoutObject.name.substring(workoutObject.name.indexOf("/")+2, workoutObject.name.lastIndexOf("/")-1);
+          }else{
+            name = workoutObject.name;
+            nameDescription = "";
+          }
+
+
           return {
-            ...workoutsFirebase.filter((workout)=>workout._id === workoutId)[0],
-            isComplete: userFirebase.workouts[workoutId].isComplete
+            ...workoutObject,
+            name,
+            nameDescription,
+            isComplete: userFirebase.workouts[workoutId].isComplete /* Math.random(1) > 0.5 * для генерации случайного выбора/ 
           }
         })
     );
+
+  
     setShowPopup(!showPopup)
   }
 

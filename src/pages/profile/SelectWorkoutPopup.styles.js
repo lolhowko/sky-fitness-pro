@@ -65,6 +65,9 @@ border-radius: 26px;
 font-family: StratosSkyeng;
 letter-spacing: -0.05px;
 text-align: center;
+display: flex;
+gap: 5px;
+flex-direction: column;
 
 // непройденные дни
 box-sizing: border-box;
@@ -89,6 +92,32 @@ transform: scale(1.1);
 border-width: 2px; 
 }
 `
+export const SelectWorkoutItemNameContainer = styled.div `
+display: flex;
+flex-wrap: wrap;
+justify-content: center;
+gap: 5px;
+margin-bottom: 5px;
+`
+export const SelectWorkoutItemName = styled.div `
+color: rgb(0, 0, 0);
+font-family: StratosSkyeng;
+font-size: 20px;
+font-weight: 400;
+line-height: 115%;
+letter-spacing: -0.05px;
+text-align: center;
+`
+export const SelectWorkoutItemDescr = styled.div `
+color: rgb(0, 0, 0);
+font-family: StratosSkyeng;
+font-size: 16px;
+font-weight: 400;
+line-height: 18px;
+letter-spacing: 0.1%;
+text-align: center;
+`
+
 
 export const SelectWorkoutItemComplete = styled.div `
 border-radius: 26px;
@@ -110,7 +139,27 @@ transform: scale(1.1);
 border-width: 2px; 
 }
 `
+export const SelectWorkoutItemNameComplete = styled.div `
+color: rgb(6, 177, 110);
+font-family: StratosSkyeng;
+font-size: 20px;
+font-weight: 400;
+line-height: 115%;
+letter-spacing: -0.05px;
+text-align: center;
+`
+export const SelectWorkoutItemDescrComplete = styled.div `
+color: rgb(6, 177, 110);
+font-family: StratosSkyeng;
+font-size: 16px;
+font-weight: 400;
+line-height: 18px;
+letter-spacing: 0.1%;
+text-align: center;
+`
+
  export const WorkoutCheckComplete = styled.img `
-    width: 24px;
-    height: 24px;
+width: 24px;
+height: 24px;
+color: rgb(6, 177, 110);
  `
