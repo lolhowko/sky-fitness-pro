@@ -80,7 +80,7 @@ export function Profile({ cources, logOut, userFirebase, workoutsFirebase }) {
             ...workoutObject,
             name,
             nameDescription,
-            isComplete: userFirebase.workouts[workoutId].isComplete /* Math.random(1) > 0.5 * для генерации случайного выбора/ 
+            isComplete: userFirebase.workouts[workoutId].isComplete 
           }
         })
     );
