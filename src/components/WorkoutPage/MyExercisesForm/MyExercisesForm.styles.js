@@ -1,5 +1,16 @@
 import styled from 'styled-components'
 
+
+export const PoupLayout = styled.div `
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background-color: rgba(0, 0, 0, 0.5); /* Прозрачный чёрный цвет для затемнения */
+z-index: 8; /* Выше остальных элементов */
+`
+
 export const Button = styled.button`
   border-radius: 46px;
   background: rgb(88, 14, 162);
@@ -28,9 +39,10 @@ export const Popup = styled.div`
     align-items: center;
 
     position: fixed;
-    left: calc(50% - 222px);
-    top: calc(50% - 270px);
-    z-index: 9999;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 9;
 }
 `
 export const PopupTitle = styled.div`

@@ -1,5 +1,15 @@
 import styled from "styled-components";
 
+export const PoupLayout = styled.div `
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background-color: rgba(0, 0, 0, 0.5); /* Прозрачный чёрный цвет для затемнения */
+z-index: 8; /* Выше остальных элементов */
+`
+
 export const SelectWorkoutContainer = styled.div `
 z-index: 9;
 background: rgb(255, 255, 255);
@@ -10,9 +20,9 @@ flex-direction: column;
 gap: 40px;
 padding: 32px 40px 50px 40px;
 align-items: center;
-position: absolute;
-top: 88%; 
-left: 51%; 
+position: fixed;
+top: 50%;
+left: 50%;
 transform: translate(-50%, -50%);
 background: rgb(245, 245, 245);
 box-shadow: 0.4em -0.4em 40px #CDCDCD;
@@ -103,6 +113,4 @@ border-width: 2px;
  export const WorkoutCheckComplete = styled.img `
     width: 24px;
     height: 24px;
- 
  `
-

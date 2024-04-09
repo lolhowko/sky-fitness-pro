@@ -136,7 +136,7 @@ export function Profile({ cources, logOut, userFirebase, workoutsFirebase }) {
         )}
       </S.MainPage>
       {showPopup && (
-        <SelectWorkoutPopup onClose={showPopup} list={listSelectedCourse} />
+        <SelectWorkoutPopup onClose={showPopup} list={listSelectedCourse} callbackToClose={()=> {setShowPopup(false)}}/>
       )}
     </S.Container>
   )
