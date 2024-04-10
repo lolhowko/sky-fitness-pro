@@ -1,4 +1,5 @@
 import { NavLink, useParams, useNavigate } from 'react-router-dom'
+import { Logo } from '../../components/Logo.jsx'
 import * as S from './profile.styles.js'
 import { PersonalData } from '../../components/PersonalData/PersonalData'
 import { UpdateUserData } from '../../components/update-user/update-user.jsx'
@@ -44,9 +45,9 @@ export function Profile({ cources, logOut, userFirebase, workoutsFirebase }) {
 
   const userCourseIds = !userFirebase.courses
     ? []
-    : Object
-      .keys(userFirebase.courses)
-      .map((key) => userFirebase.courses[key].courseId);
+    : Object.keys(userFirebase.courses).map(
+        (key) => userFirebase.courses[key].courseId
+      )
 
   const coursesWithImgs = cources
     .filter((course) => userCourseIds.indexOf(course._id) >= 0)
@@ -58,7 +59,7 @@ export function Profile({ cources, logOut, userFirebase, workoutsFirebase }) {
     })
 
   const SelectCourseWorkout = (courseId) => {
-    console.log(courseId);
+    console.log(courseId)
 
     let courseWorkoutIds = cources.filter((course) => course._id === courseId)[0].workouts;
     setListSelectedCourse(
@@ -85,7 +86,6 @@ export function Profile({ cources, logOut, userFirebase, workoutsFirebase }) {
         })
     );
 
-  
     setShowPopup(!showPopup)
   }
 
@@ -93,9 +93,7 @@ export function Profile({ cources, logOut, userFirebase, workoutsFirebase }) {
     <S.Container>
       <S.MainPage>
         <S.HeaderPage>
-          <NavLink to="/">
-            <img src="/logo.svg" alt="logo" />
-          </NavLink>
+          <Logo theme="white" />
           <PersonalData logOut={logOut} email={email} />
         </S.HeaderPage>
         <div>

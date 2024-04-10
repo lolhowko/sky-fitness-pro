@@ -55,3 +55,30 @@ export const FooterButton = styled.div`
 export const PageUp = styled.a`
   text-decoration: none;
 `
+export const HeaderInfo = styled.div`
+display: flex;
+justify-content: space-between;
+padding-top: 35px;
+`
+export const Titles = styled.div `
+`
+export const HeaderDescription = styled.div`
+    font-size: 20px;
+    color: #FFFFFF;
+    -webkit-text-stroke: 0.5px black;
+    letter-spacing: 0.05px;
+`
+
+export const HeaderTitle = styled.div `
+    color: white;
+    font-size: 60px;
+    width: 830px;
+    height: 135px;
+    padding-top: 17px;
+`
+export const ChangeBody = styled.div`
+    float: right;
+    position: static;
+    padding-left: 145px;
+    padding-top: 20px;
+`

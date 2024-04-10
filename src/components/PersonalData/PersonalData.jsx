@@ -3,7 +3,6 @@ import * as S from './PersonalDataStyle'
 import { useLocation, useNavigate } from 'react-router-dom'
 
 export const PersonalData = ({ email, logOut }) => {
-
   const [selectedOption, setSelectedOption] = useState('value1')
   const location = useLocation()
   const navigate = useNavigate()
