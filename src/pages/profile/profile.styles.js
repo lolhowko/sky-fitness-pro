@@ -74,6 +74,7 @@ export const LoginButton = styled.button`
   border-radius: 46px;
   font-family: "StratosSkyeng";
   cursor: pointer;
+  cursor: pointer;
 `
 
 export const ButtonChangePass = styled.div`
