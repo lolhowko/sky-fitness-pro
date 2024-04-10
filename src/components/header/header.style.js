@@ -22,11 +22,6 @@ width: 220px;
     height: 35px;
     cursor:pointer;
 `
-export const HeaderInfo = styled.div`
-display: flex;
-justify-content: space-between;
-padding-top: 35px;
-`
 
 export const HeaderButton = styled.div `
     color: white;
@@ -49,32 +44,9 @@ export const HeaderButton = styled.div `
     background-color: #3B29A2;
 }
 `
-export const Titles = styled.div `
-`
 
 export const HeaderTopButton = styled.div`
   display: flex;
   flex-direction: column;
   gap: 5px;
-`;
-
-export const HeaderDescription = styled.div`
-    font-size: 20px;
-    color: #FFFFFF;
-    -webkit-text-stroke: 0.5px black;
-    letter-spacing: 0.05px;
-`
-
-export const HeaderTitle = styled.div `
-    color: white;
-    font-size: 60px;
-    width: 830px;
-    height: 135px;
-    padding-top: 17px;
-`
-export const ChangeBody = styled.div`
-    float: right;
-    position: static;
-    padding-left: 145px;
-    padding-top: 20px;
 `
