@@ -1,6 +1,6 @@
 import { NavLink } from 'react-router-dom'
 import { Logo } from '../Logo.jsx'
-import * as S from '../header/header.style.js'
+import * as S from './header.style.js'
 import { useAuth } from '../hooks/useAuth'
 import { PersonalData } from '../PersonalData/PersonalData'
 
