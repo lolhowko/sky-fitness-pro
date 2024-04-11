@@ -60,8 +60,8 @@ const CourseDescriptionPage = ({ courses, workouts }) => {
           workoutId,
           isComplete: false
         };
-        if(workouts.filter((workout) => workout._id === workoutId)[0].exercices){
-          workout.exercices = workouts.filter((workout) => workout._id === workoutId)[0].exercices;
+        if(workouts.filter((workout) => workout._id === workoutId)[0].exercises){
+          workout.exercises = workouts.filter((workout) => workout._id === workoutId)[0].exercises;
         }
         set(workoutsRef, workout);          
       });
