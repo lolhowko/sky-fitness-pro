@@ -1,9 +1,8 @@
-import { useState } from 'react'
 import * as S from './ProgressExercises.styles'
 import { useSelector } from 'react-redux'
 
-export const ProgressExercises = ({ listExercises }) => {
-  const { progressValues } = useSelector((state) => state.progress)
+export const ProgressExercises = ({ userId, myWorkout }) => {
+  console.log(myWorkout);
 
   // const getPercentageByValue = () => {
   //   const exerciseText = exercise?.name ? exercise?.name.split('(') : ''
@@ -25,19 +24,22 @@ export const ProgressExercises = ({ listExercises }) => {
   //   }
   // }
 
+  const listExercises = myWorkout.exercises;
+
   return (
     <S.ProgressBox>
       <S.ProgressTitle> Мой прогресс по тренировке 2:</S.ProgressTitle>
       <S.TrainingProgressBox>
         {listExercises &&
           listExercises.map((exercise, index) => {
+            exercise.progress = exercise.progress ?? 0;
             const exerciseText = exercise?.name ? exercise?.name.split('(') : ''
 
             let valueInPercentage
 
-            if (exercise.quantity !== 0 && !isNaN(progressValues[index])) {
+            if (exercise.quantity !== 0 && exercise.progress !== null) {
               valueInPercentage = Math.round(
-                (progressValues[index] / exercise.quantity) * 100
+                (exercise.progress / exercise.quantity) * 100
               )
             } else {
               valueInPercentage = 0
