@@ -2,16 +2,30 @@ import { useEffect, useState } from 'react'
 import * as S from './MyExercisesForm.styles'
 import CountedProgress from '../progress-counted/progress-counted'
 import { useDispatch, useSelector } from 'react-redux'
-import { setProgressValues } from '../../store/slices/progressSlice'
+import {
+  setProgress,
+  setProgressValues,
+} from '../../store/slices/progressSlice'
+import { getLessonsUser, postCourse } from '../../../api'
 const FORM_STATE_IN_PROCESS = 'FORM_STATE_IN_PROCESS'
 const FORM_STATE_COMPLETE = 'FORM_STATE_COMPLETE'
 
-export const MyExercisesForm = ({ listExercises }) => {
+export const MyExercisesForm = ({
+  listExercises,
+  courses,
+  workout,
+  course,
+  userId,
+}) => {
   const dispatch = useDispatch()
 
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [formState, setFormState] = useState(FORM_STATE_IN_PROCESS)
   const [isErrorExist, setIsErrorExist] = useState(false)
+
+  const lessonId = workout._id
+  const lessonName = workout.name
+  const courseId = course._id
 
   // const { progressValues } = useSelector((state) => state.progress)
   const workoutLength = listExercises.length
@@ -41,7 +55,13 @@ export const MyExercisesForm = ({ listExercises }) => {
     } else {
       setFormState(FORM_STATE_COMPLETE)
       setIsErrorExist(false)
-      dispatch(setProgressValues(progressValuesChange))
+
+      postCourse(lessonId, lessonName, progressValuesChange, courseId)
+
+      getLessonsUser(userId, courseId).then((data) => {
+        console.log(data, 'ekpfkepfkpepfkpef')
+        dispatch(setProgressValues(progressValuesChange))
+      })
 
       setTimeout(() => {
         closeModal()

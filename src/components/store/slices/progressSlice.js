@@ -11,9 +11,12 @@ const progressSlice = createSlice({
     setProgressValues(state, action) {
       state.progressValues = action.payload
     },
+    setProgress(state, { payload }) {
+      state.progress = payload
+    },
   },
 })
 
-export const { setProgressValues } = progressSlice.actions
+export const { setProgressValues,setProgress } = progressSlice.actions
 
 export default progressSlice.reducer

@@ -1,24 +1,23 @@
 import { useParams } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 import * as S from './CourseVideoPage.styles'
 import VideoPlayer from '../../components/WorkoutPage/VideoPlayer/VideoPlayer'
 import { CourseExercises } from '../../components/WorkoutPage/CourseExercises/CourseExercises'
 import { ProgressExercises } from '../../components/WorkoutPage/ProgressExercises/ProgressExercises'
 import { HeaderVideo } from '../../components/WorkoutPage/Header/HeaderVideo'
 import { MyExercisesForm } from '../../components/WorkoutPage/MyExercisesForm/MyExercisesForm'
+import { idSelector } from '../../components/store/selectors/user'
 
 export const CourseVideoPage = ({ courses, workouts, logOut }) => {
   const params = useParams()
   console.log(courses)
 
+  const userId = useSelector(idSelector)
+
   const myCourse = courses.filter((course) => course._id === params.courseId)[0]
   console.log(myCourse)
 
-  if (
-    !courses ||
-    !workouts ||
-    courses.length === 0 ||
-    workouts.length === 0
-  ) {
+  if (!courses || !workouts || courses.length === 0 || workouts.length === 0) {
     return <></>
   }
 
@@ -43,9 +42,21 @@ export const CourseVideoPage = ({ courses, workouts, logOut }) => {
             <S.ExercisesDetails>
               <div>
                 <CourseExercises listExercises={workout.exercises} />
-                <MyExercisesForm listExercises={workout.exercises} />
+                <MyExercisesForm
+                  listExercises={workout.exercises}
+                  userId={userId}
+                  courses={courses}
+                  workout={workout}
+                  course={course}
+                />
               </div>
-              <ProgressExercises listExercises={workout.exercises} />
+              <ProgressExercises
+                listExercises={workout.exercises}
+                userId={userId}
+                courses={courses}
+                workout={workout}
+                course={course}
+              />
             </S.ExercisesDetails>
           )}
         </S.Container>
