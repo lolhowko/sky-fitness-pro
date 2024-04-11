@@ -7,20 +7,28 @@ import { ProgressExercises } from '../../components/WorkoutPage/ProgressExercise
 import { HeaderVideo } from '../../components/WorkoutPage/Header/HeaderVideo'
 import { MyExercisesForm } from '../../components/WorkoutPage/MyExercisesForm/MyExercisesForm'
 import { idSelector } from '../../components/store/selectors/user'
-import { get } from 'firebase/database'
 
 
 import firebase from 'firebase/compat/app'
 import 'firebase/compat/database'
+import { useEffect, useState } from 'react'
 
 export const WorkoutPage = ({ courses, workouts, logOut }) => {
+  async function getUserWorkout(userId)
+  {
+    const userWorkoutRef = firebase.database().ref('users/' + userId + '/workouts/' + params.workoutId);
+    await userWorkoutRef.once('value').then((snapshot) => {
+      setMyWorkout(snapshot.val());
+    })
+  }
+
   const params = useParams()
-  console.log(courses)
-
   const userId = useSelector(idSelector)
-
-  const myCourse = courses.filter((course) => course._id === params.workoutId)[0]
-  console.log(myCourse)
+  const [myWorkout, setMyWorkout] = useState(null);
+  
+  useEffect(()=>{
+    getUserWorkout(userId);
+  }, []);
 
   if (!courses || !workouts || courses.length === 0 || workouts.length === 0) {
     return <></>
@@ -34,16 +42,6 @@ export const WorkoutPage = ({ courses, workouts, logOut }) => {
   }
 
   const workout = workouts.filter((workout) => workout._id === params.workoutId)[0];
-
-  async function getUserWorkout(userId)
-  {
-    const userWorkoutRef = firebase.database().ref('users/' + userId + '/workouts/' + params.workoutId);
-    await userWorkoutRef.once('value').then((snapshot) => {
-      let myWorkout = snapshot.val()
-      console.log(myWorkout);
-    })
-  }
-  getUserWorkout(userId);
 
   return (
     <>
@@ -65,16 +63,10 @@ export const WorkoutPage = ({ courses, workouts, logOut }) => {
                   course={course}
                 />
               </div>
-              <ProgressExercises
+              {myWorkout!=null && <ProgressExercises
                 userId={userId}
-
-                courses={courses}
-                course={course}
-
-                workout={workout}
-                listExercises={workout.exercises}
-
-              />
+                myWorkout={myWorkout}
+              />}
             </S.ExercisesDetails>
           )}
         </S.Container>
