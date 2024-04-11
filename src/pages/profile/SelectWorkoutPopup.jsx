@@ -7,7 +7,7 @@ export const SelectWorkoutPopup = ({ list, callbackToClose }) => {
   console.log(list);
 
   const openWorkout = (workoutId) =>{
-    navigate("/users/courses/" + workoutId)
+    navigate("/users/workouts/" + workoutId)
   };
 
   return (

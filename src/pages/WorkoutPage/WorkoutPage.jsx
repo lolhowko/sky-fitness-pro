@@ -1,20 +1,25 @@
 import { useParams } from 'react-router-dom'
 import { useSelector } from 'react-redux'
-import * as S from './CourseVideoPage.styles'
+import * as S from './WorkoutPage.styles'
 import VideoPlayer from '../../components/WorkoutPage/VideoPlayer/VideoPlayer'
 import { CourseExercises } from '../../components/WorkoutPage/CourseExercises/CourseExercises'
 import { ProgressExercises } from '../../components/WorkoutPage/ProgressExercises/ProgressExercises'
 import { HeaderVideo } from '../../components/WorkoutPage/Header/HeaderVideo'
 import { MyExercisesForm } from '../../components/WorkoutPage/MyExercisesForm/MyExercisesForm'
 import { idSelector } from '../../components/store/selectors/user'
+import { get } from 'firebase/database'
 
-export const CourseVideoPage = ({ courses, workouts, logOut }) => {
+
+import firebase from 'firebase/compat/app'
+import 'firebase/compat/database'
+
+export const WorkoutPage = ({ courses, workouts, logOut }) => {
   const params = useParams()
   console.log(courses)
 
   const userId = useSelector(idSelector)
 
-  const myCourse = courses.filter((course) => course._id === params.courseId)[0]
+  const myCourse = courses.filter((course) => course._id === params.workoutId)[0]
   console.log(myCourse)
 
   if (!courses || !workouts || courses.length === 0 || workouts.length === 0) {
@@ -22,13 +27,23 @@ export const CourseVideoPage = ({ courses, workouts, logOut }) => {
   }
 
   const course = courses.filter((item) =>
-    item.workouts.includes(params.courseId)
+    item.workouts.includes(params.workoutId)
   )[0]
   if (!course) {
     return <h1>Неверный идентификатор курса</h1>
   }
 
-  const workout = workouts.filter((course) => course._id === params.courseId)[0]
+  const workout = workouts.filter((workout) => workout._id === params.workoutId)[0];
+
+  async function getUserWorkout(userId)
+  {
+    const userWorkoutRef = firebase.database().ref('users/' + userId + '/workouts/' + params.workoutId);
+    await userWorkoutRef.once('value').then((snapshot) => {
+      let myWorkout = snapshot.val()
+      console.log(myWorkout);
+    })
+  }
+  getUserWorkout(userId);
 
   return (
     <>
@@ -51,11 +66,14 @@ export const CourseVideoPage = ({ courses, workouts, logOut }) => {
                 />
               </div>
               <ProgressExercises
-                listExercises={workout.exercises}
                 userId={userId}
+
                 courses={courses}
-                workout={workout}
                 course={course}
+
+                workout={workout}
+                listExercises={workout.exercises}
+
               />
             </S.ExercisesDetails>
           )}
