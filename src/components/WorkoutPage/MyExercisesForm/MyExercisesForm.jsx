@@ -71,9 +71,11 @@ export const MyExercisesForm = ({
 
   return (
     <div>
+
       <S.Button onClick={openModal}>Заполнить свой прогресс</S.Button>
       {isModalOpen && formState === FORM_STATE_IN_PROCESS && (
         <>
+          <S.PoupLayout onClick={()=>{closeModal()}}/>
           <S.Popup>
             <div className="modal-content">
               <span className="close" onClick={closeModal}>
@@ -110,10 +112,13 @@ export const MyExercisesForm = ({
         </>
       )}
       {isModalOpen && formState === FORM_STATE_COMPLETE && (
-        <CountedProgress
-          tittle="Ваш прогресс засчитан!"
-          closeModal={closeModal}
-        />
+        <>
+          <S.PoupLayout onClick={()=>{closeModal()}}/>
+          <CountedProgress
+            tittle="Ваш прогресс засчитан!"
+            closeModal={closeModal}
+          />
+        </>
       )}
     </div>
   )

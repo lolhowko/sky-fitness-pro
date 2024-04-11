@@ -1,4 +1,8 @@
-import styled from "styled-components";
+import styled from 'styled-components'
+
+export const Header = styled.div`
+  padding-top: 30px;
+`
 
 export const CourseDescriptionPage = styled.div`
   padding-left: calc(50% - 580px);

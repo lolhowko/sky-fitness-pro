@@ -1,6 +1,6 @@
 import React from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import Logo from '../../components/CourseDescriptionPage/Logo/Logo'
+import { Logo } from '../../components/Logo.jsx'
 import CourseInformation from '../../components/CourseDescriptionPage/CourseInformation/CourseInformation'
 import Bid from '../../components/CourseDescriptionPage/Bid/Bid'
 import * as S from './CourseDescriptionPage.style'
@@ -49,13 +49,13 @@ const CourseDescriptionPage = ({ courses, workouts }) => {
     async function postCourseId(courseId) {
       const db = getDatabase()
 
-      const courseRef = ref(db, 'users/' + id + '/courses/' + courseId);
+      const courseRef = ref(db, 'users/' + id + '/courses/' + courseId)
       set(courseRef, {
         courseId,
-      });
-      
-      course.workouts.forEach(workoutId => {
-        const workoutsRef = ref(db, 'users/' + id + '/workouts/' + workoutId);
+      })
+
+      course.workouts.forEach((workoutId) => {
+        const workoutsRef = ref(db, 'users/' + id + '/workouts/' + workoutId)
         let workout = {
           workoutId,
           isComplete: false
@@ -63,8 +63,8 @@ const CourseDescriptionPage = ({ courses, workouts }) => {
         if(workouts.filter((workout) => workout._id === workoutId)[0].exercises){
           workout.exercises = workouts.filter((workout) => workout._id === workoutId)[0].exercises;
         }
-        set(workoutsRef, workout);          
-      });
+        set(workoutsRef, workout)
+      })
 
       console.log('Course ADDED')
     }
@@ -81,11 +81,13 @@ const CourseDescriptionPage = ({ courses, workouts }) => {
   }
 
   return (
-    <S.CourseDescriptionPage>
-      <Logo />
-      <CourseInformation {...course} />
-      <Bid addCourse={addCourse} />
-    </S.CourseDescriptionPage>
+    <S.Header>
+      <S.CourseDescriptionPage>
+        <Logo theme="white" />
+        <CourseInformation {...course} />
+        <Bid addCourse={addCourse} />
+      </S.CourseDescriptionPage>
+    </S.Header>
   )
 }
 

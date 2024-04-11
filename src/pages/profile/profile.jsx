@@ -1,4 +1,5 @@
 import { NavLink, useParams, useNavigate } from 'react-router-dom'
+import { Logo } from '../../components/Logo.jsx'
 import * as S from './profile.styles.js'
 import { PersonalData } from '../../components/PersonalData/PersonalData'
 import { UpdateUserData } from '../../components/update-user/update-user.jsx'
@@ -44,9 +45,9 @@ export function Profile({ cources, logOut, userFirebase, workoutsFirebase }) {
 
   const userCourseIds = !userFirebase.courses
     ? []
-    : Object
-      .keys(userFirebase.courses)
-      .map((key) => userFirebase.courses[key].courseId);
+    : Object.keys(userFirebase.courses).map(
+        (key) => userFirebase.courses[key].courseId
+      )
 
   const coursesWithImgs = cources
     .filter((course) => userCourseIds.indexOf(course._id) >= 0)
@@ -58,20 +59,33 @@ export function Profile({ cources, logOut, userFirebase, workoutsFirebase }) {
     })
 
   const SelectCourseWorkout = (courseId) => {
-    console.log(courseId);
+    console.log(courseId)
 
-    let courseWorkouts = cources.filter((course) => course._id === courseId)[0].workouts;
+    let courseWorkoutIds = cources.filter((course) => course._id === courseId)[0].workouts;
     setListSelectedCourse(
-      workoutsFirebase
-        .filter(item => courseWorkouts.indexOf(item._id) >= 0)
-        .sort((a, b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0))
-        .map(item => {
+      courseWorkoutIds
+        .map(workoutId => {
+          let workoutObject = workoutsFirebase.filter((workout)=>workout._id === workoutId)[0];
+          let name = "";
+          let nameDescription = "";
+          if(workoutObject.name.indexOf("/")>=0){
+            name = workoutObject.name.substring(0, workoutObject.name.indexOf("/")-1);
+            nameDescription = workoutObject.name.substring(workoutObject.name.indexOf("/")+2, workoutObject.name.lastIndexOf("/")-1);
+          }else{
+            name = workoutObject.name;
+            nameDescription = "";
+          }
+
+
           return {
-            ...item,
-            isComplete: userFirebase.workouts[item._id].isComplete
+            ...workoutObject,
+            name,
+            nameDescription,
+            isComplete: userFirebase.workouts[workoutId].isComplete 
           }
         })
     );
+
     setShowPopup(!showPopup)
   }
 
@@ -79,9 +93,7 @@ export function Profile({ cources, logOut, userFirebase, workoutsFirebase }) {
     <S.Container>
       <S.MainPage>
         <S.HeaderPage>
-          <NavLink to="/">
-            <img src="/logo.svg" alt="logo" />
-          </NavLink>
+          <Logo theme="white" />
           <PersonalData logOut={logOut} email={email} />
         </S.HeaderPage>
         <div>
@@ -136,7 +148,7 @@ export function Profile({ cources, logOut, userFirebase, workoutsFirebase }) {
         )}
       </S.MainPage>
       {showPopup && (
-        <SelectWorkoutPopup onClose={showPopup} list={listSelectedCourse} />
+        <SelectWorkoutPopup onClose={showPopup} list={listSelectedCourse} callbackToClose={()=> {setShowPopup(false)}}/>
       )}
     </S.Container>
   )

@@ -1,4 +1,5 @@
 import * as S from './update-user.styles.js'
+import { Logo } from '../Logo.jsx'
 import { useState } from 'react'
 import { Validate } from '../validates/validate.js'
 import { useNavigate } from 'react-router-dom'
@@ -23,13 +24,13 @@ export const UpdateUserData = ({ isLoginMode, setIsActive }) => {
       setButtonActive(true)
     } catch (error) {
       console.error('Ошибка авторизации:', error.message)
-      if (error.message === 'Firebase: Error (auth/invalid-credential).') {
+      /* if (error.message === 'Firebase: Error (auth/invalid-credential).') {
         setError('Ошибка авторизации: Недопустимые учетные данные')
       } else if (error.message === 'Firebase: Error (auth/invalid-email).') {
         setError('Ошибка авторизации: Неверный адрес электронной почты')
       } else {
         setError(`Ошибка авторизации: ${error.message}`)
-      }
+      }*/
     } finally {
       setButtonActive(false)
     }
@@ -76,7 +77,7 @@ export const UpdateUserData = ({ isLoginMode, setIsActive }) => {
             </g>
           </svg>
         </S.PageClose>
-        <img src="/logo.svg" alt="logo" />
+        <Logo theme="white" />
         {isLoginMode ? (
           <>
             <S.Inputs>

@@ -1,5 +1,6 @@
 import { NavLink, useNavigate } from 'react-router-dom'
 import styles from './login.module.css'
+import { Logo } from '../../components/Logo.jsx'
 import { useDispatch } from 'react-redux'
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
 import { useState } from 'react'
@@ -32,7 +33,7 @@ export function Login({ email, password, setEmail, setPassword, callback }) {
             token: user.accessToken,
           })
         )
-        callback(user.uid);
+        callback(user.uid)
       })
       .catch((error) => {
         console.log(error)
@@ -44,9 +45,7 @@ export function Login({ email, password, setEmail, setPassword, callback }) {
     <div className={styles.container}>
       <div className={styles.maincard}>
         <div className={styles.loginPage}>
-          <NavLink to="/">
-            <img className={styles.logosvg} src="logo.svg" alt="logo" />
-          </NavLink>
+          <Logo theme='white' />
           <input
             className={styles.inputLogo}
             placeholder="Логин"
