@@ -32,6 +32,7 @@ export const ProgressExercises = ({ userId, myWorkout }) => {
       <S.TrainingProgressBox>
         {listExercises &&
           listExercises.map((exercise, index) => {
+            exercise.progress = exercise.progress ?? 0;
             const exerciseText = exercise?.name ? exercise?.name.split('(') : ''
             const valueInPercentage = getPercentageByValue(exercise);
             return (
