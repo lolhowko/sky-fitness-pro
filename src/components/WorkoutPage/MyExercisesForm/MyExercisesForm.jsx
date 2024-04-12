@@ -10,25 +10,23 @@ import { getLessonsUser, postCourse } from '../../../api'
 const FORM_STATE_IN_PROCESS = 'FORM_STATE_IN_PROCESS'
 const FORM_STATE_COMPLETE = 'FORM_STATE_COMPLETE'
 
-export const MyExercisesForm = ({
+export const MyExercisesForm = ({ 
   listExercises,
-  courses,
-  workout,
-  course,
-  userId,
-}) => {
+   myWorkout }) => {
   const dispatch = useDispatch()
+
+  // const listExercises = myWorkout.exercises;
+  
+  const listMyExersises = myWorkout.exercises
+  console.log(listMyExersises)
+
 
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [formState, setFormState] = useState(FORM_STATE_IN_PROCESS)
   const [isErrorExist, setIsErrorExist] = useState(false)
 
-  const lessonId = workout._id
-  const lessonName = workout.name
-  const courseId = course._id
-
   // const { progressValues } = useSelector((state) => state.progress)
-  const workoutLength = listExercises.length
+  const workoutLength = listMyExersises.length
 
   const [progressValuesChange, setProgressValuesChange] = useState(
     new Array(workoutLength).fill('')
@@ -56,12 +54,7 @@ export const MyExercisesForm = ({
       setFormState(FORM_STATE_COMPLETE)
       setIsErrorExist(false)
 
-      postCourse(lessonId, lessonName, progressValuesChange, courseId)
-
-      getLessonsUser(userId, courseId).then((data) => {
-        console.log(data, 'ekpfkepfkpepfkpef')
-        dispatch(setProgressValues(progressValuesChange))
-      })
+      dispatch(setProgressValues(progressValuesChange))
 
       setTimeout(() => {
         closeModal()
@@ -71,18 +64,21 @@ export const MyExercisesForm = ({
 
   return (
     <div>
-
       <S.Button onClick={openModal}>Заполнить свой прогресс</S.Button>
       {isModalOpen && formState === FORM_STATE_IN_PROCESS && (
         <>
-          <S.PoupLayout onClick={()=>{closeModal()}}/>
+          <S.PoupLayout
+            onClick={() => {
+              closeModal()
+            }}
+          />
           <S.Popup>
             <div className="modal-content">
               <span className="close" onClick={closeModal}>
                 &times;
               </span>
               <S.PopupTitle>Мой прогресс</S.PopupTitle>
-              {listExercises.map((exercise, index) => {
+              {listMyExersises.map((exercise, index) => {
                 const exerciseText = exercise.name.split('(')
 
                 return (
@@ -113,7 +109,11 @@ export const MyExercisesForm = ({
       )}
       {isModalOpen && formState === FORM_STATE_COMPLETE && (
         <>
-          <S.PoupLayout onClick={()=>{closeModal()}}/>
+          <S.PoupLayout
+            onClick={() => {
+              closeModal()
+            }}
+          />
           <CountedProgress
             tittle="Ваш прогресс засчитан!"
             closeModal={closeModal}

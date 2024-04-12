@@ -25,7 +25,7 @@ export const WorkoutPage = ({ courses, workouts, logOut }) => {
   const params = useParams()
   const userId = useSelector(idSelector)
   const [myWorkout, setMyWorkout] = useState(null);
-  
+
   useEffect(()=>{
     getUserWorkout(userId);
   }, []);
@@ -61,9 +61,11 @@ export const WorkoutPage = ({ courses, workouts, logOut }) => {
                   courses={courses}
                   workout={workout}
                   course={course}
+                  myWorkout={myWorkout}
                 />
               </div>
-              {myWorkout!=null && <ProgressExercises
+              {myWorkout!=null && 
+              <ProgressExercises
                 userId={userId}
                 myWorkout={myWorkout}
               />}

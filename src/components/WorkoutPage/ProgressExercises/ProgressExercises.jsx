@@ -1,10 +1,14 @@
 import * as S from './ProgressExercises.styles'
+import { useSelector } from 'react-redux'
 
 export const ProgressExercises = ({ userId, myWorkout }) => {
-  console.log(myWorkout);
+  console.log(myWorkout)
+
+  const { progressValues } = useSelector((state) => state.progress)
+  console.log(progressValues)
 
   const getPercentageByValue = (exercise) => {
-    exercise.progress = exercise.progress ?? 0;
+    exercise.progress = exercise.progress ?? 0
 
     let valueInPercentage
 
@@ -21,10 +25,11 @@ export const ProgressExercises = ({ userId, myWorkout }) => {
     } else if (valueInPercentage < 0) {
       valueInPercentage = 0
     }
-    return valueInPercentage;
+    return valueInPercentage
   }
 
-  const listExercises = myWorkout.exercises;
+  const listExercises = myWorkout.exercises
+  console.log(listExercises)
 
   return (
     <S.ProgressBox>
@@ -32,9 +37,9 @@ export const ProgressExercises = ({ userId, myWorkout }) => {
       <S.TrainingProgressBox>
         {listExercises &&
           listExercises.map((exercise, index) => {
-            exercise.progress = exercise.progress ?? 0;
+            exercise.progress = exercise.progress ?? 0
             const exerciseText = exercise?.name ? exercise?.name.split('(') : ''
-            const valueInPercentage = getPercentageByValue(exercise);
+            const valueInPercentage = getPercentageByValue(exercise)
             return (
               <S.TrainingProgressInPercentage key={'progress-' + index}>
                 <S.TrainingProgressElement>
@@ -42,7 +47,7 @@ export const ProgressExercises = ({ userId, myWorkout }) => {
                 </S.TrainingProgressElement>
                 <S.TrainingProgressInputBox>
                   <S.ProgressInputForExerciseFirst
-                    value={ + '%'}
+                    value={valueInPercentage + '%'}
                   ></S.ProgressInputForExerciseFirst>
                   <S.TrainingProgressInputPercentage
                     value={parseInt(valueInPercentage)}
