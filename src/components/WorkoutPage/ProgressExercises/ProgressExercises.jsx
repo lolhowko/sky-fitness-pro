@@ -2,10 +2,7 @@ import * as S from './ProgressExercises.styles'
 import { useSelector } from 'react-redux'
 
 export const ProgressExercises = ({ userId, myWorkout }) => {
-  console.log(myWorkout)
-
-  const { progressValues } = useSelector((state) => state.progress)
-  console.log(progressValues)
+  const { progressValues } = useSelector((state) => state.progress) // массив с заполнения формы
 
   const getPercentageByValue = (exercise) => {
     exercise.progress = exercise.progress ?? 0
@@ -29,7 +26,6 @@ export const ProgressExercises = ({ userId, myWorkout }) => {
   }
 
   const listExercises = myWorkout.exercises
-  console.log(listExercises)
 
   return (
     <S.ProgressBox>

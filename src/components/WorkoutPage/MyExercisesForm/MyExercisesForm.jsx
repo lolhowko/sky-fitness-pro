@@ -8,29 +8,45 @@ import {
   setProgressValues,
 } from '../../store/slices/progressSlice'
 import { getLessonsUser, postCourse } from '../../../api'
+import { db } from '../../firebase/firebase'
+
+import { getDatabase, ref } from 'firebase/database'
+import { idSelector } from '../../store/selectors/user'
 const FORM_STATE_IN_PROCESS = 'FORM_STATE_IN_PROCESS'
 const FORM_STATE_COMPLETE = 'FORM_STATE_COMPLETE'
 
 export const MyExercisesForm = ({
-  listExercises,
-  myWorkout,
-  listMyWorkout,
+  listExercises, // workoutId.exercises - упражнения по выбранному воркауту без progress не из БД
+  myWorkout, // полностью выбранный воркаут, { exercises[{},{}], workoutId, isComplete }
+  listMyWorkout, // workoutId.exercises - упражнения по выбранному воркауту c progress
 }) => {
   const dispatch = useDispatch()
   const params = useParams()
 
-  const { progressValues } = useSelector((state) => state.progress)
-  console.log('progressValues', progressValues)
-  console.log('listMyWorkout', listMyWorkout)
+  const id = useSelector(idSelector) // id пользователя
+  const workoutId = myWorkout.workoutId // id workout (в котором есть exercises и тд)
 
-  // Пройтись по массиву и закинуть прогресс введенный в воркаут.прогресс
+  const { progressValues } = useSelector((state) => state.progress) // прогресс из заполнения формы
 
-  listMyWorkout.forEach((exercise) => {
-    // const exProgress = exercise.progress
-    // exProgress.forEach(function (progress) {
-    //   progressValues.push(progress)
-    // })
-    console.log('PROGRESS', exercise.progress)
+  // НАписать функцию добавления данных в БД через метод set
+
+  async function addNewUserProgress(progress) {
+    const db = getDatabase()
+
+    listMyWorkout.forEach((el, index) => {
+      const exerciseRef = ref(
+        db,
+        'users/' + id + '/workouts/' + workoutId + 'exercises'
+      )
+
+      el.progress = progressValues[index]
+      // console.log('PROGRESS', exercise.progress)
+    })
+  }
+
+  // Пройтись по массиву и закинуть прогресс введенный в воркаут.прогресс - РАБОТАЕТ
+  listMyWorkout.forEach((el, index) => {
+    el.progress = progressValues[index]
   })
 
   const [isModalOpen, setIsModalOpen] = useState(false)
