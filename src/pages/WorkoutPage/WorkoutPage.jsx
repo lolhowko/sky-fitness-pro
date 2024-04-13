@@ -62,6 +62,7 @@ export const WorkoutPage = ({ courses, workouts, logOut }) => {
                   workout={workout}
                   course={course}
                   myWorkout={myWorkout}
+                  listMyWorkout={myWorkout.exercises}
                 />
               </div>
               {myWorkout!=null && 

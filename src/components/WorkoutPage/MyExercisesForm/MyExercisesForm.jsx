@@ -1,3 +1,4 @@
+import { useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import * as S from './MyExercisesForm.styles'
 import CountedProgress from '../progress-counted/progress-counted'
@@ -10,23 +11,33 @@ import { getLessonsUser, postCourse } from '../../../api'
 const FORM_STATE_IN_PROCESS = 'FORM_STATE_IN_PROCESS'
 const FORM_STATE_COMPLETE = 'FORM_STATE_COMPLETE'
 
-export const MyExercisesForm = ({ 
+export const MyExercisesForm = ({
   listExercises,
-   myWorkout }) => {
+  myWorkout,
+  listMyWorkout,
+}) => {
   const dispatch = useDispatch()
+  const params = useParams()
 
-  // const listExercises = myWorkout.exercises;
-  
-  const listMyExersises = myWorkout.exercises
-  console.log(listMyExersises)
+  const { progressValues } = useSelector((state) => state.progress)
+  console.log('progressValues', progressValues)
+  console.log('listMyWorkout', listMyWorkout)
 
+  // Пройтись по массиву и закинуть прогресс введенный в воркаут.прогресс
+
+  listMyWorkout.forEach((exercise) => {
+    // const exProgress = exercise.progress
+    // exProgress.forEach(function (progress) {
+    //   progressValues.push(progress)
+    // })
+    console.log('PROGRESS', exercise.progress)
+  })
 
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [formState, setFormState] = useState(FORM_STATE_IN_PROCESS)
   const [isErrorExist, setIsErrorExist] = useState(false)
 
-  // const { progressValues } = useSelector((state) => state.progress)
-  const workoutLength = listMyExersises.length
+  const workoutLength = listExercises.length
 
   const [progressValuesChange, setProgressValuesChange] = useState(
     new Array(workoutLength).fill('')
@@ -78,7 +89,7 @@ export const MyExercisesForm = ({
                 &times;
               </span>
               <S.PopupTitle>Мой прогресс</S.PopupTitle>
-              {listMyExersises.map((exercise, index) => {
+              {listMyWorkout.map((exercise, index) => {
                 const exerciseText = exercise.name.split('(')
 
                 return (
