@@ -9,6 +9,8 @@ export const ProgressExercises = ({ userId, myWorkout }) => {
 
     let valueInPercentage
 
+    let fieldValidation = true //Флаг на проверку превышения количества повторений
+
     if (exercise.quantity !== 0 && exercise.progress !== null) {
       valueInPercentage = Math.round(
         (exercise.progress / exercise.quantity) * 100
@@ -18,11 +20,16 @@ export const ProgressExercises = ({ userId, myWorkout }) => {
     }
 
     if (valueInPercentage > 100) {
-      valueInPercentage = 100
+      alert('Вы ввели слишком большое число')
+      fieldValidation = false
     } else if (valueInPercentage < 0) {
-      valueInPercentage = 0
+      alert('Количество выполненных упражнений не может быть отрицательным')
+      fieldValidation = false
     }
-    return valueInPercentage
+
+    if (fieldValidation) {
+      return valueInPercentage
+    }
   }
 
   const listExercises = myWorkout.exercises
