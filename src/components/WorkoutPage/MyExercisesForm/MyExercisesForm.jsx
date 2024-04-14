@@ -10,7 +10,7 @@ import {
 import { getLessonsUser, postCourse } from '../../../api'
 import { db } from '../../firebase/firebase'
 
-import { getDatabase, ref } from 'firebase/database'
+import { getDatabase, ref, set } from 'firebase/database'
 import { idSelector } from '../../store/selectors/user'
 const FORM_STATE_IN_PROCESS = 'FORM_STATE_IN_PROCESS'
 const FORM_STATE_COMPLETE = 'FORM_STATE_COMPLETE'
@@ -23,6 +23,8 @@ export const MyExercisesForm = ({
   const dispatch = useDispatch()
   const params = useParams()
 
+  console.log(listMyWorkout)
+
   const id = useSelector(idSelector) // id пользователя
   const workoutId = myWorkout.workoutId // id workout (в котором есть exercises и тд)
 
@@ -30,16 +32,22 @@ export const MyExercisesForm = ({
 
   // НАписать функцию добавления данных в БД через метод set
 
-  async function addNewUserProgress(progress) {
+  async function addNewUserProgress() {
     const db = getDatabase()
 
     listMyWorkout.forEach((el, index) => {
       const exerciseRef = ref(
         db,
-        'users/' + id + '/workouts/' + workoutId + 'exercises'
+        'users/' + id + '/workouts/' + workoutId + '/exercises/'
       )
+      let exercise = {
+        progress: [],
+      }
 
       el.progress = progressValues[index]
+
+      set(exerciseRef, exercise)
+
       // console.log('PROGRESS', exercise.progress)
     })
   }
@@ -127,7 +135,7 @@ export const MyExercisesForm = ({
                 )
               })}
             </div>
-            <S.PopupButton onClick={sendProgress}>Oтправить</S.PopupButton>
+            s<S.PopupButton onClick={sendProgress}>Oтправить</S.PopupButton>
             {isErrorExist ? (
               <S.ErrorText>Все поля должны быть заполнены!</S.ErrorText>
             ) : null}
