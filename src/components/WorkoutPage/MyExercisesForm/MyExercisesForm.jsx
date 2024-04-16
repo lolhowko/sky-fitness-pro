@@ -10,7 +10,7 @@ import {
 import { getLessonsUser, postCourse } from '../../../api'
 import { db } from '../../firebase/firebase'
 
-import { getDatabase, ref, set } from 'firebase/database'
+import { getDatabase, ref, set, update } from 'firebase/database'
 import { idSelector } from '../../store/selectors/user'
 const FORM_STATE_IN_PROCESS = 'FORM_STATE_IN_PROCESS'
 const FORM_STATE_COMPLETE = 'FORM_STATE_COMPLETE'
@@ -18,10 +18,11 @@ const FORM_STATE_COMPLETE = 'FORM_STATE_COMPLETE'
 export const MyExercisesForm = ({
   listExercises, // workoutId.exercises - упражнения по выбранному воркауту без progress не из БД
   myWorkout, // полностью выбранный воркаут, { exercises[{},{}], workoutId, isComplete }
-  listMyWorkout, // workoutId.exercises - упражнения по выбранному воркауту c progress
+  // listMyWorkout, // workoutId.exercises - упражнения по выбранному воркауту c progress
 }) => {
   const dispatch = useDispatch()
   const params = useParams()
+  const listMyWorkout = myWorkout.exercises
 
   console.log(listMyWorkout)
 
@@ -30,26 +31,40 @@ export const MyExercisesForm = ({
 
   const { progressValues } = useSelector((state) => state.progress) // прогресс из заполнения формы
 
-  // НАписать функцию добавления данных в БД через метод set
+  // НАписать функцию добавления данных в БД через метод update
 
-  async function addNewUserProgress() {
+  async function addNewUserProgress(progressValues) {
     const db = getDatabase()
+    let fieldValidation = true //Флаг на проверку превышения количества повторений
 
     listMyWorkout.forEach((el, index) => {
-      const exerciseRef = ref(
-        db,
-        'users/' + id + '/workouts/' + workoutId + '/exercises/'
-      )
-      let exercise = {
-        progress: [],
-      }
-
       el.progress = progressValues[index]
 
-      set(exerciseRef, exercise)
+      if (el.progress > el.quantity) {
+        alert('Вы ввели слишком большое число')
+        fieldValidation = false
+      }
+      if (el.progress < 0) {
+        alert('Количество выполненных упражнений не может быть отрицательным')
+        fieldValidation = false
+      }
+      if (el.progress === el.quantity) {
+        el.done = true
+        fieldValidation = true
 
-      // console.log('PROGRESS', exercise.progress)
+        return el
+      } else {
+        console.log(el)
+        return el
+      }
     })
+
+    //ПроверяЕм, не превышено какое либо количество повторений
+    if (fieldValidation) {
+      const updates = {}
+      updates[`users/${id}/workouts/${workoutId}/exercises `] = progressValues
+      return update(ref(db), updates)
+    }
   }
 
   // Пройтись по массиву и закинуть прогресс введенный в воркаут.прогресс - РАБОТАЕТ
@@ -90,6 +105,7 @@ export const MyExercisesForm = ({
       setIsErrorExist(false)
 
       dispatch(setProgressValues(progressValuesChange))
+      // addNewUserProgress()
 
       setTimeout(() => {
         closeModal()
@@ -135,7 +151,7 @@ export const MyExercisesForm = ({
                 )
               })}
             </div>
-            s<S.PopupButton onClick={sendProgress}>Oтправить</S.PopupButton>
+            <S.PopupButton onClick={sendProgress}>Oтправить</S.PopupButton>
             {isErrorExist ? (
               <S.ErrorText>Все поля должны быть заполнены!</S.ErrorText>
             ) : null}

@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux'
 export const ProgressExercises = ({ userId, myWorkout }) => {
   const { progressValues } = useSelector((state) => state.progress) // массив с заполнения формы
 
+  console.log(myWorkout)
   const getPercentageByValue = (exercise) => {
     exercise.progress = exercise.progress ?? 0
 
@@ -22,11 +23,12 @@ export const ProgressExercises = ({ userId, myWorkout }) => {
     if (valueInPercentage > 100) {
       alert('Вы ввели слишком большое число')
       fieldValidation = false
-    } else if (valueInPercentage < 0) {
+    }
+    if (valueInPercentage < 0) {
       alert('Количество выполненных упражнений не может быть отрицательным')
       fieldValidation = false
     }
-
+    
     if (fieldValidation) {
       return valueInPercentage
     }
