@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router'
 import { useParams } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import * as S from './WorkoutPage.styles'
@@ -22,9 +23,14 @@ export const WorkoutPage = ({ courses, workouts, logOut }) => {
     })
   }
 
+  const navigate = useNavigate();
   const params = useParams()
   const userId = useSelector(idSelector)
   const [myWorkout, setMyWorkout] = useState(null);
+
+  if(userId=== null){
+    navigate('/auth');
+  }
 
   useEffect(()=>{
     getUserWorkout(userId);
@@ -55,7 +61,7 @@ export const WorkoutPage = ({ courses, workouts, logOut }) => {
             <S.ExercisesDetails>
               <div>
                 <CourseExercises listExercises={workout.exercises} />
-                <MyExercisesForm
+                {myWorkout!=null && <MyExercisesForm
                   listExercises={workout.exercises}
                   userId={userId}
                   courses={courses}
@@ -63,9 +69,9 @@ export const WorkoutPage = ({ courses, workouts, logOut }) => {
                   course={course}
                   myWorkout={myWorkout}
                   // listMyWorkout={myWorkout.exercises}
-                />
+                />}
               </div>
-              {myWorkout!=null && 
+              {myWorkout!=null &&
               <ProgressExercises
                 userId={userId}
                 myWorkout={myWorkout}
