@@ -63,12 +63,8 @@ export const WorkoutPage = ({ courses, workouts, logOut }) => {
                 <CourseExercises listExercises={workout.exercises} />
                 {myWorkout!=null && <MyExercisesForm
                   listExercises={workout.exercises}
-                  userId={userId}
-                  courses={courses}
-                  workout={workout}
-                  course={course}
                   myWorkout={myWorkout}
-                  // listMyWorkout={myWorkout.exercises}
+                  updateCallback={()=>{getUserWorkout(userId)}}
                 />}
               </div>
               {myWorkout!=null &&

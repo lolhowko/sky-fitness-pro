@@ -1,16 +1,9 @@
-import { useParams } from 'react-router-dom'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import * as S from './MyExercisesForm.styles'
 import CountedProgress from '../progress-counted/progress-counted'
-import { useDispatch, useSelector } from 'react-redux'
-import {
-  setProgress,
-  setProgressValues,
-} from '../../store/slices/progressSlice'
-import { getLessonsUser, postCourse } from '../../../api'
-import { db } from '../../firebase/firebase'
+import { useSelector } from 'react-redux'
 
-import { getDatabase, ref, set, update } from 'firebase/database'
+import { getDatabase, ref, update } from 'firebase/database'
 import { idSelector } from '../../store/selectors/user'
 const FORM_STATE_IN_PROCESS = 'FORM_STATE_IN_PROCESS'
 const FORM_STATE_COMPLETE = 'FORM_STATE_COMPLETE'
@@ -18,73 +11,46 @@ const FORM_STATE_COMPLETE = 'FORM_STATE_COMPLETE'
 export const MyExercisesForm = ({
   listExercises, // workoutId.exercises - упражнения по выбранному воркауту без progress не из БД
   myWorkout, // полностью выбранный воркаут, { exercises[{},{}], workoutId, isComplete }
-  // listMyWorkout, // workoutId.exercises - упражнения по выбранному воркауту c progress
+  updateCallback
 }) => {
-  const dispatch = useDispatch()
-  const params = useParams()
-  const listMyWorkout = myWorkout.exercises
-
-  console.log(listMyWorkout)
+  const [progressValuesChange, setProgressValuesChange] = useState(new Array(listExercises.length).fill(''))
 
   const id = useSelector(idSelector) // id пользователя
-  const workoutId = myWorkout.workoutId // id workout (в котором есть exercises и тд)
 
-  const { progressValues } = useSelector((state) => state.progress) // прогресс из заполнения формы
-
-  // НАписать функцию добавления данных в БД через метод update
-
-  async function addNewUserProgress(progressValues) {
-    const db = getDatabase()
+  // написать функцию добавления данных в БД через метод update
+  async function incrementProgressAndUpdateDB() {    
     let fieldValidation = true //Флаг на проверку превышения количества повторений
-
-    listMyWorkout.forEach((el, index) => {
-      el.progress = progressValues[index]
-
-      if (el.progress > el.quantity) {
-        alert('Вы ввели слишком большое число')
+    const parsedProgress = progressValuesChange.map((element)=>{
+      const newChange = parseInt(element);
+      if (newChange < 0) {
         fieldValidation = false
       }
-      if (el.progress < 0) {
-        alert('Количество выполненных упражнений не может быть отрицательным')
-        fieldValidation = false
-      }
-      if (el.progress === el.quantity) {
-        el.done = true
-        fieldValidation = true
+      return newChange;
+    });
+    if(!fieldValidation){
+      alert('Количество выполненных упражнений не может быть отрицательным')
+      return;
+    }
 
-        return el
-      } else {
-        console.log(el)
-        return el
+    myWorkout.isComplete = true;
+    myWorkout.exercises.forEach((myExercise, index) => {
+      const delta = parsedProgress[index]
+      myExercise.progress += delta;
+      
+      if (myExercise.progress < myExercise.quantity) {
+        myWorkout.isComplete = false
       }
     })
 
-    //ПроверяЕм, не превышено какое либо количество повторений
-    if (fieldValidation) {
-      const updates = {}
-      updates[`users/${id}/workouts/${workoutId}/exercises `] = progressValues
-      return update(ref(db), updates)
-    }
+    const db = getDatabase();
+    const exerciseRef = ref(db, `users/${id}/workouts/${myWorkout.workoutId}`);
+    update(exerciseRef, {"exercises": myWorkout.exercises});
+    update(exerciseRef, {"isComplete": myWorkout.isComplete});
   }
-
-  // Пройтись по массиву и закинуть прогресс введенный в воркаут.прогресс - РАБОТАЕТ
-  listMyWorkout.forEach((el, index) => {
-    el.progress = progressValues[index]
-  })
 
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [formState, setFormState] = useState(FORM_STATE_IN_PROCESS)
   const [isErrorExist, setIsErrorExist] = useState(false)
-
-  const workoutLength = listExercises.length
-
-  const [progressValuesChange, setProgressValuesChange] = useState(
-    new Array(workoutLength).fill('')
-  )
-
-  useEffect(() => {
-    dispatch(setProgressValues(new Array(workoutLength).fill('')))
-  }, [])
 
   const openModal = () => {
     setFormState(FORM_STATE_IN_PROCESS)
@@ -104,11 +70,13 @@ export const MyExercisesForm = ({
       setFormState(FORM_STATE_COMPLETE)
       setIsErrorExist(false)
 
-      dispatch(setProgressValues(progressValuesChange))
-      // addNewUserProgress()
+      console.log("Логирую: progressValuesChange");
+      console.log(progressValuesChange);
+      incrementProgressAndUpdateDB()
 
       setTimeout(() => {
-        closeModal()
+        closeModal();
+        updateCallback()
       }, 2000)
     }
   }
@@ -129,7 +97,7 @@ export const MyExercisesForm = ({
                 &times;
               </span>
               <S.PopupTitle>Мой прогресс</S.PopupTitle>
-              {listMyWorkout.map((exercise, index) => {
+              {myWorkout.exercises.map((exercise, index) => {
                 const exerciseText = exercise.name.split('(')
 
                 return (
@@ -144,6 +112,7 @@ export const MyExercisesForm = ({
                       onChange={(e) => {
                         const newProgressValues = [...progressValuesChange]
                         newProgressValues[index] = e.target.value
+                        console.log(newProgressValues);
                         setProgressValuesChange(newProgressValues)
                       }}
                     ></S.MyProgressInput>
