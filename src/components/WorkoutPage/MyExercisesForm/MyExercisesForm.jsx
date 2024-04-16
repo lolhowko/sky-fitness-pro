@@ -11,7 +11,7 @@ const FORM_STATE_COMPLETE = 'FORM_STATE_COMPLETE'
 export const MyExercisesForm = ({
   listExercises, // workoutId.exercises - упражнения по выбранному воркауту без progress не из БД
   myWorkout, // полностью выбранный воркаут, { exercises[{},{}], workoutId, isComplete }
-  updateCallback
+  updateCompleteCallback
 }) => {
   const [progressValuesChange, setProgressValuesChange] = useState(new Array(listExercises.length).fill(''))
 
@@ -69,14 +69,12 @@ export const MyExercisesForm = ({
     } else {
       setFormState(FORM_STATE_COMPLETE)
       setIsErrorExist(false)
-
-      console.log("Логирую: progressValuesChange");
-      console.log(progressValuesChange);
+      
       incrementProgressAndUpdateDB()
 
       setTimeout(() => {
         closeModal();
-        updateCallback()
+        updateCompleteCallback()
       }, 2000)
     }
   }
