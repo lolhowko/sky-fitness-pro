@@ -110,7 +110,6 @@ export const MyExercisesForm = ({
                       onChange={(e) => {
                         const newProgressValues = [...progressValuesChange]
                         newProgressValues[index] = e.target.value
-                        console.log(newProgressValues);
                         setProgressValuesChange(newProgressValues)
                       }}
                     ></S.MyProgressInput>

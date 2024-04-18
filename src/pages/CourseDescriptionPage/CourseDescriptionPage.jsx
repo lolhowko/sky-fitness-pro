@@ -33,18 +33,12 @@ const CourseDescriptionPage = ({ courses, workouts }) => {
   }
 
   const id = useSelector(idSelector)
-  console.log(id)
 
   const addCourse = () => {
     if (!id) {
       navigate('/auth')
       return
     }
-    // const loggedAddCourse = () => {
-
-    //получить id пользователя из localStorage
-    // const id = JSON.parse(localStorage.getItem('user')).id
-    // console.log(id)
 
     async function postCourseId(courseId) {
       const db = getDatabase()
@@ -65,8 +59,6 @@ const CourseDescriptionPage = ({ courses, workouts }) => {
         }
         set(workoutsRef, workout)
       })
-
-      console.log('Course ADDED')
     }
 
     const result = window.confirm(
