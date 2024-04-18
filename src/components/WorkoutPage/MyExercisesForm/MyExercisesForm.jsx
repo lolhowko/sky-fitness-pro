@@ -18,19 +18,21 @@ export const MyExercisesForm = ({
   )
 
   const id = useSelector(idSelector) // id пользователя
+  let fieldValidation //Флаг на проверку превышения количества повторений
 
   // написать функцию добавления данных в БД через метод update
   async function incrementProgressAndUpdateDB() {
-    let fieldValidation = true //Флаг на проверку превышения количества повторений
+    fieldValidation = true //Флаг на проверку превышения количества повторений
+
     const parsedProgress = progressValuesChange.map((element) => {
       const newChange = parseInt(element)
       if (newChange < 0) {
         fieldValidation = false
+        alert('Количество выполненных упражнений не может быть отрицательным')
       }
       return newChange
     })
     if (!fieldValidation) {
-      alert('Количество выполненных упражнений не может быть отрицательным')
       return
     }
 
@@ -38,6 +40,20 @@ export const MyExercisesForm = ({
     myWorkout.exercises.forEach((myExercise, index) => {
       const delta = parsedProgress[index]
       myExercise.progress += delta
+
+      console.log(delta)
+
+      // проверка валидация
+
+      if (delta > myExercise.quantity) {
+        fieldValidation = false
+        alert('Количество выполненных упражнений не может быть больше')
+      } else if (delta < 0) {
+        fieldValidation = false
+        alert('Количество выполненных упражнений не может быть отрицательным')
+      } else {
+        fieldValidation = true
+      }
 
       if (myExercise.progress < myExercise.quantity) {
         myWorkout.isComplete = false
@@ -53,6 +69,7 @@ export const MyExercisesForm = ({
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [formState, setFormState] = useState(FORM_STATE_IN_PROCESS)
   const [isErrorExist, setIsErrorExist] = useState(false)
+  const [isErrorValidate, setIsErrorValidate] = useState(false)
 
   const openModal = () => {
     setFormState(FORM_STATE_IN_PROCESS)
@@ -68,9 +85,15 @@ export const MyExercisesForm = ({
       setFormState(FORM_STATE_IN_PROCESS)
       setIsModalOpen(true)
       setIsErrorExist(true)
+    }
+    if (fieldValidation === false) {
+      setFormState(FORM_STATE_IN_PROCESS)
+      setIsModalOpen(true)
+      setIsErrorValidate(true)
     } else {
       setFormState(FORM_STATE_COMPLETE)
       setIsErrorExist(false)
+      setIsErrorValidate(false)
 
       incrementProgressAndUpdateDB().then(() => {
         setProgressValuesChange(new Array(listExercises.length).fill(''))
@@ -125,10 +148,13 @@ export const MyExercisesForm = ({
             {isErrorExist ? (
               <S.ErrorText>Все поля должны быть заполнены!</S.ErrorText>
             ) : null}
+            {isErrorValidate ? (
+              <S.ErrorText>Неправильно введены данные.</S.ErrorText>
+            ) : null}
           </S.Popup>
         </>
       )}
-      {isModalOpen && formState === FORM_STATE_COMPLETE && (
+      {isModalOpen && formState === FORM_STATE_COMPLETE && fieldValidation && (
         <>
           <S.PoupLayout
             onClick={() => {
