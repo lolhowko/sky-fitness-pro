@@ -41,7 +41,7 @@ export const MyExercisesForm = ({
       const delta = parsedProgress[index]
       myExercise.progress += delta
 
-      console.log(delta)
+      // console.log(delta)
 
       // проверка валидация
 
@@ -85,12 +85,12 @@ export const MyExercisesForm = ({
       setFormState(FORM_STATE_IN_PROCESS)
       setIsModalOpen(true)
       setIsErrorExist(true)
-    }
-    if (fieldValidation === false) {
+    } else if (fieldValidation === false) {
       setFormState(FORM_STATE_IN_PROCESS)
       setIsModalOpen(true)
       setIsErrorValidate(true)
-    } else {
+    }
+     else {
       setFormState(FORM_STATE_COMPLETE)
       setIsErrorExist(false)
       setIsErrorValidate(false)
