@@ -23,7 +23,7 @@ export function Profile({ cources, logOut, workoutsFirebase }) {
   const [loginShow, setLoginShow] = useState(false)
   const [passwordShow, setPasswordShow] = useState(false)
   const [isActive, setIsActive] = useState(false)
-  const [userFirebase, setUserFirebase] = useState(false)
+  const [userFirebase, setUserFirebase] = useState([])
 
   // UPDATE LOG AND PASS
 
@@ -43,21 +43,24 @@ export function Profile({ cources, logOut, workoutsFirebase }) {
   }, [loginShow, passwordShow])
 
   // загрузка профиля при открытии страницы
-  async function getUserProfile(userId)
-  {
-    const userWorkoutRef = firebase.database().ref('users/' + userId );
+  async function getUserProfile(userId) {
+    const userWorkoutRef = firebase.database().ref('users/' + userId)
     await userWorkoutRef.once('value').then((snapshot) => {
-      setUserFirebase(snapshot.val());
+      setUserFirebase(snapshot.val())
     })
   }
 
-  useEffect(() => {    
+  useEffect(() => {
     if (!userId) {
-      navigate('/auth');
-      return;
-    }
-    else{
-      getUserProfile(userId);
+      navigate('/auth')
+      return
+    } 
+    else if (!userFirebase) {
+      console.log('not Courses')
+      console.log(userFirebase)
+    } 
+    else {
+      getUserProfile(userId)
     }
   }, [])
 
@@ -79,31 +82,38 @@ export function Profile({ cources, logOut, workoutsFirebase }) {
     })
 
   const SelectCourseWorkout = (courseId) => {
-
-    let courseWorkoutIds = cources.filter((course) => course._id === courseId)[0].workouts;
+    let courseWorkoutIds = cources.filter(
+      (course) => course._id === courseId
+    )[0].workouts
     setListSelectedCourse(
-      courseWorkoutIds
-        .map(workoutId => {
-          let workoutObject = workoutsFirebase.filter((workout)=>workout._id === workoutId)[0];
-          let name = "";
-          let nameDescription = "";
-          if(workoutObject.name.indexOf("/")>=0){
-            name = workoutObject.name.substring(0, workoutObject.name.indexOf("/")-1);
-            nameDescription = workoutObject.name.substring(workoutObject.name.indexOf("/")+2, workoutObject.name.lastIndexOf("/")-1);
-          }else{
-            name = workoutObject.name;
-            nameDescription = "";
-          }
+      courseWorkoutIds.map((workoutId) => {
+        let workoutObject = workoutsFirebase.filter(
+          (workout) => workout._id === workoutId
+        )[0]
+        let name = ''
+        let nameDescription = ''
+        if (workoutObject.name.indexOf('/') >= 0) {
+          name = workoutObject.name.substring(
+            0,
+            workoutObject.name.indexOf('/') - 1
+          )
+          nameDescription = workoutObject.name.substring(
+            workoutObject.name.indexOf('/') + 2,
+            workoutObject.name.lastIndexOf('/') - 1
+          )
+        } else {
+          name = workoutObject.name
+          nameDescription = ''
+        }
 
-
-          return {
-            ...workoutObject,
-            name,
-            nameDescription,
-            isComplete: userFirebase.workouts[workoutId].isComplete 
-          }
-        })
-    );
+        return {
+          ...workoutObject,
+          name,
+          nameDescription,
+          isComplete: userFirebase.workouts[workoutId].isComplete,
+        }
+      })
+    )
 
     setShowPopup(!showPopup)
   }
@@ -134,11 +144,8 @@ export function Profile({ cources, logOut, workoutsFirebase }) {
           <S.TitleCoursesText>Мои курсы</S.TitleCoursesText>
         </S.TitleCourses>
         <S.CoursesCards>
-          {coursesWithImgs === undefined && (
-            <div>У вас еще нет приобретенных курсов</div>
-          )}
 
-          {coursesWithImgs && (
+          {coursesWithImgs.length > 0 ? (
             <S.ProfList>
               {coursesWithImgs.map((course, index) => (
                 <S.Prof key={index} id={course._id}>
@@ -160,6 +167,8 @@ export function Profile({ cources, logOut, workoutsFirebase }) {
                 </S.Prof>
               ))}
             </S.ProfList>
+          ) : (
+            <p>У вас пока нет купленных курсов</p>
           )}
         </S.CoursesCards>
         {isActive && (
@@ -167,7 +176,13 @@ export function Profile({ cources, logOut, workoutsFirebase }) {
         )}
       </S.MainPage>
       {showPopup && (
-        <SelectWorkoutPopup onClose={showPopup} list={listSelectedCourse} callbackToClose={()=> {setShowPopup(false)}}/>
+        <SelectWorkoutPopup
+          onClose={showPopup}
+          list={listSelectedCourse}
+          callbackToClose={() => {
+            setShowPopup(false)
+          }}
+        />
       )}
     </S.Container>
   )
