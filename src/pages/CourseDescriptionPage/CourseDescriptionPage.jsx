@@ -8,7 +8,7 @@ import { getDatabase, ref, set } from 'firebase/database'
 import { useSelector } from 'react-redux'
 import { idSelector } from '../../components/store/selectors/user'
 
-const CourseDescriptionPage = ({ courses, workouts }) => {
+export const CourseDescriptionPage = ({ courses, workouts }) => {
   const { courseId } = useParams()
   const navigate = useNavigate()
   const course = courses.find((c) => c._id === courseId) || {
@@ -94,5 +94,3 @@ const CourseDescriptionPage = ({ courses, workouts }) => {
     </S.Header>
   )
 }
-
-export default CourseDescriptionPage

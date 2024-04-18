@@ -1,20 +1,15 @@
-import * as S from './Appstyle'
-import './App.css'
-import { AppRoutes } from './routers'
-import { useLocation } from 'react-router'
-import { GlobalStyled } from './GlobalAppStyle'
+import { Provider } from "react-redux";
+import { BrowserRouter } from "react-router-dom";
+import { store } from './components/store/store';
+import { AppRoutes } from "./components/routes/routers";
 
 function App() {
-
   return (
-    <S.Wrapper>
-      <S.Container>
+    <Provider store={store}>
+      <BrowserRouter>
         <AppRoutes />
-      </S.Container>
-
-      <GlobalStyled />
-    </S.Wrapper>
-  )
+      </BrowserRouter>
+    </Provider>
+  );
 }
-
-export default App
+export default App;

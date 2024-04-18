@@ -1,25 +1,27 @@
 import { Route, Routes, useNavigate } from 'react-router'
-import { NotFound } from './pages/not-found/NotFound'
+import { AuthPage } from '../../pages/authPage/authPage'
+import { CourseDescriptionPage } from '../../pages/CourseDescriptionPage/CourseDescriptionPage'
+import { CourseVideoPage } from '../../pages/CourseVideoPage/CourseVideoPage'
+import { MainPage } from '../../pages/main/MainPage'
+import { NotFound } from '../../pages/not-found/NotFound'
+import { Profile } from '../../pages/profile/profile'
+import { SelectWorkoutPopup } from '../../pages/SelectWorkoutPopup/SelectWorkoutPopup'
+import { ProtectedRoute } from './protected-route'
+
 import { useEffect, useState } from 'react'
-import { app } from './components/firebase/firebase'
+import { app } from '../firebase/firebase'
 import firebase from 'firebase/compat/app'
 import 'firebase/compat/database'
-import { CourseVideoPage } from './pages/CourseVideoPage/CourseVideoPage'
-import { MainPage } from './pages/main/MainPage'
-import { Profile } from './pages/profile/profile'
-import { Login } from './pages/login/login'
-import { Register } from './pages/reg/Registration'
 import { useDispatch } from 'react-redux'
-import { removeUser } from './components/store/slices/userSlice'
-import CourseDescriptionPage from './pages/CourseDescriptionPage/CourseDescriptionPage'
+import { removeUser } from '../store/slices/userSlice'
 
-export const AppRoutes = () => {
+export const AppRoutes = ({ user, setUser }) => {
   //workouts: наименование курса, видео, упражнения
   const [workoutsFirebase, setWorkoutsFirebase] = useState([])
   //courses: направления, описания, наименование на рус и англ, workouts
   const [coursesFirebase, setCoursesFirebase] = useState([])
   // данные авторизованного пользователя
-  const [currentUserFirebase, setCurrentUserFirebase] = useState(null);
+  const [currentUserFirebase, setCurrentUserFirebase] = useState(null)
 
   useEffect(() => {
     const fb = firebase.database(app)
@@ -54,7 +56,7 @@ export const AppRoutes = () => {
   const [password, setPassword] = useState('')
 
   const navigate = useNavigate()
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
 
   const loginCallback = (userId) => {
     const fetchUsersData = async () => {
@@ -62,23 +64,23 @@ export const AppRoutes = () => {
         const fb = firebase.database(app)
         const coursesRef = fb.ref('users')
         await coursesRef.once('value').then((snapshot) => {
-          const users = Object.values(snapshot.val() || {});
+          const users = Object.values(snapshot.val() || {})
           const currentUser = users.filter((user) => user._id === userId)[0]
-          setCurrentUserFirebase(currentUser);
+          setCurrentUserFirebase(currentUser)
 
-          navigate('/profile');
+          navigate('/profile')
         })
       } catch (error) {
         console.error('Error getting documents (courses): ', error)
       }
     }
     fetchUsersData()
-  };
-  
+  }
+
   const logOut = () => {
-    navigate('/auth');
-    removeUser();
-  };
+    navigate('/auth')
+    removeUser()
+  }
 
   return (
     <Routes>
@@ -89,7 +91,7 @@ export const AppRoutes = () => {
       <Route
         path="/auth"
         element={
-          <Login
+          <AuthPage
             email={email}
             password={password}
             setEmail={setEmail}
@@ -98,38 +100,7 @@ export const AppRoutes = () => {
           />
         }
       />
-      <Route
-        path="/reg"
-        element={
-          <Register
-            email={email}
-            password={password}
-            setEmail={setEmail}
-            setPassword={setPassword}
-          />
-        }
-      />
-
-      <Route 
-        path="/profile"
-        element={<Profile 
-          cources={coursesFirebase}
-          logOut={logOut}
-          userFirebase={currentUserFirebase}
-          workoutsFirebase={workoutsFirebase}/>
-          }
-        />
-      <Route
-        path="/course/:courseId"
-        element={<CourseDescriptionPage courses={coursesFirebase} workouts={workoutsFirebase} />}
-      />
-      <Route 
-        path="/courses/"
-        element={<NotFound />} />
-      <Route 
-        path="/users/courses"
-        element={<NotFound />} />
-
+      <Route path="/course/:courseId" element={<CourseDescriptionPage />} />
       <Route
         path="/users/courses/:courseId"
         element={
@@ -140,8 +111,28 @@ export const AppRoutes = () => {
           />
         }
       />
+      <Route path="/courses/" element={<NotFound />} />
+      <Route path="/users/courses" element={<NotFound />} />
 
       <Route path="*" element={<NotFound />} />
+
+      <Route element={<ProtectedRoute isAllowed={Boolean(user)} />}>
+        <Route
+          path="/profile"
+          element={
+            <Profile
+              cources={coursesFirebase}
+              logOut={logOut}
+              userFirebase={currentUserFirebase}
+              workoutsFirebase={workoutsFirebase}
+            />
+          }
+        />
+        <Route
+          path="/profile/workout/:courseId/:id"
+          element={<SelectWorkoutPopup />}
+        />
+      </Route>
     </Routes>
   )
 }

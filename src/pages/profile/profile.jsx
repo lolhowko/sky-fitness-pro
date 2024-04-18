@@ -1,10 +1,10 @@
-import { NavLink, useParams, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { Logo } from '../../components/Logo.jsx'
 import * as S from './profile.styles.js'
 import { PersonalData } from '../../components/PersonalData/PersonalData'
 import { UpdateUserData } from '../../components/update-user/update-user.jsx'
 import { useEffect, useState } from 'react'
-import { SelectWorkoutPopup } from './SelectWorkoutPopup'
+import { SelectWorkoutPopup } from '../SelectWorkoutPopup/SelectWorkoutPopup.jsx'
 import { useAuth } from '../../components/hooks/useAuth'
 
 export function Profile({ cources, logOut, userFirebase, workoutsFirebase }) {
@@ -61,30 +61,38 @@ export function Profile({ cources, logOut, userFirebase, workoutsFirebase }) {
   const SelectCourseWorkout = (courseId) => {
     console.log(courseId)
 
-    let courseWorkoutIds = cources.filter((course) => course._id === courseId)[0].workouts;
+    let courseWorkoutIds = cources.filter(
+      (course) => course._id === courseId
+    )[0].workouts
     setListSelectedCourse(
-      courseWorkoutIds
-        .map(workoutId => {
-          let workoutObject = workoutsFirebase.filter((workout)=>workout._id === workoutId)[0];
-          let name = "";
-          let nameDescription = "";
-          if(workoutObject.name.indexOf("/")>=0){
-            name = workoutObject.name.substring(0, workoutObject.name.indexOf("/")-1);
-            nameDescription = workoutObject.name.substring(workoutObject.name.indexOf("/")+2, workoutObject.name.lastIndexOf("/")-1);
-          }else{
-            name = workoutObject.name;
-            nameDescription = "";
-          }
+      courseWorkoutIds.map((workoutId) => {
+        let workoutObject = workoutsFirebase.filter(
+          (workout) => workout._id === workoutId
+        )[0]
+        let name = ''
+        let nameDescription = ''
+        if (workoutObject.name.indexOf('/') >= 0) {
+          name = workoutObject.name.substring(
+            0,
+            workoutObject.name.indexOf('/') - 1
+          )
+          nameDescription = workoutObject.name.substring(
+            workoutObject.name.indexOf('/') + 2,
+            workoutObject.name.lastIndexOf('/') - 1
+          )
+        } else {
+          name = workoutObject.name
+          nameDescription = ''
+        }
 
-
-          return {
-            ...workoutObject,
-            name,
-            nameDescription,
-            isComplete: userFirebase.workouts[workoutId].isComplete 
-          }
-        })
-    );
+        return {
+          ...workoutObject,
+          name,
+          nameDescription,
+          isComplete: userFirebase.workouts[workoutId].isComplete,
+        }
+      })
+    )
 
     setShowPopup(!showPopup)
   }
@@ -148,7 +156,13 @@ export function Profile({ cources, logOut, userFirebase, workoutsFirebase }) {
         )}
       </S.MainPage>
       {showPopup && (
-        <SelectWorkoutPopup onClose={showPopup} list={listSelectedCourse} callbackToClose={()=> {setShowPopup(false)}}/>
+        <SelectWorkoutPopup
+          onClose={showPopup}
+          list={listSelectedCourse}
+          callbackToClose={() => {
+            setShowPopup(false)
+          }}
+        />
       )}
     </S.Container>
   )
