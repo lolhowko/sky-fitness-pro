@@ -6,10 +6,15 @@ import { UpdateUserData } from '../../components/update-user/update-user.jsx'
 import { useEffect, useState } from 'react'
 import { SelectWorkoutPopup } from './SelectWorkoutPopup'
 import { useAuth } from '../../components/hooks/useAuth'
+import firebase from 'firebase/compat/app'
+import 'firebase/compat/database'
+import { idSelector } from '../../components/store/selectors/user.js'
+import { useSelector } from 'react-redux'
 
-export function Profile({ cources, logOut, userFirebase, workoutsFirebase }) {
+export function Profile({ cources, logOut, workoutsFirebase }) {
   const navigate = useNavigate()
   const { email } = useAuth()
+  const userId = useSelector(idSelector)
 
   const [listSelectedCourse, setListSelectedCourse] = useState([])
   const [showPopup, setShowPopup] = useState(false)
@@ -18,6 +23,7 @@ export function Profile({ cources, logOut, userFirebase, workoutsFirebase }) {
   const [loginShow, setLoginShow] = useState(false)
   const [passwordShow, setPasswordShow] = useState(false)
   const [isActive, setIsActive] = useState(false)
+  const [userFirebase, setUserFirebase] = useState(false)
 
   // UPDATE LOG AND PASS
 
@@ -36,12 +42,26 @@ export function Profile({ cources, logOut, userFirebase, workoutsFirebase }) {
     }
   }, [loginShow, passwordShow])
 
-  // USER COURSES
-
-  if (!userFirebase) {
-    navigate('/auth')
-    return
+  // загрузка профиля при открытии страницы
+  async function getUserProfile(userId)
+  {
+    const userWorkoutRef = firebase.database().ref('users/' + userId );
+    await userWorkoutRef.once('value').then((snapshot) => {
+      setUserFirebase(snapshot.val());
+    })
   }
+
+  useEffect(() => {    
+    if (!userId) {
+      navigate('/auth');
+      return;
+    }
+    else{
+      getUserProfile(userId);
+    }
+  }, [])
+
+  // USER COURSES
 
   const userCourseIds = !userFirebase.courses
     ? []
@@ -59,7 +79,6 @@ export function Profile({ cources, logOut, userFirebase, workoutsFirebase }) {
     })
 
   const SelectCourseWorkout = (courseId) => {
-    console.log(courseId)
 
     let courseWorkoutIds = cources.filter((course) => course._id === courseId)[0].workouts;
     setListSelectedCourse(
