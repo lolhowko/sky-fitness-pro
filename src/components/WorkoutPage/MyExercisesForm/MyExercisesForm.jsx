@@ -11,41 +11,43 @@ const FORM_STATE_COMPLETE = 'FORM_STATE_COMPLETE'
 export const MyExercisesForm = ({
   listExercises, // workoutId.exercises - упражнения по выбранному воркауту без progress не из БД
   myWorkout, // полностью выбранный воркаут, { exercises[{},{}], workoutId, isComplete }
-  updateCompleteCallback
+  updateCompleteCallback,
 }) => {
-  const [progressValuesChange, setProgressValuesChange] = useState(new Array(listExercises.length).fill(''))
+  const [progressValuesChange, setProgressValuesChange] = useState(
+    new Array(listExercises.length).fill('')
+  )
 
   const id = useSelector(idSelector) // id пользователя
 
   // написать функцию добавления данных в БД через метод update
-  async function incrementProgressAndUpdateDB() {    
+  async function incrementProgressAndUpdateDB() {
     let fieldValidation = true //Флаг на проверку превышения количества повторений
-    const parsedProgress = progressValuesChange.map((element)=>{
-      const newChange = parseInt(element);
+    const parsedProgress = progressValuesChange.map((element) => {
+      const newChange = parseInt(element)
       if (newChange < 0) {
         fieldValidation = false
       }
-      return newChange;
-    });
-    if(!fieldValidation){
+      return newChange
+    })
+    if (!fieldValidation) {
       alert('Количество выполненных упражнений не может быть отрицательным')
-      return;
+      return
     }
 
-    myWorkout.isComplete = true;
+    myWorkout.isComplete = true
     myWorkout.exercises.forEach((myExercise, index) => {
       const delta = parsedProgress[index]
-      myExercise.progress += delta;
-      
+      myExercise.progress += delta
+
       if (myExercise.progress < myExercise.quantity) {
         myWorkout.isComplete = false
       }
     })
 
-    const db = getDatabase();
-    const exerciseRef = ref(db, `users/${id}/workouts/${myWorkout.workoutId}`);
-    update(exerciseRef, {"exercises": myWorkout.exercises});
-    update(exerciseRef, {"isComplete": myWorkout.isComplete});
+    const db = getDatabase()
+    const exerciseRef = ref(db, `users/${id}/workouts/${myWorkout.workoutId}`)
+    update(exerciseRef, { exercises: myWorkout.exercises })
+    update(exerciseRef, { isComplete: myWorkout.isComplete })
   }
 
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -69,11 +71,13 @@ export const MyExercisesForm = ({
     } else {
       setFormState(FORM_STATE_COMPLETE)
       setIsErrorExist(false)
-      
-      incrementProgressAndUpdateDB()
+
+      incrementProgressAndUpdateDB().then(() => {
+        setProgressValuesChange(new Array(listExercises.length).fill(''))
+      })
 
       setTimeout(() => {
-        closeModal();
+        closeModal()
         updateCompleteCallback()
       }, 2000)
     }
